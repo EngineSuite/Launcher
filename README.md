@@ -14,17 +14,29 @@ Hyper-autonomous, self-correcting multi-agent orchestration layer designed to di
    - Generates full-stack web applications, landing pages, digital assets, and APIs.
    - Embeds zero-cost checkout links (Gumroad, Lemon Squeezy, BuyMeACoffee, Stripe Checkout).
 
-3. **The Growth Hacker (Marketing & Traffic):**
+3. **The Tester (QA & Functional Verification):**
+   - Empirically verifies code, web assets, and API endpoints.
+   - Validates that downloadable deliverables (.ZIP files) exist, are uncorrupted, and have full internal documentation.
+
+4. **The Critic (Adversarial Quality & Conversion Review):**
+   - Red-teams every node from the perspective of an uncompromising customer.
+   - Diagnoses conversion friction, value discrepancies, and copywriting sharpness.
+
+5. **The Strategist (Deep Thinker & Executive Authority):**
+   - Synthesizes technical test proof (Tester) and commercial critique (Critic).
+   - Issues the executive verdict: `APPROVED_FOR_LAUNCH` or `REQUIRES_REFINEMENT`.
+
+6. **The Growth Hacker (Marketing & Traffic):**
    - Generates programmatic SEO clusters, sitemaps, robots.txt, and metadata.
    - Produces high-CTR social launch threads and free developer directory submission kits.
 
-4. **The Auditor (Financial & Risk Controller):**
+7. **The Auditor (Financial & Risk Controller):**
    - Enforces the strict $0 upfront cost mandate.
    - Splits verified revenue into a Safe Account Reserve (50% untouchable profit) and Reinvestment Pool (50%).
    - Conducts 48-hour optimization reviews (20% budget scale on profit; 3-day fail-safe archive & pivot on stagnation).
 
-5. **The Orchestrator (Main Loop Controller):**
-   - Executes the 4-Phase loop: `Analyze -> Build -> Monetize -> Optimize`.
+8. **The Orchestrator (Main Loop Controller):**
+   - Orchestrates the full 7-Agent loop: `Analyze -> Build -> Verify -> Critique -> Decide -> Monetize -> Optimize`.
    - Gatekeeper for the strict Human-in-the-Loop (HITL) protocol.
 
 ---

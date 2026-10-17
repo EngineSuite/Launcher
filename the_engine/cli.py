@@ -124,6 +124,12 @@ def main():
     serve_p.add_argument("node_id", type=str, help="Node ID to serve")
     serve_p.add_argument("--port", type=int, default=8080, help="Port (default: 8080)")
 
+    test_p = subparsers.add_parser("test", help="Run QA verification tests on a node")
+    test_p.add_argument("node_id", type=str, help="Node ID to test")
+
+    review_p = subparsers.add_parser("review", help="Run Critic & Strategist review on a node")
+    review_p.add_argument("node_id", type=str, help="Node ID to review")
+
     daemon_p = subparsers.add_parser("daemon", help="Run The Engine continuously in the background")
     daemon_p.add_argument("--interval", type=int, default=3600, help="Check interval in seconds (default: 3600)")
     daemon_p.add_argument("--cycles", type=int, default=None, help="Max cycles (default: infinite)")
@@ -143,6 +149,45 @@ def main():
         cmd_record_sale(orchestrator, args.node_id, args.amount, args.source)
     elif args.command == "serve":
         cmd_serve(orchestrator, args.node_id, args.port)
+    elif args.command == "test":
+        format_header(f"The Tester :: QA Verification for {args.node_id}")
+        node_path = orchestrator.isolation_mgr.get_node_path(args.node_id)
+        res = orchestrator.tester.test_node(node_path)
+        print(f"Status    : {res['status']}")
+        print(f"Grade     : {res['grade']} (Pass Rate: {res['pass_rate']}%)")
+        print(f"Checks    : {res['checks_passed']}/{res['checks_run']} passed")
+        if res["defects"]:
+            print("\nDefects Found:")
+            for d in res["defects"]:
+                print(f"  ❌ {d['check']}: {d['error']}")
+        else:
+            print("\n✓ 100% of functional checks passed without defect.")
+        print("=" * 70 + "\n")
+    elif args.command == "review":
+        format_header(f"The Critic & Strategist :: Executive Review for {args.node_id}")
+        node_path = orchestrator.isolation_mgr.get_node_path(args.node_id)
+        manifest = orchestrator.isolation_mgr.read_manifest(args.node_id) or {}
+        opp = manifest.get("metadata", {})
+        test_rep = orchestrator.tester.test_node(node_path)
+        critique_rep = orchestrator.critic.review_node(node_path, opp)
+        verdict = orchestrator.strategist.evaluate_and_decide(opp, test_rep, critique_rep)
+
+        print(f"Critique Score     : {critique_rep['overall_quality_score']}/10 ({critique_rep['commercial_viability']})")
+        print(f"QA Pass Rate       : {test_rep['pass_rate']}% (Grade: {test_rep['grade']})")
+        print(f"Executive Decision : {verdict['executive_decision']} (Confidence: {verdict['market_confidence']})")
+        print("-" * 70)
+        print("Strengths Identified:")
+        for s in critique_rep["strengths"]:
+            print(f"  ✓ {s}")
+        if critique_rep["vulnerabilities"]:
+            print("\nVulnerabilities / Friction Points:")
+            for v in critique_rep["vulnerabilities"]:
+                print(f"  ⚠ {v}")
+        if verdict["action_directives"]:
+            print("\nStrategist Action Directives:")
+            for a in verdict["action_directives"]:
+                print(f"  • {a}")
+        print("=" * 70 + "\n")
     elif args.command == "daemon":
         orchestrator.start_daemon(interval_seconds=args.interval, max_cycles=args.cycles)
     else:

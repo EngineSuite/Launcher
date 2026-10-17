@@ -25,11 +25,19 @@
     "time_to_mvp_hours": 2.5,
     "composite_score": 8.92
   },
-  "consecutive_negative_cycles": 2,
+  "consecutive_negative_cycles": 0,
   "last_evaluated": "2026-10-17T17:36:28.541111+00:00",
   "build_completed_at": "2026-10-17T17:36:01.544547+00:00",
   "entrypoint": "src/server.py",
   "frontend_index": "public/index.html",
   "updated_at": "2026-10-17T17:36:28.541525+00:00",
-  "last_action": "OPTIMIZE_COPY_AND_PRICING"
+  "last_action": "OPTIMIZE_COPY_AND_PRICING",
+  "archived_at": "2026-10-17T18:06:28.663337+00:00",
+  "archive_reason": "3 Consecutive Negative Cycles",
+  "lessons_learned": {
+    "reason": "Zero or negative traction for 3 consecutive review cycles.",
+    "node_id": "node_dev_cheatsheet_vault",
+    "final_net": 0.0,
+    "action_taken": "Archived node and triggered market pivot."
+  }
 }

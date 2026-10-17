@@ -136,6 +136,10 @@ def main():
     review_p = subparsers.add_parser("review", help="Run Critic & Strategist review on a node")
     review_p.add_argument("node_id", type=str, help="Node ID to review")
 
+    edit_p = subparsers.add_parser("audit-content", help="Run The Editor to audit, sanitize, and verify HTML content")
+    edit_p.add_argument("node_id", type=str, help="Node ID to audit")
+    edit_p.add_argument("--no-sanitize", action="store_true", help="Audit only without auto-modifying HTML")
+
     daemon_p = subparsers.add_parser("daemon", help="Run The Engine continuously in the background")
     daemon_p.add_argument("--interval", type=int, default=3600, help="Check interval in seconds (default: 3600)")
     daemon_p.add_argument("--cycles", type=int, default=None, help="Max cycles (default: infinite)")
@@ -170,14 +174,16 @@ def main():
             print("\n✓ 100% of functional checks passed without defect.")
         print("=" * 70 + "\n")
     elif args.command == "review":
-        format_header(f"The Critic & Strategist :: Executive Review for {args.node_id}")
+        format_header(f"The Critic, Editor & Strategist :: Executive Review for {args.node_id}")
         node_path = orchestrator.isolation_mgr.get_node_path(args.node_id)
         manifest = orchestrator.isolation_mgr.read_manifest(args.node_id) or {}
         opp = manifest.get("metadata", {})
         test_rep = orchestrator.tester.test_node(node_path)
+        editor_rep = orchestrator.editor.audit_content(node_path, auto_sanitize=False)
         critique_rep = orchestrator.critic.review_node(node_path, opp)
-        verdict = orchestrator.strategist.evaluate_and_decide(opp, test_rep, critique_rep)
+        verdict = orchestrator.strategist.evaluate_and_decide(opp, test_rep, critique_rep, editor_report=editor_rep)
 
+        print(f"Content Hygiene    : {editor_rep['content_quality_score']}/10 (Verdict: {editor_rep['verdict']})")
         print(f"Critique Score     : {critique_rep['overall_quality_score']}/10 ({critique_rep['commercial_viability']})")
         print(f"QA Pass Rate       : {test_rep['pass_rate']}% (Grade: {test_rep['grade']})")
         print(f"Executive Decision : {verdict['executive_decision']} (Confidence: {verdict['market_confidence']})")
@@ -185,6 +191,11 @@ def main():
         print("Strengths Identified:")
         for s in critique_rep["strengths"]:
             print(f"  ✓ {s}")
+        if editor_rep["leaks_found"] > 0:
+            print("\nContent Leaks Detected:")
+            for leak in editor_rep["leaks_details"]:
+                print(f"  ❌ [{leak['severity']}] {leak['label']}: '{leak['matched_sample']}'")
+                print(f"     Why remove: {leak['why_remove']}")
         if critique_rep["vulnerabilities"]:
             print("\nVulnerabilities / Friction Points:")
             for v in critique_rep["vulnerabilities"]:
@@ -193,6 +204,40 @@ def main():
             print("\nStrategist Action Directives:")
             for a in verdict["action_directives"]:
                 print(f"  • {a}")
+        print("=" * 70 + "\n")
+    elif args.command == "audit-content":
+        format_header(f"The Editor :: Content & UX Brand Audit for {args.node_id}")
+        node_path = orchestrator.isolation_mgr.get_node_path(args.node_id)
+        auto_sanitize = not args.no_sanitize
+        rep = orchestrator.editor.audit_content(node_path, auto_sanitize=auto_sanitize)
+
+        print(f"Content Score : {rep['content_quality_score']}/10")
+        print(f"Audit Verdict : {rep['verdict']}")
+        print(f"Leaks Found   : {rep['leaks_found']}")
+        print("-" * 70)
+
+        if rep["leaks_details"]:
+            print("🚫 Unwanted Information & Leaks Detected (What to Remove & Why):")
+            for leak in rep["leaks_details"]:
+                print(f"  • [{leak['severity']}] {leak['label']} (Count: {leak['occurrences']})")
+                print(f"    Matched text : '{leak['matched_sample']}'")
+                print(f"    Why hide it  : {leak['why_remove']}")
+            print()
+        else:
+            print("✓ Zero unwanted technical leaks or internal jargon detected.\n")
+
+        print("📋 Essential Customer Information Audit (What Should Be Shown & Why):")
+        for key, item in rep["essential_information_audit"].items():
+            status = "✓ PRESENT" if item["present"] else "❌ MISSING"
+            print(f"  [{status}] {item['details']['title']}")
+            print(f"    What to show : {item['details']['what_to_display']}")
+            print(f"    Why show it  : {item['details']['why_display']}")
+
+        if rep["sanitization_modifications"]:
+            print("\n🛠️ Auto-Sanitization Actions Applied:")
+            for mod in rep["sanitization_modifications"]:
+                print(f"  • {mod}")
+
         print("=" * 70 + "\n")
     elif args.command == "daemon":
         orchestrator.start_daemon(interval_seconds=args.interval, max_cycles=args.cycles)

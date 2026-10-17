@@ -7,6 +7,7 @@ from the_engine.agents.auditor import AuditorAgent
 from the_engine.agents.tester import TesterAgent
 from the_engine.agents.critic import CriticAgent
 from the_engine.agents.strategist import StrategistAgent
+from the_engine.agents.editor import EditorAgent
 
 __all__ = [
     "BaseAgent",
@@ -16,5 +17,6 @@ __all__ = [
     "AuditorAgent",
     "TesterAgent",
     "CriticAgent",
-    "StrategistAgent"
+    "StrategistAgent",
+    "EditorAgent"
 ]

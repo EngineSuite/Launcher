@@ -22,6 +22,7 @@ from the_engine.agents.auditor import AuditorAgent
 from the_engine.agents.tester import TesterAgent
 from the_engine.agents.critic import CriticAgent
 from the_engine.agents.strategist import StrategistAgent
+from the_engine.agents.editor import EditorAgent
 
 logger = logging.getLogger("TheEngine.Orchestrator")
 
@@ -37,12 +38,13 @@ class Orchestrator:
         self.scout = ScoutAgent(hitl_gatekeeper=self.hitl)
         self.builder = BuilderAgent(hitl_gatekeeper=self.hitl, isolation_mgr=self.isolation_mgr)
         self.tester = TesterAgent(hitl_gatekeeper=self.hitl)
+        self.editor = EditorAgent(hitl_gatekeeper=self.hitl)
         self.critic = CriticAgent(hitl_gatekeeper=self.hitl)
         self.strategist = StrategistAgent(hitl_gatekeeper=self.hitl)
         self.growth_hacker = GrowthHackerAgent(hitl_gatekeeper=self.hitl)
         self.auditor = AuditorAgent(hitl_gatekeeper=self.hitl, ledger=self.ledger, isolation_mgr=self.isolation_mgr)
 
-        logger.info("The Engine 7-Agent Orchestration Layer initialized. Autopilot by Default.")
+        logger.info("The Engine 8-Agent Orchestration Layer initialized. Autopilot by Default.")
 
     def run_cycle(self) -> Dict[str, Any]:
         """
@@ -76,29 +78,36 @@ class Orchestrator:
         test_report = tester_res["report"]
         self.event_bus.publish("tester:completed", "Tester", {"node_id": node_id, "report": test_report})
 
-        # Phase 4: Critique (The Critic)
-        logger.info(f"[Phase 4: Critique] Handing off '{node_id}' to Critic for adversarial evaluation...")
+        # Phase 4: Content & Brand Audit (The Editor)
+        logger.info(f"[Phase 4: Content Audit] Handing off '{node_id}' to Editor for content sanitization & buyer-clarity checks...")
+        editor_res = self.editor.run({"workspace_path": workspace_path, "auto_sanitize": True})
+        editor_report = editor_res["report"]
+        self.event_bus.publish("editor:completed", "Editor", {"node_id": node_id, "report": editor_report})
+
+        # Phase 5: Critique (The Critic)
+        logger.info(f"[Phase 5: Critique] Handing off '{node_id}' to Critic for adversarial evaluation...")
         critic_res = self.critic.run({"workspace_path": workspace_path, "opportunity": opportunity})
         critique_report = critic_res["report"]
         self.event_bus.publish("critic:completed", "Critic", {"node_id": node_id, "report": critique_report})
 
-        # Phase 5: Decide (The Strategist / Deep Thinker)
-        logger.info(f"[Phase 5: Decide] Handing off findings to Strategist for executive launch verdict...")
+        # Phase 6: Decide (The Strategist / Deep Thinker)
+        logger.info(f"[Phase 6: Decide] Handing off findings to Strategist for executive launch verdict...")
         strategist_res = self.strategist.run({
             "opportunity": opportunity,
             "test_report": test_report,
-            "critique_report": critique_report
+            "critique_report": critique_report,
+            "editor_report": editor_report
         })
         verdict = strategist_res["verdict"]
         self.event_bus.publish("strategist:completed", "Strategist", {"node_id": node_id, "verdict": verdict})
 
-        # Phase 6: Monetize (The Growth Hacker) - Proceeds once approved
-        logger.info(f"[Phase 6: Monetize] Launching distribution campaigns via Growth Hacker...")
+        # Phase 7: Monetize (The Growth Hacker) - Proceeds once approved
+        logger.info(f"[Phase 7: Monetize] Launching distribution campaigns via Growth Hacker...")
         growth_res = self.growth_hacker.run({"workspace_path": workspace_path})
         self.event_bus.publish("growth:completed", "GrowthHacker", {"node_id": node_id, "campaign": growth_res})
 
-        # Phase 7: Optimize & Audit (The Auditor)
-        logger.info(f"[Phase 7: Optimize] Conducting financial & health audit via Auditor...")
+        # Phase 8: Optimize & Audit (The Auditor)
+        logger.info(f"[Phase 8: Optimize] Conducting financial & health audit via Auditor...")
         audit_res = self.auditor.run({"node_id": node_id})
         self.event_bus.publish("auditor:completed", "Auditor", {"node_id": node_id, "audit": audit_res})
 
@@ -110,6 +119,7 @@ class Orchestrator:
             "workspace_path": workspace_path,
             "qa_grade": test_report.get("grade", "N/A"),
             "qa_pass_rate": f"{test_report.get('pass_rate', 0)}%",
+            "editor_score": f"{editor_report.get('content_quality_score', 0)}/10",
             "critique_score": f"{critique_report.get('overall_quality_score', 0)}/10",
             "executive_decision": verdict.get("executive_decision", "APPROVED"),
             "audit_compliance": audit_res["compliance"]["status"],

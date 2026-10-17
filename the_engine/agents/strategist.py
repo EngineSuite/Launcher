@@ -25,12 +25,14 @@ class StrategistAgent(BaseAgent):
         self,
         opportunity: Dict[str, Any],
         test_report: Dict[str, Any],
-        critique_report: Dict[str, Any]
+        critique_report: Dict[str, Any],
+        editor_report: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """
-        Synthesizes technical, commercial, and strategic dimensions:
+        Synthesizes technical, commercial, content, and strategic dimensions:
         - Must achieve >= 90% functional test pass rate.
         - Must achieve >= 7.5/10 commercial critique score.
+        - Must achieve >= 8.0/10 content hygiene score with zero leaks (The Editor).
         - Must enforce strict zero-upfront-cost architecture.
         """
         node_id = test_report.get("node_id", "unknown")
@@ -42,6 +44,8 @@ class StrategistAgent(BaseAgent):
         self.log(f"Synthesizing launch readiness for '{node_id}'...")
         self.log(f"  • Tester Pass Rate   : {pass_rate}% (Grade {grade})")
         self.log(f"  • Critic Score       : {critique_score}/10 ({viability})")
+        if editor_report:
+            self.log(f"  • Editor Quality     : {editor_report.get('content_quality_score', 0)}/10 (Leaks: {editor_report.get('leaks_found', 0)})")
 
         decision = "APPROVED_FOR_LAUNCH"
         rationale = []
@@ -62,9 +66,22 @@ class StrategistAgent(BaseAgent):
             for upgrade in critique_report.get("actionable_upgrades", []):
                 action_directives.append(f"Apply commercial upgrade: {upgrade}")
 
-        # Gate 3: High-Confidence Approval
+        # Gate 3: Content Hygiene & Brand Presentation (The Editor)
+        if editor_report:
+            editor_score = editor_report.get("content_quality_score", 10.0)
+            leaks = editor_report.get("leaks_found", 0)
+            if editor_score < 8.0 or leaks > 0:
+                if decision == "APPROVED_FOR_LAUNCH":
+                    decision = "REQUIRES_REFINEMENT"
+                rationale.append(f"Content quality score ({editor_score}/10) with {leaks} detected leak(s).")
+                for rec in editor_report.get("recommendations", []):
+                    action_directives.append(f"Content Edit: {rec.get('action')} {rec.get('item')} - {rec.get('reason')}")
+            else:
+                rationale.append(f"Content hygiene verified by The Editor ({editor_score}/10). Zero leaks detected.")
+
+        # Gate 4: High-Confidence Approval
         if decision == "APPROVED_FOR_LAUNCH":
-            rationale.append("All technical, deliverable, and commercial requirements fully satisfied.")
+            rationale.append("All technical, deliverable, content, and commercial requirements fully satisfied.")
             rationale.append(f"Pass rate ({pass_rate}%) and critique score ({critique_score}/10) meet launch criteria.")
 
         verdict = {
@@ -74,6 +91,7 @@ class StrategistAgent(BaseAgent):
             "qa_grade": grade,
             "qa_pass_rate": pass_rate,
             "critique_score": critique_score,
+            "editor_score": editor_report.get("content_quality_score") if editor_report else None,
             "rationale": rationale,
             "action_directives": action_directives,
             "market_confidence": "HIGH" if (pass_rate >= 95 and critique_score >= 8.5) else "MODERATE"
@@ -86,6 +104,7 @@ class StrategistAgent(BaseAgent):
         opp = context.get("opportunity", {})
         test_report = context.get("test_report", {})
         critique_report = context.get("critique_report", {})
+        editor_report = context.get("editor_report")
 
         verdict = self.execute_with_self_correction(
             node_id=test_report.get("node_id", "unknown"),
@@ -93,7 +112,8 @@ class StrategistAgent(BaseAgent):
             task_fn=self.evaluate_and_decide,
             opportunity=opp,
             test_report=test_report,
-            critique_report=critique_report
+            critique_report=critique_report,
+            editor_report=editor_report
         )
         return {
             "status": "STRATEGIC_DECISION_FINALIZED",

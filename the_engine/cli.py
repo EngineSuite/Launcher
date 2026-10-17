@@ -140,6 +140,9 @@ def main():
     edit_p.add_argument("node_id", type=str, help="Node ID to audit")
     edit_p.add_argument("--no-sanitize", action="store_true", help="Audit only without auto-modifying HTML")
 
+    council_p = subparsers.add_parser("council", help="Convene the 10-Agent Red-Team Critique Council to scrutinize and debate a node")
+    council_p.add_argument("node_id", type=str, help="Node ID to scrutinize")
+
     daemon_p = subparsers.add_parser("daemon", help="Run The Engine continuously in the background")
     daemon_p.add_argument("--interval", type=int, default=3600, help="Check interval in seconds (default: 3600)")
     daemon_p.add_argument("--cycles", type=int, default=None, help="Max cycles (default: infinite)")
@@ -180,7 +183,11 @@ def main():
         opp = manifest.get("metadata", {})
         test_rep = orchestrator.tester.test_node(node_path)
         editor_rep = orchestrator.editor.audit_content(node_path, auto_sanitize=False)
-        critique_rep = orchestrator.critic.review_node(node_path, opp)
+        critique_rep = orchestrator.critic.review_node(
+            node_path=node_path,
+            opportunity=opp,
+            engine_context={"ledger": orchestrator.ledger}
+        )
         verdict = orchestrator.strategist.evaluate_and_decide(opp, test_rep, critique_rep, editor_report=editor_rep)
 
         print(f"Content Hygiene    : {editor_rep['content_quality_score']}/10 (Verdict: {editor_rep['verdict']})")
@@ -237,6 +244,41 @@ def main():
             print("\n🛠️ Auto-Sanitization Actions Applied:")
             for mod in rep["sanitization_modifications"]:
                 print(f"  • {mod}")
+
+        print("=" * 70 + "\n")
+    elif args.command == "council":
+        format_header(f"10-Agent Red-Team Critique Council :: Deliberation for {args.node_id}")
+        node_path = orchestrator.isolation_mgr.get_node_path(args.node_id)
+        manifest = orchestrator.isolation_mgr.read_manifest(args.node_id) or {}
+        opp = manifest.get("metadata", {})
+        decree = orchestrator.critic.council.convene_council(
+            node_path=node_path,
+            opportunity=opp,
+            engine_context={"ledger": orchestrator.ledger}
+        )
+
+        print(f"Council Size     : {decree['council_size']} Specialized Red-Team Agents")
+        print(f"Consensus Score  : {decree['consensus_score']}/10")
+        print(f"Council Verdict  : {decree['council_verdict']} ({decree['council_status']})")
+        print(f"Total Objections : {decree['total_objections']} (Critical Vetoes: {decree['critical_vetoes']})")
+        print("-" * 70)
+
+        print("🏛️ Individual Critic Assessments:")
+        for name, data in decree["critic_breakdown"].items():
+            status_icon = "✓" if data["score"] >= 8.0 else ("⚠" if data["score"] >= 6.5 else "❌")
+            print(f"  {status_icon} {name:<24} | Score: {data['score']:>4.1f}/10 | Domain: {data['domain']}")
+            for obj in data["objections"]:
+                print(f"     ↳ [{obj['severity']}] {obj['category']}: {obj['issue']}")
+
+        if decree["autonomous_debates"]:
+            print("\n⚔️ Autonomous Inter-Agent Debates & Cross-Examinations:")
+            for d in decree["autonomous_debates"]:
+                print(f"  • [{d['position']}] {d['from_critic']} ➔ {d['to_critic']}:")
+                print(f"    \"{d['argument']}\"")
+
+        print("\n🎯 Prioritized Action Directives for System Betterment:")
+        for directive in decree["prioritized_action_directives"]:
+            print(f"  • {directive}")
 
         print("=" * 70 + "\n")
     elif args.command == "daemon":

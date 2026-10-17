@@ -39,12 +39,12 @@ class Orchestrator:
         self.builder = BuilderAgent(hitl_gatekeeper=self.hitl, isolation_mgr=self.isolation_mgr)
         self.tester = TesterAgent(hitl_gatekeeper=self.hitl)
         self.editor = EditorAgent(hitl_gatekeeper=self.hitl)
-        self.critic = CriticAgent(hitl_gatekeeper=self.hitl)
+        self.critic = CriticAgent(hitl_gatekeeper=self.hitl, event_bus=self.event_bus)
         self.strategist = StrategistAgent(hitl_gatekeeper=self.hitl)
         self.growth_hacker = GrowthHackerAgent(hitl_gatekeeper=self.hitl)
         self.auditor = AuditorAgent(hitl_gatekeeper=self.hitl, ledger=self.ledger, isolation_mgr=self.isolation_mgr)
 
-        logger.info("The Engine 8-Agent Orchestration Layer initialized. Autopilot by Default.")
+        logger.info("The Engine 17-Agent Orchestration Architecture (7 Pipeline + 10 Red-Team Council) initialized. Autopilot by Default.")
 
     def run_cycle(self) -> Dict[str, Any]:
         """
@@ -84,9 +84,13 @@ class Orchestrator:
         editor_report = editor_res["report"]
         self.event_bus.publish("editor:completed", "Editor", {"node_id": node_id, "report": editor_report})
 
-        # Phase 5: Critique (The Critic)
-        logger.info(f"[Phase 5: Critique] Handing off '{node_id}' to Critic for adversarial evaluation...")
-        critic_res = self.critic.run({"workspace_path": workspace_path, "opportunity": opportunity})
+        # Phase 5: 10-Agent Critique Council (The Red-Team Board)
+        logger.info(f"[Phase 5: Critique Council] Convening 10-Agent Critique Council for multi-domain adversarial deliberation...")
+        critic_res = self.critic.run({
+            "workspace_path": workspace_path,
+            "opportunity": opportunity,
+            "engine_context": {"ledger": self.ledger}
+        })
         critique_report = critic_res["report"]
         self.event_bus.publish("critic:completed", "Critic", {"node_id": node_id, "report": critique_report})
 

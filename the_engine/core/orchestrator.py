@@ -5,6 +5,7 @@ Enforces the 4-Phase Autonomous Operational Loop and acts as the gatekeeper to t
 """
 
 import logging
+import time
 from typing import Dict, Any, Optional
 from datetime import datetime
 from pathlib import Path
@@ -117,3 +118,35 @@ class Orchestrator:
             "financial_summary": financials,
             "paused_hitl_nodes": list(self.hitl.paused_nodes.keys())
         }
+
+    def start_daemon(self, interval_seconds: int = 3600, max_cycles: Optional[int] = None) -> None:
+        """
+        Runs the engine continuously as a background daemon.
+        Periodically runs health audits, reviews node performance, and triggers Scout if needed.
+        """
+        cycle_count = 0
+        logger.info(f"The Engine Daemon started. Interval: {interval_seconds}s. Autopilot active.")
+        print(f"\n⚡ The Engine Daemon started. Interval: {interval_seconds}s. Press Ctrl+C to stop.\n")
+
+        try:
+            while max_cycles is None or cycle_count < max_cycles:
+                cycle_count += 1
+                now_str = get_utc_iso()
+                print(f"[{now_str}] Daemon Cycle #{cycle_count}: Running active node audit...")
+
+                active_nodes = self.isolation_mgr.list_active_nodes()
+                for nid in active_nodes:
+                    audit_res = self.auditor.run({"node_id": nid})
+                    print(f"  • Node '{nid}': {audit_res['compliance']['status']} | Action: {audit_res['evaluation']['action']}")
+
+                # If no active nodes exist, autonomously scout and build one
+                if not active_nodes:
+                    print(f"[{now_str}] No active nodes found. Autonomously launching new revenue cycle...")
+                    self.run_cycle()
+
+                if max_cycles is not None and cycle_count >= max_cycles:
+                    break
+
+                time.sleep(interval_seconds)
+        except KeyboardInterrupt:
+            print("\n⚡ The Engine Daemon stopped gracefully by user.")

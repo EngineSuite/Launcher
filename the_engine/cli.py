@@ -124,6 +124,10 @@ def main():
     serve_p.add_argument("node_id", type=str, help="Node ID to serve")
     serve_p.add_argument("--port", type=int, default=8080, help="Port (default: 8080)")
 
+    daemon_p = subparsers.add_parser("daemon", help="Run The Engine continuously in the background")
+    daemon_p.add_argument("--interval", type=int, default=3600, help="Check interval in seconds (default: 3600)")
+    daemon_p.add_argument("--cycles", type=int, default=None, help="Max cycles (default: infinite)")
+
     args = parser.parse_args()
     orchestrator = Orchestrator()
 
@@ -139,6 +143,8 @@ def main():
         cmd_record_sale(orchestrator, args.node_id, args.amount, args.source)
     elif args.command == "serve":
         cmd_serve(orchestrator, args.node_id, args.port)
+    elif args.command == "daemon":
+        orchestrator.start_daemon(interval_seconds=args.interval, max_cycles=args.cycles)
     else:
         parser.print_help()
 

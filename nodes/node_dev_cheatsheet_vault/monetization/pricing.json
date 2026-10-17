@@ -25,9 +25,11 @@
         "GitHub Actions CI/CD Blueprint",
         "65-Page Hardening & Guardrails PDF Cheatsheet"
       ],
-      "checkout_channels": {
-        "gumroad": "https://gumroad.com",
-        "payhip": "https://payhip.com"
+      "order_channel": {
+        "method": "direct_email",
+        "email": "businessbloke957@gmail.com",
+        "subject": "Order Request: CloudZero Production Kit ($12)",
+        "payment_methods_supported": ["PayPal", "Bank Wire", "Wise", "Crypto", "Invoice"]
       }
     }
   ]

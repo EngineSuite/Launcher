@@ -363,6 +363,24 @@
     window.open('https://search.google.com/test/rich-results', '_blank');
   });
 
+  // Copy Email Handler
+  const copyEmailBtn = document.getElementById('copyEmailBtn');
+  if (copyEmailBtn) {
+    copyEmailBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText('businessbloke957@gmail.com').then(() => {
+        const orig = copyEmailBtn.textContent;
+        copyEmailBtn.textContent = '✓ Copied!';
+        copyEmailBtn.style.background = '#10b981';
+        copyEmailBtn.style.color = '#fff';
+        setTimeout(() => {
+          copyEmailBtn.textContent = orig;
+          copyEmailBtn.style.background = '';
+          copyEmailBtn.style.color = '';
+        }, 2500);
+      });
+    });
+  }
+
   // Pro Modal handlers
   function openModal() { proModal.classList.add('open'); }
   function closeModalFn() { proModal.classList.remove('open'); }

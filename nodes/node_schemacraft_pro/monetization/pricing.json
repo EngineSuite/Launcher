@@ -24,10 +24,11 @@
         "REST API Access",
         "30+ Industry Templates"
       ],
-      "checkout_channels": {
-        "gumroad": "https://gumroad.com",
-        "buymeacoffee": "https://buymeacoffee.com",
-        "stripe_checkout_link": "https://buy.stripe.com/test_placeholder"
+      "order_channel": {
+        "method": "direct_email",
+        "email": "businessbloke957@gmail.com",
+        "subject": "Order Request: SchemaCraft Agency Pro Pack ($19)",
+        "payment_methods_supported": ["PayPal", "Bank Wire", "Wise", "Crypto", "Invoice"]
       }
     }
   ],

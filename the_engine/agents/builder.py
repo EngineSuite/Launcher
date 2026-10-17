@@ -189,25 +189,37 @@ class BuilderAgent(BaseAgent):
     </div>
   </section>
 
-  <!-- Pro Checkout Modal -->
+  <!-- Pro Direct Order Modal -->
   <div id="proModal" class="modal-backdrop">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Unlock SchemaCraft Agency Pro</h3>
+        <h3>Unlock SchemaCraft Agency Pro ($19)</h3>
         <button id="closeModal" class="close-btn">&times;</button>
       </div>
       <div class="modal-body">
         <p class="modal-sub">Accelerate your workflow with Bulk CSV generation, Whitelabel embed rights, and our complete Schema templates library.</p>
         
-        <div class="checkout-options">
-          <a id="gumroadLink" href="https://gumroad.com" target="_blank" class="checkout-button gumroad-btn">
-            &#x1F4B3; Purchase via Gumroad / Stripe ($19)
-          </a>
-          <a id="coffeeLink" href="https://buymeacoffee.com" target="_blank" class="checkout-button coffee-btn">
-            &#x2615; Support on BuyMeACoffee ($19)
-          </a>
+        <div class="direct-order-box">
+          <div class="order-badge">Direct License Fulfillment</div>
+          <p class="order-instructions">
+            To acquire the complete Agency Pro Pack ($19 one-time), email our dispatch desk directly without any 3rd-party checkout fees:
+          </p>
+          <div class="email-pill-container">
+            <span class="email-address">businessbloke957@gmail.com</span>
+            <button id="copyEmailBtn" class="copy-email-btn" type="button">📋 Copy Email</button>
+          </div>
+          <div class="order-action-row">
+            <a id="directMailLink" href="mailto:businessbloke957@gmail.com?subject=Order%20Request%3A%20SchemaCraft%20Agency%20Pro%20Pack%20(%2419)&body=Hi%2C%0A%0AI%20would%20like%20to%20order%20the%20SchemaCraft%20Agency%20Pro%20Pack%20(%2419%20one-time).%0A%0APreferred%20Payment%20Method%20(PayPal%20%2F%20Bank%20Wire%20%2F%20Wise%20%2F%20Crypto%20%2F%20Other)%3A%20%0A%0APlease%20reply%20with%20payment%20instructions%20and%20dispatch%20the%20bundle%20and%20commercial%20license%20key%20to%20this%20email.%0A%0AThank%20you!" class="btn btn-primary email-launch-btn">
+              ✉️ Open in Email App
+            </a>
+          </div>
+          <div class="fulfillment-process">
+            <div class="process-step"><span>1</span> Send order email specifying preferred payment method</div>
+            <div class="process-step"><span>2</span> Receive commercial invoice & direct payment details</div>
+            <div class="process-step"><span>3</span> Full ZIP package & commercial license dispatched within 1 hour</div>
+          </div>
         </div>
-        <p class="guarantee-note">&#x1F6E1;&#xFE0F; 30-Day No-Hassle Money-Back Guarantee. Instant digital delivery.</p>
+        <p class="guarantee-note">&#x1F6E1;&#xFE0F; 30-Day No-Hassle Money-Back Guarantee. Full commercial rights included.</p>
       </div>
     </div>
   </div>
@@ -470,19 +482,104 @@ body {
 .modal-header h3 { font-size: 1.3rem; font-weight: 700; }
 .close-btn { background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; }
 .modal-sub { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; }
-.checkout-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-.checkout-button {
-  padding: 14px;
-  border-radius: 8px;
-  text-align: center;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 0.95rem;
-  transition: transform 0.2s ease;
+.direct-order-box {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 18px;
+  text-align: left;
 }
-.checkout-button:hover { transform: translateY(-2px); }
-.gumroad-btn { background: #ff90e8; color: #000; }
-.coffee-btn { background: #facc15; color: #000; }
+.order-badge {
+  display: inline-block;
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.order-instructions {
+  color: #cbd5e1;
+  font-size: 0.88rem;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.email-pill-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #090d16;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+.email-address {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.95rem;
+  color: #38bdf8;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.copy-email-btn {
+  background: #1e293b;
+  color: #cbd5e1;
+  border: 1px solid #475569;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.copy-email-btn:hover { background: #334155; color: #fff; }
+.order-action-row { margin-bottom: 14px; }
+.email-launch-btn {
+  display: block;
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.fulfillment-process {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+.process-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+.process-step span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: #3b82f6;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
 .guarantee-note { font-size: 0.8rem; color: var(--text-muted); text-align: center; }
 
 /* Footer */
@@ -742,6 +839,24 @@ body {
     window.open('https://search.google.com/test/rich-results', '_blank');
   });
 
+  // Copy Email Handler
+  const copyEmailBtn = document.getElementById('copyEmailBtn');
+  if (copyEmailBtn) {
+    copyEmailBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText('businessbloke957@gmail.com').then(() => {
+        const orig = copyEmailBtn.textContent;
+        copyEmailBtn.textContent = '✓ Copied!';
+        copyEmailBtn.style.background = '#10b981';
+        copyEmailBtn.style.color = '#fff';
+        setTimeout(() => {
+          copyEmailBtn.textContent = orig;
+          copyEmailBtn.style.background = '';
+          copyEmailBtn.style.color = '';
+        }, 2500);
+      });
+    });
+  }
+
   // Pro Modal handlers
   function openModal() { proModal.classList.add('open'); }
   function closeModalFn() { proModal.classList.remove('open'); }
@@ -854,10 +969,11 @@ class SchemaEngine:
                         "REST API Access",
                         "30+ Industry Templates"
                     ],
-                    "checkout_channels": {
-                        "gumroad": "https://gumroad.com",
-                        "buymeacoffee": "https://buymeacoffee.com",
-                        "stripe_checkout_link": "https://buy.stripe.com/test_placeholder"
+                    "order_channel": {
+                        "method": "direct_email",
+                        "email": "businessbloke957@gmail.com",
+                        "subject": "Order Request: SchemaCraft Agency Pro Pack ($19)",
+                        "payment_methods_supported": ["PayPal", "Bank Wire", "Wise", "Crypto", "Invoice"]
                     }
                 }
             ],

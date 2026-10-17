@@ -1,0 +1,36 @@
+{
+  "node_id": "node_schemacraft_pro",
+  "created_at": "2026-10-17T17:20:21.695369+00:00",
+  "status": "BUILT",
+  "metadata": {
+    "niche_id": "schemacraft_pro",
+    "name": "SchemaCraft Pro - Programmatic JSON-LD Schema Generator & Local SEO Suite",
+    "category": "B2B Developer & SEO Micro-Utility",
+    "target_audience": "Digital Agencies, Local Business Owners, Freelance Web Designers",
+    "core_problem": "Google search requires JSON-LD schema for rich snippets, but manual JSON creation is error-prone and existing tools charge $49+/mo.",
+    "solution": "Standalone responsive web app + REST API + batch CSV exporter generating valid Schema.org markup (LocalBusiness, Organization, FAQ, HowTo, Product, Article, Event, JobPosting, Medical).",
+    "monetization": {
+      "free_tier": "Unlimited single schema generation & validation with live preview.",
+      "pro_tier": "$19 one-time or $9/mo for CSV Bulk Import/Export, Whitelabel Embed Widget, and Multi-Location Local SEO Schema Pack.",
+      "platforms": [
+        "Gumroad",
+        "BuyMeACoffee",
+        "Stripe Checkout Link"
+      ]
+    },
+    "hosting_stack": "Static HTML5/Modern Vanilla JS (Zero runtime overhead, 100% free on Cloudflare Pages / GitHub Pages / Vercel) + optional Python micro-API.",
+    "demand_score": 9.2,
+    "competition_gap": 8.5,
+    "zero_cost_feasibility": 10.0,
+    "monetization_velocity": 9.0,
+    "time_to_mvp_hours": 2.0,
+    "composite_score": 9.2
+  },
+  "consecutive_negative_cycles": 0,
+  "last_evaluated": "2026-10-17T17:22:13.456857+00:00",
+  "build_completed_at": "2026-10-17T17:20:21.702403+00:00",
+  "entrypoint": "src/server.py",
+  "frontend_index": "public/index.html",
+  "updated_at": "2026-10-17T17:22:13.457760+00:00",
+  "last_action": "SCALE_BUDGET_20"
+}

@@ -1,0 +1,38 @@
+{
+  "currency": "USD",
+  "tiers": [
+    {
+      "tier_id": "free",
+      "name": "Starter",
+      "price": 0.0,
+      "upfront_cost": 0.0,
+      "features": [
+        "Single schema generation",
+        "8 schema types",
+        "Instant copy/download"
+      ]
+    },
+    {
+      "tier_id": "agency_pro",
+      "name": "Agency Pro Pack",
+      "price": 19.0,
+      "upfront_cost": 0.0,
+      "billing": "one-time",
+      "features": [
+        "Bulk CSV Importer (100+ locations)",
+        "Whitelabel Embed Widget",
+        "REST API Access",
+        "30+ Industry Templates"
+      ],
+      "checkout_channels": {
+        "gumroad": "https://gumroad.com",
+        "buymeacoffee": "https://buymeacoffee.com",
+        "stripe_checkout_link": "https://buy.stripe.com/test_placeholder"
+      }
+    }
+  ],
+  "zero_cost_verification": {
+    "upfront_spend": 0.0,
+    "platform_fees_deducted_per_sale_only": true
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "directories": [
+    {
+      "name": "Toolify.ai",
+      "category": "SEO & Marketing",
+      "free_submission": true
+    },
+    {
+      "name": "AlternativeTo.net",
+      "target_alternative": "Merkle Schema Generator",
+      "free_submission": true
+    },
+    {
+      "name": "ProductHunt",
+      "pricing_model": "Free + Paid Pro Upgrade",
+      "free_submission": true
+    },
+    {
+      "name": "SaaSHub",
+      "category": "Developer Utilities",
+      "free_submission": true
+    },
+    {
+      "name": "DevHunt",
+      "category": "Dev Tools",
+      "free_submission": true
+    }
+  ],
+  "tagline": "The fastest JSON-LD schema builder for rich snippets and local SEO.",
+  "description": "Generate, test, and export 100% Google-compliant Schema.org markup in seconds. Features 8+ core schemas, real-time live preview, and bulk CSV export."
+}

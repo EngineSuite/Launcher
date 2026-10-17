@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SchemaCraft Pro | Instant JSON-LD Schema Generator & Local SEO Suite</title>
+  <meta name="description" content="Free, instant Schema.org JSON-LD generator for local businesses, SaaS, products, FAQs, and articles. Boost Google rich snippets with 100% valid schema markup.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <span class="logo-icon">&#x26A1;</span>
+        <span class="logo-text">SchemaCraft<span class="pro-tag">PRO</span></span>
+      </div>
+      <div class="nav-actions">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <button id="upgradeBtn" class="btn btn-pro">Unlock Pro ($19)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="badge">&#x1F680; Boost Google Rich Snippets & CTR by up to 35%</div>
+    <h1>Turn Search Rankings into Revenue with <span class="gradient-text">Bulletproof JSON-LD</span></h1>
+    <p class="hero-sub">Generate 100% valid, Google-compliant structured data in seconds. Zero coding required.</p>
+  </section>
+
+  <!-- Main App Workspace -->
+  <main class="app-workspace">
+    <!-- Left Column: Schema Form Builder -->
+    <section class="card editor-card">
+      <div class="card-header">
+        <div class="type-selector-wrapper">
+          <label for="schemaType">Schema Type:</label>
+          <select id="schemaType" class="input-select">
+            <option value="LocalBusiness">Local Business (Google Maps / Local SEO)</option>
+            <option value="Organization">Organization / SaaS Company</option>
+            <option value="Product">Product & E-Commerce (Price, Rating)</option>
+            <option value="FAQPage">FAQ Page (Expands SERP Snippet)</option>
+            <option value="HowTo">How-To Guide (Step-by-Step)</option>
+            <option value="Article">Article / Blog Post</option>
+            <option value="Event">Event (Date, Location, Ticket)</option>
+            <option value="JobPosting">Job Posting (Salary, Role)</option>
+          </select>
+        </div>
+      </div>
+
+      <form id="schemaForm" class="schema-form">
+        <!-- Dynamic fields populated by app.js -->
+        <div id="dynamicFields" class="dynamic-fields-container"></div>
+      </form>
+    </section>
+
+    <!-- Right Column: Live Output & Actions -->
+    <section class="card output-card">
+      <div class="card-header">
+        <div class="output-title">
+          <span class="dot live-dot"></span> Generated JSON-LD Code
+        </div>
+        <div class="output-actions">
+          <button id="copyBtn" class="btn btn-sm btn-outline">&#x1F4CB; Copy Code</button>
+          <button id="downloadBtn" class="btn btn-sm btn-outline">&#x2B07; Download .json</button>
+          <button id="validateBtn" class="btn btn-sm btn-accent">&#x2714; Test Schema</button>
+        </div>
+      </div>
+
+      <div class="code-container">
+        <pre><code id="jsonOutput" class="code-view">// Your generated JSON-LD schema will appear here...</code></pre>
+      </div>
+
+      <div class="embed-callout">
+        <p><strong>&#x1F4A1; How to embed on your site:</strong> Paste this inside the <code>&lt;head&gt;</code> tag of your page.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pro Features & Pricing -->
+  <section id="features" class="pricing-section">
+    <div class="section-header">
+      <h2>Supercharge Your Local SEO Operations</h2>
+      <p>Used by digital agencies, solo freelancers, and multi-location businesses.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card free-card">
+        <h3>Starter</h3>
+        <div class="price">$0 <span>/ lifetime</span></div>
+        <p>Perfect for individual sites & quick checks.</p>
+        <ul class="benefit-list">
+          <li>&#x2713; Unlimited Single Schema Generations</li>
+          <li>&#x2713; 8 Core Schema Types</li>
+          <li>&#x2713; 1-Click Clipboard & File Download</li>
+          <li>&#x2713; Real-time Syntax Validation</li>
+        </ul>
+        <button class="btn btn-full btn-secondary" onclick="window.scrollTo({top: 250, behavior: 'smooth'})">Use Free Generator</button>
+      </div>
+
+      <div class="price-card pro-card popular">
+        <div class="popular-ribbon">Most Popular</div>
+        <h3>Agency Pro Pack</h3>
+        <div class="price">$19 <span>/ one-time</span></div>
+        <p>Built for agencies and multi-location power users.</p>
+        <ul class="benefit-list">
+          <li>&#x2713; <strong>Bulk CSV Importer</strong> (Generate 100+ locations at once)</li>
+          <li>&#x2713; <strong>Whitelabel Embed Widget</strong> for client sites</li>
+          <li>&#x2713; <strong>REST API Access</strong> (Cloudflare / Node integration)</li>
+          <li>&#x2713; <strong>30+ Advanced Schema Templates</strong> (Medical, Legal, Real Estate)</li>
+          <li>&#x2713; Lifetime Updates & Priority Support</li>
+        </ul>
+        <button id="buyProBtn" class="btn btn-full btn-pro">Get Agency Pro ($19)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pro Checkout Modal -->
+  <div id="proModal" class="modal-backdrop">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Unlock SchemaCraft Agency Pro</h3>
+        <button id="closeModal" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-sub">Accelerate your workflow with Bulk CSV generation, Whitelabel embed rights, and our complete Schema templates library.</p>
+        
+        <div class="checkout-options">
+          <a id="gumroadLink" href="https://gumroad.com" target="_blank" class="checkout-button gumroad-btn">
+            &#x1F4B3; Purchase via Gumroad / Stripe ($19)
+          </a>
+          <a id="coffeeLink" href="https://buymeacoffee.com" target="_blank" class="checkout-button coffee-btn">
+            &#x2615; Support on BuyMeACoffee ($19)
+          </a>
+        </div>
+        <p class="guarantee-note">&#x1F512; Instant digital delivery. 30-day money-back guarantee.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 SchemaCraft Pro. Built on zero-cost infrastructure. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

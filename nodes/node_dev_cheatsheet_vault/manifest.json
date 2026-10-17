@@ -1,0 +1,35 @@
+{
+  "node_id": "node_dev_cheatsheet_vault",
+  "created_at": "2026-10-17T17:36:01.540005+00:00",
+  "status": "BUILT",
+  "metadata": {
+    "niche_id": "dev_cheatsheet_vault",
+    "name": "DevOps & Cloud Zero-Cost Architecture Playbook",
+    "category": "Digital Asset & Developer Education",
+    "target_audience": "Software Engineers, Cloud Architects, Solo Founders",
+    "core_problem": "Developers waste hundreds on AWS/GCP bills because they don't know the exact zero-cost tier architecture combinations.",
+    "solution": "Interactive web playbook + PDF cheatsheet pack covering $0/mo stacks for SaaS up to 50k MAU.",
+    "monetization": {
+      "free_tier": "Interactive web matrix of free tools.",
+      "pro_tier": "$12 one-time for Production Ready Terraform/Docker Boilerplates + PDF Deep-Dives.",
+      "platforms": [
+        "Gumroad",
+        "Payhip"
+      ]
+    },
+    "hosting_stack": "Markdown-powered static portal on Vercel / GitHub Pages.",
+    "demand_score": 8.8,
+    "competition_gap": 8.2,
+    "zero_cost_feasibility": 10.0,
+    "monetization_velocity": 8.6,
+    "time_to_mvp_hours": 2.5,
+    "composite_score": 8.92
+  },
+  "consecutive_negative_cycles": 2,
+  "last_evaluated": "2026-10-17T17:36:28.541111+00:00",
+  "build_completed_at": "2026-10-17T17:36:01.544547+00:00",
+  "entrypoint": "src/server.py",
+  "frontend_index": "public/index.html",
+  "updated_at": "2026-10-17T17:36:28.541525+00:00",
+  "last_action": "OPTIMIZE_COPY_AND_PRICING"
+}

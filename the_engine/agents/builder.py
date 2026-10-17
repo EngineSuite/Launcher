@@ -13,6 +13,7 @@ from the_engine.agents.base import BaseAgent
 from the_engine.core.hitl import HITLGatekeeper
 from the_engine.core.isolation import NodeIsolationManager
 from the_engine.config import get_utc_iso
+from the_engine.agents.templates.dev_playbook import build_dev_playbook
 
 logger = logging.getLogger("TheEngine.Builder")
 
@@ -36,10 +37,13 @@ class BuilderAgent(BaseAgent):
         node_path = self.isolation_mgr.create_node_workspace(node_id, opportunity)
 
         # Generate Node Assets
-        self._build_frontend(node_path, opportunity)
-        self._build_backend_engine(node_path, opportunity)
-        self._build_monetization_layer(node_path, opportunity)
-        self._build_server(node_path, opportunity)
+        if opportunity.get("niche_id") == "dev_cheatsheet_vault":
+            build_dev_playbook(node_path, opportunity)
+        else:
+            self._build_frontend(node_path, opportunity)
+            self._build_backend_engine(node_path, opportunity)
+            self._build_monetization_layer(node_path, opportunity)
+            self._build_server(node_path, opportunity)
 
         self.isolation_mgr.update_manifest(node_id, {
             "status": "BUILT",

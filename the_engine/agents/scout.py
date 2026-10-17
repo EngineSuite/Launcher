@@ -100,17 +100,23 @@ class ScoutAgent(BaseAgent):
 
         return sorted(opportunities, key=lambda x: x["composite_score"], reverse=True)
 
-    def select_best_opportunity(self) -> Dict[str, Any]:
-        """Selects the top-ranked viable opportunity."""
+    def select_best_opportunity(self, existing_node_ids: List[str] = None) -> Dict[str, Any]:
+        """Selects the top-ranked viable opportunity, skipping already deployed nodes."""
         opportunities = self.scan_opportunities()
+        if existing_node_ids:
+            filtered = [opp for opp in opportunities if f"node_{opp['niche_id']}" not in existing_node_ids]
+            if filtered:
+                opportunities = filtered
+
         best = opportunities[0]
-        self.log(f"Top opportunity identified: '{best['name']}' (Score: {best['composite_score']}/10)")
+        self.log(f"Opportunity selected: '{best['name']}' (Score: {best['composite_score']}/10)")
         return best
 
     def run(self, context: Dict[str, Any] = None) -> Dict[str, Any]:
         """Executes Phase 1: Analyze & Scout."""
         self.log("Commencing market intelligence scan...")
-        best = self.select_best_opportunity()
+        existing_nodes = (context or {}).get("existing_node_ids", [])
+        best = self.select_best_opportunity(existing_node_ids=existing_nodes)
         return {
             "status": "OPPORTUNITY_IDENTIFIED",
             "opportunity": best,

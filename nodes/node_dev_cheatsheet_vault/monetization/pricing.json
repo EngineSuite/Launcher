@@ -1,0 +1,34 @@
+{
+  "currency": "USD",
+  "tiers": [
+    {
+      "tier_id": "free_playbook",
+      "name": "Community Playbook",
+      "price": 0.0,
+      "upfront_cost": 0.0,
+      "features": [
+        "Interactive Architecture Matrix",
+        "Savings Calculator",
+        "Free Tier Limit References"
+      ]
+    },
+    {
+      "tier_id": "production_kit",
+      "name": "CloudZero Production Kit",
+      "price": 12.0,
+      "upfront_cost": 0.0,
+      "billing": "one-time",
+      "features": [
+        "Production Docker Compose + Caddy Reverse Proxy",
+        "Terraform IaC Modules for Cloudflare & Supabase",
+        "Oracle Always-Free Automated Deployer",
+        "GitHub Actions CI/CD Blueprint",
+        "65-Page Hardening & Guardrails PDF Cheatsheet"
+      ],
+      "checkout_channels": {
+        "gumroad": "https://gumroad.com",
+        "payhip": "https://payhip.com"
+      }
+    }
+  ]
+}

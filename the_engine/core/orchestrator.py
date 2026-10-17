@@ -52,7 +52,8 @@ class Orchestrator:
 
         # Phase 1: Analyze
         logger.info("[Phase 1: Analyze] Launching Scout market intelligence scan...")
-        scout_res = self.scout.run()
+        active_nodes = self.isolation_mgr.list_active_nodes()
+        scout_res = self.scout.run({"existing_node_ids": active_nodes})
         opportunity = scout_res["opportunity"]
         node_id = f"node_{opportunity['niche_id']}"
         self.event_bus.publish("scout:completed", "Scout", {"opportunity": opportunity})

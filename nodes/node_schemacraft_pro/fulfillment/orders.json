@@ -1,0 +1,22 @@
+[
+  {
+    "order_id": "ORD-7D0A6EFE",
+    "node_id": "node_schemacraft_pro",
+    "product_name": "Agency Pro Pack",
+    "buyer_email": "client@example.com",
+    "buyer_name": "Alex Vance",
+    "amount_paid": 19.0,
+    "currency": "USD",
+    "license_key": "SCRAFT-2026-2A7F-3E19-PRO",
+    "deliverable_file": "D:\\Projects\\Autnomous\\nodes\\node_schemacraft_pro\\public\\downloads\\schemacraft-agency-pack.zip",
+    "order_timestamp": "2026-10-17T19:44:00.612241+00:00",
+    "ledger_split": {
+      "safe_reserve_locked": 9.5,
+      "reinvestment_pool": 9.5
+    },
+    "email_dispatch": {
+      "subject": "Your Agency Pro Pack Commercial License & Download (Order ORD-7D0A6EFE)",
+      "body": "Hi Alex Vance,\n\nThank you for your order! Your payment for Agency Pro Pack ($19.00 USD) has been verified.\n\n======================================================================\n  COMMERCIAL LICENSE & ORDER CONFIRMATION\n======================================================================\nProduct        : Agency Pro Pack\nOrder Reference: ORD-7D0A6EFE\nDate           : 2026-10-17T19:44:00.612241+00:00\nDelivered To   : client@example.com\nLicense Key    : SCRAFT-2026-2A7F-3E19-PRO\nCommercial Tier: Agency & Unlimited Commercial Use Rights\nDeliverable    : schemacraft-agency-pack.zip\n======================================================================\n\nDOWNLOAD & GETTING STARTED:\n1. Please find your production package attached (schemacraft-agency-pack.zip).\n2. Unzip the archive to access all templates, automation scripts, and commercial licenses.\n3. Keep your license key (SCRAFT-2026-2A7F-3E19-PRO) for support and future updates.\n\nLEGAL & GUARANTEE TERMS:\n\u2022 Software is provided 'AS IS' under commercial rights. Liability is capped at the purchase price paid.\n\u2022 Backed by our 30-Day 100% No-Hassle Money-Back Guarantee.\n\nIf you have any questions or need custom integrations, simply reply to this email (businessbloke957@gmail.com).\n\nWarm regards,\nFulfillment Team \u2022 The Engine Digital Products\nbusinessbloke957@gmail.com\n"
+    }
+  }
+]

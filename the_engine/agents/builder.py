@@ -15,6 +15,7 @@ from the_engine.core.hitl import HITLGatekeeper
 from the_engine.core.isolation import NodeIsolationManager
 from the_engine.config import get_utc_iso
 from the_engine.agents.templates.dev_playbook import build_dev_playbook
+from the_engine.agents.templates.meta_craft import build_meta_craft
 
 logger = logging.getLogger("TheEngine.Builder")
 
@@ -40,6 +41,8 @@ class BuilderAgent(BaseAgent):
         # Generate Node Assets
         if opportunity.get("niche_id") == "dev_cheatsheet_vault":
             build_dev_playbook(node_path, opportunity)
+        elif opportunity.get("niche_id") == "meta_craft_og":
+            build_meta_craft(node_path, opportunity)
         else:
             self._build_frontend(node_path, opportunity)
             self._build_backend_engine(node_path, opportunity)

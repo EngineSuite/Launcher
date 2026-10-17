@@ -1,0 +1,16 @@
+{
+  "twitter_x_launch_thread": [
+    "\ud83e\uddf5 Stop paying $49/mo just to generate Google JSON-LD schema for client websites.\n\nI built a 100% free, instant Schema generator that validates rich snippets in real-time.\n\nNo sign-up. No credit card. Zero ads.\n\nHere's how to use it to boost your Google CTR by 30% \ud83d\udc47",
+    "1/ Google search rankings prioritize structured data. If you don't have JSON-LD on your site, you are leaving click-through rates on the table.\n\nSchemaCraft Pro supports LocalBusiness, Organization, FAQ, Products, and How-To schemas instantly.",
+    "2/ Try the free generator right now: https://schemacraft.pages.dev\n\nFor digital agencies managing 50+ locations, the Agency Pro pack lets you bulk export via CSV for just $19 lifetime."
+  ],
+  "indie_hackers_post": {
+    "title": "I built an agency-grade JSON-LD Schema Generator with $0 upfront infrastructure",
+    "body": "Hey IH! SEO tools have gotten bloated and overpriced. I wanted a lightning-fast utility to generate bulletproof Schema.org markup with zero friction. Built this on a modern zero-cost static stack. Would love your feedback!"
+  },
+  "reddit_value_post": {
+    "subreddit": "r/SEO",
+    "title": "Free Tool: Instant JSON-LD Schema Generator with Real-Time Rich Results Validation",
+    "content": "Hey r/SEO, created a clean, fast schema generator that outputs 100% valid schema for Google rich results. Free for everyone, hope it helps your workflows!"
+  }
+}

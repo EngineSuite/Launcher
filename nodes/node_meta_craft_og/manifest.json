@@ -1,0 +1,35 @@
+{
+  "node_id": "node_meta_craft_og",
+  "created_at": "2026-10-17T19:40:25.799328+00:00",
+  "status": "BUILT",
+  "metadata": {
+    "niche_id": "meta_craft_og",
+    "name": "MetaCraft - Automated OpenGraph & Social Card Engine",
+    "category": "Creator & Marketer Utility",
+    "target_audience": "Newsletter Writers, Bloggers, Indie Hackers",
+    "core_problem": "Every blog post and tweet needs branded social cards, but manual Canva design is time-consuming.",
+    "solution": "Dynamic client-side SVG-to-Canvas OG card generator with pre-made conversion-tested templates.",
+    "monetization": {
+      "free_tier": "Basic card templates with manual download.",
+      "pro_tier": "$14 one-time for Pro Template Bundle + Programmatic URL Generator Script.",
+      "platforms": [
+        "Gumroad",
+        "Lemon Squeezy"
+      ]
+    },
+    "hosting_stack": "Client-side Web App on GitHub Pages / Cloudflare Pages.",
+    "demand_score": 8.4,
+    "competition_gap": 7.8,
+    "zero_cost_feasibility": 10.0,
+    "monetization_velocity": 8.0,
+    "time_to_mvp_hours": 3.0,
+    "composite_score": 8.59
+  },
+  "consecutive_negative_cycles": 1,
+  "last_evaluated": "2026-10-17T19:40:26.261514+00:00",
+  "build_completed_at": "2026-10-17T19:40:26.093243+00:00",
+  "entrypoint": "src/server.py",
+  "frontend_index": "public/index.html",
+  "updated_at": "2026-10-17T19:40:26.262104+00:00",
+  "last_action": "OPTIMIZE_COPY_AND_PRICING"
+}

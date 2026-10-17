@@ -1,0 +1,42 @@
+{
+  "currency": "USD",
+  "tiers": [
+    {
+      "tier_id": "free_generator",
+      "name": "Community Generator",
+      "price": 0.0,
+      "upfront_cost": 0.0,
+      "features": [
+        "Browser-based 1200x630 Canvas generator",
+        "4 responsive gradient themes",
+        "Instant high-res PNG export"
+      ]
+    },
+    {
+      "tier_id": "agency_pro",
+      "name": "MetaCraft Agency Pro",
+      "price": 14.0,
+      "upfront_cost": 0.0,
+      "billing": "one-time",
+      "features": [
+        "Headless Python batch generation script",
+        "15 production SVG card blueprints",
+        "CSV automated card generation pipeline",
+        "Unlimited commercial & client rights",
+        "Lifetime priority updates"
+      ],
+      "order_channel": {
+        "method": "direct_email",
+        "email": "businessbloke957@gmail.com",
+        "subject": "Order Request: MetaCraft Agency Pro Pack ($14)",
+        "payment_methods_supported": [
+          "PayPal",
+          "Bank Wire",
+          "Wise",
+          "Crypto",
+          "Invoice"
+        ]
+      }
+    }
+  ]
+}

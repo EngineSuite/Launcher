@@ -143,6 +143,14 @@ def main():
     council_p = subparsers.add_parser("council", help="Convene the 10-Agent Red-Team Critique Council to scrutinize and debate a node")
     council_p.add_argument("node_id", type=str, help="Node ID to scrutinize")
 
+    fulfill_p = subparsers.add_parser("fulfill", help="Generate license key, invoice, and dispatch email to fulfill an order")
+    fulfill_p.add_argument("node_id", type=str, help="Node ID (e.g. node_schemacraft_pro)")
+    fulfill_p.add_argument("buyer_email", type=str, help="Customer email address")
+    fulfill_p.add_argument("--amount", type=float, default=None, help="Amount paid in USD")
+    fulfill_p.add_argument("--client-name", type=str, default=None, help="Customer name")
+
+    deploy_p = subparsers.add_parser("deploy-prep", help="Compile and optimize all active nodes into /dist for GitHub Pages / Cloudflare Pages")
+
     daemon_p = subparsers.add_parser("daemon", help="Run The Engine continuously in the background")
     daemon_p.add_argument("--interval", type=int, default=3600, help="Check interval in seconds (default: 3600)")
     daemon_p.add_argument("--cycles", type=int, default=None, help="Max cycles (default: infinite)")
@@ -280,6 +288,43 @@ def main():
         for directive in decree["prioritized_action_directives"]:
             print(f"  • {directive}")
 
+        print("=" * 70 + "\n")
+    elif args.command == "fulfill":
+        from the_engine.core.fulfiller import FulfillmentService
+        format_header(f"Order Fulfillment & License Dispatch :: {args.node_id}")
+        service = FulfillmentService(ledger=orchestrator.ledger, isolation_mgr=orchestrator.isolation_mgr)
+        rec = service.fulfill_order(
+            node_id=args.node_id,
+            buyer_email=args.buyer_email,
+            amount=args.amount,
+            buyer_name=args.client_name
+        )
+        print(f"Order Reference: {rec['order_id']}")
+        print(f"Product        : {rec['product_name']}")
+        print(f"Delivered To   : {rec['buyer_email']}")
+        print(f"License Key    : {rec['license_key']}")
+        print(f"Amount Paid    : ${rec['amount_paid']:.2f} USD")
+        print(f"Safe Reserve   : +${rec['ledger_split']['safe_reserve_locked']:.2f} (50% Locked Untouchable Profit)")
+        print(f"Reinvestment   : +${rec['ledger_split']['reinvestment_pool']:.2f}")
+        print(f"Deliverable    : {rec['deliverable_file']}")
+        print("-" * 70)
+        print("✉️ Ready-to-Send Email Dispatch Template (Copy & Paste to Customer):")
+        print(f"Subject: {rec['email_dispatch']['subject']}\n")
+        print(rec['email_dispatch']['body'])
+        print("=" * 70 + "\n")
+    elif args.command == "deploy-prep":
+        from the_engine.core.deployer import DeploymentManager
+        format_header("Static Cloud Distribution Packaging (/dist)")
+        mgr = DeploymentManager()
+        res = mgr.build_distribution()
+        print(f"Distribution Directory : {res['dist_dir']}")
+        print(f"Total Compiled Assets  : {res['total_assets_kb']} KB")
+        print(f"Free Hosting Target    : {', '.join(res['free_hosting_platforms'])}")
+        print("-" * 70)
+        print("Active Packaged Nodes:")
+        for n in res["deployed_nodes"]:
+            print(f"  • {n['name']} ➔ Path: {n['path']}")
+        print("\n✓ /dist is ready for instant deployment to GitHub Pages or Cloudflare Pages.")
         print("=" * 70 + "\n")
     elif args.command == "daemon":
         orchestrator.start_daemon(interval_seconds=args.interval, max_cycles=args.cycles)

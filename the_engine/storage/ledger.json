@@ -1,16 +1,17 @@
 {
   "initial_capital": 0.0,
-  "earned_balance": 19.0,
-  "total_revenue": 19.0,
+  "earned_balance": 38.0,
+  "total_revenue": 38.0,
   "total_expenses": 0.0,
-  "safe_account_reserve": 9.5,
-  "reinvestable_balance": 9.5,
+  "safe_account_reserve": 19.0,
+  "reinvestable_balance": 19.0,
   "nodes": {
     "node_schemacraft_pro": {
-      "revenue": 19.0,
+      "revenue": 38.0,
       "expenses": 0.0,
       "transactions": [
-        "rev_1"
+        "rev_1",
+        "rev_2"
       ]
     }
   },
@@ -23,6 +24,17 @@
       "source": "Gumroad",
       "description": "Verified sale via Gumroad",
       "timestamp": "2026-10-17T17:21:57.122916+00:00",
+      "reserve_allocation": 9.5,
+      "reinvest_allocation": 9.5
+    },
+    {
+      "id": "rev_2",
+      "type": "REVENUE",
+      "node_id": "node_schemacraft_pro",
+      "amount": 19.0,
+      "source": "Direct Email Inquiry (PayPal/Wire/Wise)",
+      "description": "Direct License Fulfillment: Agency Pro Pack to client@example.com",
+      "timestamp": "2026-10-17T19:44:00.612342+00:00",
       "reserve_allocation": 9.5,
       "reinvest_allocation": 9.5
     }

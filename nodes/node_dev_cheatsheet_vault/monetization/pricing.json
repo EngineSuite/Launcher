@@ -29,7 +29,13 @@
         "method": "direct_email",
         "email": "businessbloke957@gmail.com",
         "subject": "Order Request: CloudZero Production Kit ($12)",
-        "payment_methods_supported": ["PayPal", "Bank Wire", "Wise", "Crypto", "Invoice"]
+        "payment_methods_supported": [
+          "PayPal",
+          "Bank Wire",
+          "Wise",
+          "Crypto",
+          "Invoice"
+        ]
       }
     }
   ]

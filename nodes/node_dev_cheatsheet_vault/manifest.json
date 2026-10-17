@@ -25,7 +25,7 @@
     "time_to_mvp_hours": 2.5,
     "composite_score": 8.92
   },
-  "consecutive_negative_cycles": 1,
+  "consecutive_negative_cycles": 0,
   "last_evaluated": "2026-10-17T19:37:27.487214+00:00",
   "build_completed_at": "2026-10-17T19:37:27.246029+00:00",
   "entrypoint": "src/server.py",

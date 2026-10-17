@@ -70,11 +70,18 @@ class AuditorAgent(BaseAgent):
             "pro_tier_present": has_pro
         }
 
-    def evaluate_node_performance(self, node_id: str, simulated_hours: int = 48) -> Dict[str, Any]:
+    def evaluate_node_performance(
+        self,
+        node_id: str,
+        simulated_hours: int = 48,
+        force_tick: bool = True,
+        min_hours_between_cycles: float = 24.0
+    ) -> Dict[str, Any]:
         """
         Executes the 48-hour optimization review:
         - If profitable: Scale budget by 20%
         - If losing money/no traction: Recommend copy rewrite, price adjustment, or trigger fail-safe
+        - In continuous daemon mode, enforces real-time 24-hour cycle spacing so brand-new nodes aren't prematurely archived.
         """
         manifest = self.isolation_mgr.read_manifest(node_id) or {}
         node_summary = self.ledger.get_node_summary(node_id)
@@ -83,6 +90,27 @@ class AuditorAgent(BaseAgent):
         net_profit = node_summary["net_profit"]
         action = "HOLD"
         lessons = {}
+
+        # If running in daemon mode without force_tick, ensure at least min_hours_between_cycles have elapsed
+        if not force_tick:
+            last_eval = manifest.get("last_evaluated") or manifest.get("created_at")
+            if last_eval:
+                try:
+                    from datetime import datetime, timezone
+                    last_time = datetime.fromisoformat(last_eval.replace("Z", "+00:00"))
+                    now = datetime.now(timezone.utc)
+                    elapsed_hours = (now - last_time).total_seconds() / 3600.0
+                    if elapsed_hours < min_hours_between_cycles:
+                        # 24-hour review cycle still active in the market
+                        return {
+                            "node_id": node_id,
+                            "net_profit": net_profit,
+                            "action": f"MONITORING_ACTIVE (Cycle {consecutive_neg + 1}/3, {elapsed_hours:.1f}h/{min_hours_between_cycles:.0f}h)",
+                            "consecutive_negative_cycles": consecutive_neg,
+                            "lessons": {}
+                        }
+                except Exception:
+                    pass
 
         if net_profit > 0:
             action = "SCALE_BUDGET_20"
@@ -175,9 +203,16 @@ class AuditorAgent(BaseAgent):
         if not node_id:
             raise ValueError("Auditor requires node_id in context.")
 
+        force_tick = context.get("force_tick", not context.get("daemon_mode", False))
+        min_hours = context.get("min_hours_between_cycles", 24.0)
+
         compliance = self.verify_zero_cost_compliance(node_id)
         checkout = self.verify_checkout_integrity(node_id)
-        eval_result = self.evaluate_node_performance(node_id)
+        eval_result = self.evaluate_node_performance(
+            node_id,
+            force_tick=force_tick,
+            min_hours_between_cycles=min_hours
+        )
         milestone = self.check_incorporation_milestone()
 
         return {

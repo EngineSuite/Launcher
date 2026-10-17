@@ -82,6 +82,9 @@ class NodeIsolationManager:
         nodes = []
         for item in self.nodes_dir.iterdir():
             if item.is_dir() and item.name != "archived" and (item / "manifest.json").exists():
+                manifest = self.read_manifest(item.name)
+                if manifest and manifest.get("status") == "ARCHIVED":
+                    continue
                 nodes.append(item.name)
         return sorted(nodes)
 
@@ -97,6 +100,7 @@ class NodeIsolationManager:
         """
         Safely moves a node workspace to the archived directory,
         extracting lessons learned and preserving all audit logs.
+        Resilient against Windows file locks from background processes.
         """
         src = self.get_node_path(node_id)
         if not src.exists():
@@ -115,7 +119,16 @@ class NodeIsolationManager:
         with open(src / "manifest.json", "w", encoding="utf-8") as f:
             json.dump(manifest, f, indent=2)
 
-        # Move directory
-        shutil.move(str(src), str(dest))
+        # Move directory with fallback for Windows locked files
+        try:
+            shutil.move(str(src), str(dest))
+        except (PermissionError, OSError) as e:
+            logger.warning(f"File locked during archive move ({e}). Copying to archive tree instead.")
+            shutil.copytree(str(src), str(dest), dirs_exist_ok=True)
+            try:
+                shutil.rmtree(str(src), ignore_errors=True)
+            except Exception:
+                pass
+
         logger.warning(f"Node '{node_id}' archived to {dest}. Reason: {reason}")
         return dest

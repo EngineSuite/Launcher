@@ -823,7 +823,6 @@ class SafeHandler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
 
 def run_server():
-    os.chdir(PUBLIC_DIR)
     with socketserver.TCPServer(("", PORT), SafeHandler) as httpd:
         print(f"MetaCraft OG live at http://localhost:{PORT}")
         httpd.serve_forever()

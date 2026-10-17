@@ -182,15 +182,19 @@ class Orchestrator:
                 now_str = get_utc_iso()
                 print(f"[{now_str}] Daemon Cycle #{cycle_count}: Running active node audit...")
 
-                active_nodes = self.isolation_mgr.list_active_nodes()
-                for nid in active_nodes:
-                    audit_res = self.auditor.run({"node_id": nid})
-                    print(f"  • Node '{nid}': {audit_res['compliance']['status']} | Action: {audit_res['evaluation']['action']}")
+                try:
+                    active_nodes = self.isolation_mgr.list_active_nodes()
+                    for nid in active_nodes:
+                        audit_res = self.auditor.run({"node_id": nid, "daemon_mode": True})
+                        print(f"  • Node '{nid}': {audit_res['compliance']['status']} | Action: {audit_res['evaluation']['action']}")
 
-                # If no active nodes exist, autonomously scout and build one
-                if not active_nodes:
-                    print(f"[{now_str}] No active nodes found. Autonomously launching new revenue cycle...")
-                    self.run_cycle()
+                    # If no active nodes exist, autonomously scout and build one
+                    if not active_nodes:
+                        print(f"[{now_str}] No active nodes found. Autonomously launching new revenue cycle...")
+                        self.run_cycle()
+                except Exception as cycle_err:
+                    logger.error(f"Daemon cycle encountered error: {cycle_err}", exc_info=True)
+                    print(f"  ⚠ Error in daemon cycle: {cycle_err}. Recovering autonomously.")
 
                 if max_cycles is not None and cycle_count >= max_cycles:
                     break

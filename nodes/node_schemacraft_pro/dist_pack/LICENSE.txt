@@ -1,12 +1,22 @@
-SCHEMACRAFT AGENCY PRO - COMMERCIAL LICENSE AGREEMENT
+COMMERCIAL LICENSE AGREEMENT & TERMS OF USE
 
 Copyright (c) 2026 SchemaCraft Pro / The Engine. All rights reserved.
 
-Grant of License:
-Subject to the purchase of the SchemaCraft Agency Pro Pack, the licensee is granted an irrevocable, perpetual, royalty-free, worldwide license to:
-1. Use the software and templates on unlimited internal and client commercial projects.
-2. Embed the whitelabel widget on unlimited client websites.
-3. Modify, customize, and extend the scripts for agency service delivery.
+1. Grant of License:
+Subject to verified purchase of the SchemaCraft Agency Pro Pack, the licensee is granted an irrevocable, perpetual, worldwide, non-exclusive license to:
+- Use the software, bulk CLI generator, and templates on unlimited internal and client commercial projects.
+- Embed the whitelabel widget on unlimited client websites.
+- Modify, customize, and extend the scripts for agency service delivery.
 
-Restrictions:
-Licensee may not sub-license, resell, or distribute this package as a standalone stock item or direct competitor to SchemaCraft Pro.
+2. Restrictions:
+Licensee may not sub-license, redistribute, resell, or publicly share these digital assets as a standalone stock item or direct competitor to SchemaCraft Pro.
+
+3. "AS IS" Warranty Waiver:
+THE SOFTWARE, CODE, AND DIGITAL TEMPLATES ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS, THE ENGINE, OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+4. Strict Limitation of Liability:
+UNDER NO CIRCUMSTANCES SHALL THE AUTHORS, DISTRIBUTORS, OR THE ENGINE BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES (INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, LOSS OF REVENUE, BUSINESS INTERRUPTION, SEARCH ENGINE RANKING PENALTIES, SYSTEM DOWNTIME, OR LOSS OF DATA).
+IN ALL CIRCUMSTANCES, LICENSOR'S TOTAL AGGREGATE LIABILITY UNDER THIS AGREEMENT SHALL BE STRICTLY LIMITED TO THE ACTUAL PURCHASE PRICE AMOUNT PAID BY THE LICENSEE FOR THIS PRODUCT ($19.00 USD).
+
+5. 30-Day No-Hassle Money-Back Guarantee:
+If this product fails to meet your business needs or does not perform to your expectations, a full 100% refund may be requested within 30 days of purchase without hassle or dispute.

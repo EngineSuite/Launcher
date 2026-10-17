@@ -1,0 +1,22 @@
+COMMERCIAL LICENSE AGREEMENT & TERMS OF USE
+
+Copyright (c) 2026 CloudZero Architecture Playbook / The Engine. All rights reserved.
+
+1. Grant of License:
+Subject to verified purchase of the CloudZero Production Kit, the licensee is granted an irrevocable, perpetual, worldwide, non-exclusive license to:
+- Use all Terraform configurations, Docker Compose recipes, and Caddyfile templates for personal and commercial client deployments.
+- Deploy an unlimited number of SaaS stacks on free-tier architectures.
+- Modify and customize the scripts for production cloud environments.
+
+2. Restrictions:
+Licensee may not sub-license, repackage, or resell these configuration files or guides as standalone stock templates.
+
+3. "AS IS" Warranty Waiver:
+THE ARCHITECTURE BLUEPRINTS, CODE, AND CONFIGURATION FILES ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND SYSTEM COMPATIBILITY. IN NO EVENT SHALL THE AUTHORS, THE ENGINE, OR CONTRIBUTORS BE LIABLE FOR ANY SYSTEM FAILURE, CLOUD BILLING DISCREPANCY, OR SERVICE OUTAGE.
+
+4. Strict Limitation of Liability:
+UNDER NO CIRCUMSTANCES SHALL THE AUTHORS, DISTRIBUTORS, OR THE ENGINE BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR EXEMPLARY DAMAGES (INCLUDING THIRD-PARTY CLOUD PROVIDER CHARGES, DATA LOSS, OR DOWNTIME).
+IN ALL CASES, LICENSOR'S TOTAL AGGREGATE LIABILITY UNDER THIS AGREEMENT SHALL BE STRICTLY LIMITED TO THE ACTUAL PURCHASE PRICE AMOUNT PAID BY THE LICENSEE FOR THIS PRODUCT ($12.00 USD).
+
+5. 30-Day No-Hassle Money-Back Guarantee:
+If you are not 100% satisfied with this playbook and production kit, you may request a complete 100% refund within 30 days of purchase without hassle or dispute.

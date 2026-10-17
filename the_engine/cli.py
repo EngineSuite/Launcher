@@ -29,6 +29,12 @@ def cmd_status(orchestrator: Orchestrator) -> None:
     print(f"Safe Reserve        : ${fin['safe_account_reserve']:.2f} (Untouchable Profit)")
     print(f"Reinvestable Pool   : ${fin['reinvestable_balance']:.2f}")
     print(f"Zero-Cost Integrity : {'✓ 100% COMPLIANT' if fin['zero_cost_integrity'] else '❌ BREACH DETECTED'}")
+    
+    milestone = status.get("incorporation_milestone", {})
+    m_icon = "🎉" if milestone.get("milestone_reached") else "🛡️"
+    print(f"Legal / Entity Mode : {m_icon} {milestone.get('status', 'DEFERRED_INCORPORATION_ACTIVE')}")
+    print(f"Incorporation Goal  : ${milestone.get('total_revenue', 0):.2f} / ${milestone.get('threshold', 1500):.2f} (Chargebacks: {milestone.get('chargeback_count', 0)})")
+    print(f"Entity Guidance     : {milestone.get('recommendation', '')}")
     print("-" * 70)
     print(f"Active Nodes ({status['active_node_count']}):")
     if not status["active_nodes"]:

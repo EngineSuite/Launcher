@@ -61,13 +61,33 @@ class CriticAgent(BaseAgent):
                 vulnerabilities.append("Pro tier feature list is sparse. Hard to justify one-time fee.")
                 upgrades.append("Add at least 2 more high-utility deliverables (e.g. templates, whitelabel code).")
 
-        # 2. Inspect Trust & Friction in HTML
-        if "guarantee" in html_text.lower() or "money-back" in html_text.lower():
-            strengths.append("Money-back guarantee is explicitly stated, lowering buyer risk.")
+        # 2. Inspect Trust Signals & Risk Reversal (30-Day Guarantee)
+        has_30day_guarantee = ("30-day" in html_text.lower() or "30 day" in html_text.lower()) and \
+                              ("money-back" in html_text.lower() or "guarantee" in html_text.lower() or "refund" in html_text.lower())
+        if has_30day_guarantee:
+            strengths.append("Verified 30-Day No-Hassle Money-Back Guarantee badge present on sales surface.")
         else:
-            score -= 0.5
-            vulnerabilities.append("No explicit risk-reversal guarantee found.")
-            upgrades.append("Add a '30-Day Money-Back Guarantee' badge near checkout buttons.")
+            score -= 1.5
+            vulnerabilities.append("CRITICAL TRUST DEFICIT: Missing explicit 30-Day Money-Back Guarantee badge.")
+            upgrades.append("Embed '30-Day No-Hassle Money-Back Guarantee' badge directly beside checkout buttons.")
+
+        # 3. Inspect Legal Armor (AS-IS Warranty Waiver & Purchase-Price Liability Cap)
+        dist_pack = node_path / "dist_pack"
+        license_file = dist_pack / "LICENSE.txt" if dist_pack.exists() else (node_path / "LICENSE.txt")
+        if license_file.exists():
+            license_text = license_file.read_text(encoding="utf-8")
+            has_as_is = "as is" in license_text.lower()
+            has_liability_cap = "liability" in license_text.lower() and ("purchase price" in license_text.lower() or "limited" in license_text.lower())
+            if has_as_is and has_liability_cap:
+                strengths.append("Legal Armor Verified: LICENSE.txt contains strict 'AS IS' warranty waiver and purchase-price liability cap.")
+            else:
+                score -= 1.5
+                vulnerabilities.append("CRITICAL LEGAL DEFICIT: LICENSE.txt exists but lacks robust 'AS IS' waiver or purchase-price liability cap.")
+                upgrades.append("Upgrade LICENSE.txt with standardized 'AS IS' warranty waiver and liability cap strictly limited to purchase price.")
+        else:
+            score -= 1.5
+            vulnerabilities.append("CRITICAL LEGAL DEFICIT: No LICENSE.txt found in digital distribution package.")
+            upgrades.append("Inject standardized Commercial LICENSE.txt into deliverable distribution package.")
 
         if "instant" in html_text.lower() or "download" in html_text.lower():
             strengths.append("Instant delivery promise is prominent.")

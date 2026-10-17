@@ -5,6 +5,7 @@ Generates production code, web applications, digital assets, APIs, and zero-cost
 
 import json
 import logging
+import zipfile
 from pathlib import Path
 from typing import Dict, Any
 from datetime import datetime
@@ -44,6 +45,9 @@ class BuilderAgent(BaseAgent):
             self._build_backend_engine(node_path, opportunity)
             self._build_monetization_layer(node_path, opportunity)
             self._build_server(node_path, opportunity)
+
+        # Inject legal armor (Standardized LICENSE.txt with AS IS & liability cap) and build deliverables
+        self._inject_legal_and_compliance_assets(node_path, opportunity)
 
         self.isolation_mgr.update_manifest(node_id, {
             "status": "BUILT",
@@ -126,9 +130,10 @@ class BuilderAgent(BaseAgent):
     <section class="card output-card">
       <div class="card-header">
         <div class="output-title">
-          <span class="dot live-dot"></span> Generated JSON-LD Code
+          <span class="dot live-dot"></span> Live JSON-LD Preview
         </div>
         <div class="output-actions">
+          <button id="sampleBtn" class="btn btn-sm btn-outline">&#x2728; Load Sample</button>
           <button id="copyBtn" class="btn btn-sm btn-outline">&#x1F4CB; Copy Code</button>
           <button id="downloadBtn" class="btn btn-sm btn-outline">&#x2B07; Download .json</button>
           <button id="validateBtn" class="btn btn-sm btn-accent">&#x2714; Test Schema</button>
@@ -179,6 +184,7 @@ class BuilderAgent(BaseAgent):
           <li>&#x2713; Lifetime Updates & Priority Support</li>
         </ul>
         <button id="buyProBtn" class="btn btn-full btn-pro">Get Agency Pro ($19)</button>
+        <div class="guarantee-badge">&#x1F6E1;&#xFE0F; 30-Day No-Hassle Money-Back Guarantee &bull; 100% Risk-Free</div>
       </div>
     </div>
   </section>
@@ -201,7 +207,7 @@ class BuilderAgent(BaseAgent):
             &#x2615; Support on BuyMeACoffee ($19)
           </a>
         </div>
-        <p class="guarantee-note">&#x1F512; Instant digital delivery. 30-day money-back guarantee.</p>
+        <p class="guarantee-note">&#x1F6E1;&#xFE0F; 30-Day No-Hassle Money-Back Guarantee. Instant digital delivery.</p>
       </div>
     </div>
   </div>
@@ -437,6 +443,7 @@ body {
 .price-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
 .benefit-list { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
 .benefit-list li { color: #cbd5e1; }
+.guarantee-badge { margin-top: 12px; font-size: 0.78rem; color: #10b981; text-align: center; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
 /* Modal */
 .modal-backdrop {
@@ -861,6 +868,77 @@ class SchemaEngine:
         }
         with open(mon_dir / "pricing.json", "w", encoding="utf-8") as f:
             json.dump(pricing_config, f, indent=2)
+
+    @staticmethod
+    def generate_standard_license(product_name: str, price: str = "$19.00 USD") -> str:
+        """
+        Generates standardized Commercial License & Terms of Use including:
+        1. Grant of License (Commercial & Client Use)
+        2. AS IS Warranty Waiver (No express or implied warranties)
+        3. Strict Limitation of Liability (Capped directly to actual purchase price paid)
+        4. 30-Day No-Hassle Money-Back Guarantee
+        """
+        return f"""COMMERCIAL LICENSE AGREEMENT & TERMS OF USE
+
+Copyright (c) 2026 {product_name} / The Engine. All rights reserved.
+
+1. Grant of License:
+Subject to verified purchase, the licensee is granted an irrevocable, perpetual, worldwide, non-exclusive license to:
+- Use the software, templates, scripts, and documentation on unlimited internal and client commercial projects.
+- Integrate, adapt, and build upon the deliverables for client agency services and digital products.
+
+2. Restrictions:
+Licensee may not sub-license, redistribute, resell, or publicly share these digital assets as a standalone stock item or direct competitor to {product_name}.
+
+3. "AS IS" Warranty Waiver:
+THE SOFTWARE, SCRIPTS, TEMPLATES, AND ASSETS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS, THE ENGINE, OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+4. Strict Limitation of Liability:
+UNDER NO CIRCUMSTANCES SHALL THE AUTHORS, DISTRIBUTORS, OR THE ENGINE BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES (INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, LOSS OF REVENUE, BUSINESS INTERRUPTION, SEARCH RANKING PENALTIES, SYSTEM DOWNTIME, OR LOSS OF DATA).
+IN ALL CIRCUMSTANCES, LICENSOR'S TOTAL AGGREGATE LIABILITY UNDER THIS AGREEMENT SHALL BE STRICTLY LIMITED TO THE ACTUAL PURCHASE PRICE AMOUNT PAID BY THE LICENSEE FOR THIS PRODUCT ({price}).
+
+5. 30-Day No-Hassle Money-Back Guarantee:
+If this product fails to meet your business needs or does not perform to your expectations, a full 100% refund may be requested within 30 days of purchase without hassle or dispute.
+"""
+
+    def _inject_legal_and_compliance_assets(self, node_path: Path, opp: Dict[str, Any]) -> None:
+        """
+        Automatically injects standardized LICENSE.txt into dist_pack and bundles deliverables into a ZIP.
+        Enforces:
+        - Strict AS-IS Warranty Waiver
+        - Strict Liability limitation capped to purchase price
+        - Risk-reversal 30-day money-back guarantee
+        """
+        dist_pack = node_path / "dist_pack"
+        dist_pack.mkdir(parents=True, exist_ok=True)
+
+        product_name = opp.get("name", node_path.name)
+        pricing = opp.get("monetization", {})
+        pro_tier = pricing.get("pro_tier", "$19.00 USD")
+
+        license_path = dist_pack / "LICENSE.txt"
+        license_content = self.generate_standard_license(product_name, pro_tier)
+        with open(license_path, "w", encoding="utf-8") as f:
+            f.write(license_content)
+
+        # Assemble/bundle deliverable pack zip into public/downloads
+        downloads_dir = node_path / "public" / "downloads"
+        downloads_dir.mkdir(parents=True, exist_ok=True)
+
+        niche_id = opp.get("niche_id", "")
+        if niche_id == "schemacraft_pro":
+            zip_name = "schemacraft-agency-pack.zip"
+        elif niche_id == "dev_cheatsheet_vault":
+            zip_name = "cloudzero-production-kit.zip"
+        else:
+            zip_name = f"{node_path.name}-pack.zip"
+
+        zip_path = downloads_dir / zip_name
+        with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
+            for file in dist_pack.rglob("*"):
+                if file.is_file():
+                    arcname = file.relative_to(dist_pack)
+                    zf.write(file, arcname)
 
     def _build_server(self, node_path: Path, opp: Dict[str, Any]) -> None:
         """Builds standalone zero-dependency Python HTTP server."""

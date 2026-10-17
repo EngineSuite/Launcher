@@ -143,6 +143,7 @@ def build_dev_playbook(node_path: Path, opp: Dict[str, Any]) -> None:
           <a href="https://gumroad.com" target="_blank" class="pay-btn gumroad-btn">&#x1F4B3; Pay with Card / PayPal (Gumroad)</a>
           <a href="https://payhip.com" target="_blank" class="pay-btn payhip-btn">&#x26A1; Pay with Payhip ($12)</a>
         </div>
+        <p class="guarantee-note" style="margin-top: 12px; font-size: 0.8rem; color: #10b981; text-align: center;">&#x1F6E1;&#xFE0F; 30-Day No-Hassle Money-Back Guarantee. Instant digital delivery.</p>
       </div>
     </div>
   </div>

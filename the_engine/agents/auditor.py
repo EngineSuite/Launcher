@@ -121,6 +121,54 @@ class AuditorAgent(BaseAgent):
             "lessons": lessons
         }
 
+    def check_incorporation_milestone(self, threshold: float = 1500.0) -> Dict[str, Any]:
+        """
+        Evaluates the Deferred Incorporation ("Earned Entity") milestone.
+        - While revenue < threshold: Operate safely as an Individual via Merchant of Record (Gumroad / Lemon Squeezy)
+          with $0 upfront overhead and automated global tax/VAT shielding.
+        - When total revenue >= threshold ($1,500) and zero chargebacks:
+          Flags milestone recommendation to deploy earned profits from Reinvestment Pool
+          to formalize an LLC / legal entity for full personal asset insulation with $0 out-of-pocket cost.
+        """
+        summary = self.ledger.get_global_summary()
+        tot_rev = summary.get("total_revenue", 0.0)
+        reinvest_bal = summary.get("reinvestable_balance", 0.0)
+        safe_reserve = summary.get("safe_account_reserve", 0.0)
+
+        chargebacks = [
+            t for t in self.ledger.data.get("transactions", [])
+            if t.get("type") in ("CHARGEBACK", "DISPUTE")
+        ]
+
+        if tot_rev >= threshold and len(chargebacks) == 0:
+            status = "ENTITY_INCORPORATION_RECOMMENDED"
+            reached = True
+            msg = (
+                f"Milestone Reached! Total revenue (${tot_rev:.2f}) meets or exceeds ${threshold:.2f} "
+                f"with 0 chargebacks. Reinvestment pool has ${reinvest_bal:.2f} available. "
+                "Recommend deploying earned profits to formalize an LLC / corporate entity to insulate personal assets "
+                "with 100% earned profit and zero out-of-pocket risk."
+            )
+        else:
+            status = "DEFERRED_INCORPORATION_ACTIVE"
+            reached = False
+            msg = (
+                f"Deferred Incorporation Active: Operating safely as Individual via Merchant of Record "
+                f"(Gumroad / Lemon Squeezy) to preserve $0 overhead and automated global VAT shield. "
+                f"Incorporation milestone progress: ${tot_rev:.2f} / ${threshold:.2f}."
+            )
+
+        return {
+            "status": status,
+            "milestone_reached": reached,
+            "threshold": threshold,
+            "total_revenue": tot_rev,
+            "reinvestable_balance": reinvest_bal,
+            "safe_account_reserve": safe_reserve,
+            "chargeback_count": len(chargebacks),
+            "recommendation": msg
+        }
+
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         """Executes Phase 4: Financial Audit & Optimization."""
         node_id = context.get("node_id")
@@ -130,11 +178,13 @@ class AuditorAgent(BaseAgent):
         compliance = self.verify_zero_cost_compliance(node_id)
         checkout = self.verify_checkout_integrity(node_id)
         eval_result = self.evaluate_node_performance(node_id)
+        milestone = self.check_incorporation_milestone()
 
         return {
             "status": "AUDIT_COMPLETED",
             "compliance": compliance,
             "checkout": checkout,
             "evaluation": eval_result,
+            "incorporation_milestone": milestone,
             "timestamp": get_utc_iso()
         }

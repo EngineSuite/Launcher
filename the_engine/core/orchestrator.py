@@ -149,6 +149,7 @@ class Orchestrator:
             "archived_node_count": len(archived_nodes),
             "active_nodes": node_details,
             "financial_summary": financials,
+            "incorporation_milestone": self.auditor.check_incorporation_milestone(),
             "paused_hitl_nodes": list(self.hitl.paused_nodes.keys())
         }
 

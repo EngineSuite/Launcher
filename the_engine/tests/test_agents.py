@@ -11,6 +11,7 @@ from the_engine.agents.scout import ScoutAgent
 from the_engine.agents.builder import BuilderAgent
 from the_engine.agents.growth_hacker import GrowthHackerAgent
 from the_engine.agents.auditor import AuditorAgent
+from the_engine.agents.critic import CriticAgent
 
 
 class TestAgents(unittest.TestCase):
@@ -27,6 +28,7 @@ class TestAgents(unittest.TestCase):
         self.builder = BuilderAgent(self.hitl, self.isolation_mgr)
         self.growth_hacker = GrowthHackerAgent(self.hitl)
         self.auditor = AuditorAgent(self.hitl, self.ledger, self.isolation_mgr)
+        self.critic = CriticAgent(self.hitl)
 
     def tearDown(self):
         shutil.rmtree(self.temp_dir, ignore_errors=True)
@@ -78,6 +80,59 @@ class TestAgents(unittest.TestCase):
         self.assertNotIn(node_id, self.isolation_mgr.list_active_nodes())
         self.assertEqual(len(self.isolation_mgr.list_archived_nodes()), 1)
 
+    def test_builder_injects_legal_armor_and_guarantee(self):
+        best = self.scout.select_best_opportunity()
+        node_path = self.builder.build_node(best)
+
+        # 1. Standardized LICENSE.txt must exist with AS IS and liability cap
+        license_path = node_path / "dist_pack" / "LICENSE.txt"
+        self.assertTrue(license_path.exists())
+        license_text = license_path.read_text(encoding="utf-8")
+        self.assertIn('"AS IS"', license_text)
+        self.assertIn("Limitation of Liability", license_text)
+        self.assertIn("purchase price", license_text.lower())
+        self.assertIn("30-Day", license_text)
+
+        # 2. HTML must have 30-day money-back guarantee badge
+        html_text = (node_path / "public" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("30-Day", html_text)
+        self.assertIn("Money-Back Guarantee", html_text)
+
+        # 3. Deliverable ZIP must be packaged in public/downloads
+        downloads = list((node_path / "public" / "downloads").glob("*.zip"))
+        self.assertGreater(len(downloads), 0)
+
+    def test_critic_enforces_guarantee_and_license(self):
+        best = self.scout.select_best_opportunity()
+        node_path = self.builder.build_node(best)
+
+        # Full compliance node should pass with high score
+        review_pass = self.critic.review_node(node_path, best)
+        self.assertGreaterEqual(review_pass["overall_quality_score"], 8.0)
+        self.assertEqual(review_pass["commercial_viability"], "HIGH")
+
+        # Strip LICENSE.txt and verify Critic penalizes and detects critical legal deficit
+        license_path = node_path / "dist_pack" / "LICENSE.txt"
+        if license_path.exists():
+            license_path.unlink()
+        review_fail = self.critic.review_node(node_path, best)
+        self.assertLess(review_fail["overall_quality_score"], review_pass["overall_quality_score"])
+        self.assertTrue(any("LEGAL DEFICIT" in v for v in review_fail["vulnerabilities"]))
+
+    def test_auditor_incorporation_milestone(self):
+        # 1. Under threshold ($19 revenue), incorporation is deferred
+        milestone1 = self.auditor.check_incorporation_milestone(threshold=1500.0)
+        self.assertFalse(milestone1["milestone_reached"])
+        self.assertEqual(milestone1["status"], "DEFERRED_INCORPORATION_ACTIVE")
+
+        # 2. Add revenue reaching $1,500 with zero chargebacks
+        self.ledger.record_revenue("node_schemacraft_pro", 1500.0, "Gumroad", "Enterprise purchase")
+        milestone2 = self.auditor.check_incorporation_milestone(threshold=1500.0)
+        self.assertTrue(milestone2["milestone_reached"])
+        self.assertEqual(milestone2["status"], "ENTITY_INCORPORATION_RECOMMENDED")
+        self.assertGreaterEqual(milestone2["reinvestable_balance"], 750.0)
+
 
 if __name__ == "__main__":
     unittest.main()
+

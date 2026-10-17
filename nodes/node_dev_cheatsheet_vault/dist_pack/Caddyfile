@@ -1,0 +1,31 @@
+# ==============================================================================
+# CloudZero Production Caddyfile - Automatic Zero-Cost SSL & Reverse Proxy
+# ==============================================================================
+
+{$DOMAIN:localhost} {
+    # Automatic TLS with Let's Encrypt / ZeroSSL
+    encode zstd gzip
+
+    # Production Security Headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "camera=(), microphone=(), geolocation=()"
+        -Server
+    }
+
+    # Reverse proxy to internal application container
+    reverse_proxy app:3000 {
+        health_uri /api/health
+        health_interval 15s
+        health_timeout 5s
+    }
+
+    # Logging
+    log {
+        output stdout
+        format console
+    }
+}

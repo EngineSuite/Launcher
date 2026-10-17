@@ -1,0 +1,75 @@
+# ==============================================================================
+# CloudZero Production Stack - $0/Month Infrastructure
+# Includes: Caddy (Auto-HTTPS Reverse Proxy) + App Container + Redis + Postgres
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  # Caddy: Handles automatic Let's Encrypt SSL/TLS certificates, reverse proxy, & gzip
+  caddy:
+    image: caddy:2-alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    networks:
+      - cloudzero_net
+
+  # Primary Application Backend (Node / Python / Go)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-appuser}:${POSTGRES_PASSWORD:-appsecret}@db:5432/${POSTGRES_DB:-appdb}
+      - REDIS_URL=redis://redis:6379
+    expose:
+      - "3000"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - cloudzero_net
+
+  # Fast In-Memory Cache & Background Task Queue
+  redis:
+    image: redis:7-alpine
+    restart: always
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks:
+      - cloudzero_net
+
+  # Local Production PostgreSQL (or connect to free Supabase / Neon externally)
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-appuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-appsecret}
+      POSTGRES_DB: ${POSTGRES_DB:-appdb}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - cloudzero_net
+
+volumes:
+  caddy_data:
+  caddy_config:
+  redis_data:
+  pg_data:
+
+networks:
+  cloudzero_net:
+    driver: bridge

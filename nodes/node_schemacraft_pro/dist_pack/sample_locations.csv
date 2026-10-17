@@ -1,0 +1,11 @@
+name,category,url,phone,street,city,region,postal_code,country,price_range,rating,review_count,latitude,longitude,opening_hours
+Apex Dental Care - Downtown,Dentist,https://apexdental.example.com/downtown,+1-512-555-0101,100 Congress Ave Ste 400,Austin,TX,78701,US,$$,4.9,142,30.2672,-97.7431,Mo-Fr 08:00-17:00; Sa 09:00-14:00
+Apex Dental Care - North Hills,Dentist,https://apexdental.example.com/north,+1-512-555-0102,9400 Research Blvd,Austin,TX,78759,US,$$,4.8,98,30.3891,-97.7412,Mo-Fr 08:30-17:30
+Apex Dental Care - South Congress,Dentist,https://apexdental.example.com/south,+1-512-555-0103,1600 S Congress Ave,Austin,TX,78704,US,$$,4.9,215,30.2489,-97.7501,Mo-Fr 08:00-18:00
+Horizon Legal Group - Metro Office,Attorney,https://horizonlegal.example.com,+1-312-555-0199,200 W Madison St Ste 1200,Chicago,IL,60606,US,$$$,5.0,64,41.8821,-87.6338,Mo-Fr 09:00-18:00
+Blue Wave Plumbing Pros,Plumber,https://bluewaveplumbing.example.com,+1-602-555-0182,4500 E Camelback Rd,Phoenix,AZ,85018,US,$$,4.7,310,33.5092,-111.9845,Mo-Su 00:00-24:00
+Prestige Real Estate Advisors,RealEstateAgent,https://prestigerealty.example.com,+1-305-555-0144,1111 Brickell Ave,Miami,FL,33131,US,$$$,4.9,89,25.7628,-80.1915,Mo-Sa 09:00-19:00
+Summit Auto Repair Center,AutoRepair,https://summitautorepair.example.com,+1-303-555-0177,1420 17th St,Denver,CO,80202,US,$$,4.8,175,39.7523,-104.9972,Mo-Fr 07:30-18:00
+Green Leaf Veterinary Hospital,VeterinaryCare,https://greenleafvet.example.com,+1-206-555-0122,2200 4th Ave,Seattle,WA,98121,US,$$,4.9,280,47.6152,-122.3421,Mo-Sa 08:00-20:00
+Oasis Wellness & Physical Therapy,MedicalClinic,https://oasiswellness.example.com,+1-415-555-0163,500 Sutter St,San Francisco,CA,94102,US,$$,4.9,112,37.7892,-122.4081,Mo-Fr 08:00-17:00
+Ironclad Roofing Specialists,RoofingContractor,https://ironcladroofs.example.com,+1-214-555-0155,2001 Ross Ave,Dallas,TX,75201,US,$$,4.8,190,32.7871,-96.7972,Mo-Fr 07:00-19:00

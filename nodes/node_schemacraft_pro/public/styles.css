@@ -256,7 +256,44 @@ body {
 .checkout-button:hover { transform: translateY(-2px); }
 .gumroad-btn { background: #ff90e8; color: #000; }
 .coffee-btn { background: #facc15; color: #000; }
+.download-pack-btn { background: #10b981; color: #fff; }
+.download-pack-btn:hover { background: #059669; }
 .guarantee-note { font-size: 0.8rem; color: var(--text-muted); text-align: center; }
+
+/* Mode Tabs */
+.mode-tabs { display: flex; gap: 8px; width: 100%; }
+.mode-btn {
+  flex: 1;
+  padding: 8px 12px;
+  background: var(--bg-input);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.mode-btn.active, .mode-btn:hover {
+  background: var(--primary);
+  color: #000;
+  border-color: var(--primary);
+}
+
+/* Bulk Preview */
+.bulk-toolbar { display: flex; gap: 10px; margin-bottom: 14px; }
+.bulk-preview-container {
+  background: #090d16;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.bulk-hint { color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 20px 0; }
+.bulk-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.bulk-table th { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); color: var(--primary); }
+.bulk-table td { padding: 6px 8px; border-bottom: 1px solid rgba(51, 65, 85, 0.4); color: #cbd5e1; }
 
 /* Footer */
 .footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 60px; }

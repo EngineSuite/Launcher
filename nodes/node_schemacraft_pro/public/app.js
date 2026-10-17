@@ -243,6 +243,121 @@
     URL.revokeObjectURL(url);
   });
 
+  // Mode Switching
+  const modeSingle = document.getElementById('modeSingle');
+  const modeBulk = document.getElementById('modeBulk');
+  const singleSection = document.getElementById('singleSection');
+  const bulkSection = document.getElementById('bulkSection');
+  const loadSampleCsvBtn = document.getElementById('loadSampleCsvBtn');
+  const uploadCsvBtn = document.getElementById('uploadCsvBtn');
+  const csvFileInput = document.getElementById('csvFileInput');
+  const bulkPreview = document.getElementById('bulkPreview');
+
+  modeSingle.addEventListener('click', () => {
+    modeSingle.classList.add('active');
+    modeBulk.classList.remove('active');
+    singleSection.style.display = 'block';
+    bulkSection.style.display = 'none';
+    generateSchema();
+  });
+
+  modeBulk.addEventListener('click', () => {
+    modeBulk.classList.add('active');
+    modeSingle.classList.remove('active');
+    singleSection.style.display = 'none';
+    bulkSection.style.display = 'block';
+  });
+
+  const sampleCsvData = [
+    { name: "Apex Dental Care - Downtown", category: "Dentist", url: "https://apexdental.example.com/downtown", phone: "+1-512-555-0101", street: "100 Congress Ave Ste 400", city: "Austin", region: "TX", postal_code: "78701", rating: "4.9", review_count: "142" },
+    { name: "Apex Dental Care - North Hills", category: "Dentist", url: "https://apexdental.example.com/north", phone: "+1-512-555-0102", street: "9400 Research Blvd", city: "Austin", region: "TX", postal_code: "78759", rating: "4.8", review_count: "98" },
+    { name: "Apex Dental Care - South Congress", category: "Dentist", url: "https://apexdental.example.com/south", phone: "+1-512-555-0103", street: "1600 S Congress Ave", city: "Austin", region: "TX", postal_code: "78704", rating: "4.9", review_count: "215" },
+    { name: "Horizon Legal Group", category: "Attorney", url: "https://horizonlegal.example.com", phone: "+1-312-555-0199", street: "200 W Madison St Ste 1200", city: "Chicago", region: "IL", postal_code: "60606", rating: "5.0", review_count: "64" },
+    { name: "Blue Wave Plumbing Pros", category: "Plumber", url: "https://bluewaveplumbing.example.com", phone: "+1-602-555-0182", street: "4500 E Camelback Rd", city: "Phoenix", region: "AZ", postal_code: "85018", rating: "4.7", review_count: "310" },
+    { name: "Prestige Real Estate Advisors", category: "RealEstateAgent", url: "https://prestigerealty.example.com", phone: "+1-305-555-0144", street: "1111 Brickell Ave", city: "Miami", region: "FL", postal_code: "33131", rating: "4.9", review_count: "89" },
+    { name: "Summit Auto Repair Center", category: "AutoRepair", url: "https://summitautorepair.example.com", phone: "+1-303-555-0177", street: "1420 17th St", city: "Denver", region: "CO", postal_code: "80202", rating: "4.8", review_count: "175" },
+    { name: "Green Leaf Veterinary Hospital", category: "VeterinaryCare", url: "https://greenleafvet.example.com", phone: "+1-206-555-0122", street: "2200 4th Ave", city: "Seattle", region: "WA", postal_code: "98121", rating: "4.9", review_count: "280" },
+    { name: "Oasis Wellness Physical Therapy", category: "MedicalClinic", url: "https://oasiswellness.example.com", phone: "+1-415-555-0163", street: "500 Sutter St", city: "San Francisco", region: "CA", postal_code: "94102", rating: "4.9", review_count: "112" },
+    { name: "Ironclad Roofing Specialists", category: "RoofingContractor", url: "https://ironcladroofs.example.com", phone: "+1-214-555-0155", street: "2001 Ross Ave", city: "Dallas", region: "TX", postal_code: "75201", rating: "4.8", review_count: "190" }
+  ];
+
+  function processAndDisplayLocations(locations) {
+    let tableHtml = `<table class="bulk-table">
+      <thead>
+        <tr><th>Location Name</th><th>Type</th><th>City, State</th><th>Rating</th></tr>
+      </thead>
+      <tbody>`;
+    
+    const graphNodes = [];
+    locations.forEach(loc => {
+      tableHtml += `<tr>
+        <td><strong>${loc.name}</strong></td>
+        <td>${loc.category || 'LocalBusiness'}</td>
+        <td>${loc.city || ''}, ${loc.region || ''}</td>
+        <td>⭐ ${loc.rating || '4.9'} (${loc.review_count || '100'})</td>
+      </tr>`;
+
+      graphNodes.push({
+        "@type": loc.category || "LocalBusiness",
+        "name": loc.name,
+        "url": loc.url,
+        "telephone": loc.phone,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": loc.street || "",
+          "addressLocality": loc.city || "",
+          "addressRegion": loc.region || "",
+          "postalCode": loc.postal_code || "",
+          "addressCountry": "US"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": loc.rating || "4.9",
+          "reviewCount": loc.review_count || "100"
+        }
+      });
+    });
+
+    tableHtml += `</tbody></table>`;
+    bulkPreview.innerHTML = tableHtml;
+
+    // Output unified Schema.org @graph
+    const fullGraph = {
+      "@context": "https://schema.org",
+      "@graph": graphNodes
+    };
+    jsonOutput.textContent = `<script type="application/ld+json">\n${JSON.stringify(fullGraph, null, 2)}\n</script>`;
+  }
+
+  loadSampleCsvBtn.addEventListener('click', () => {
+    processAndDisplayLocations(sampleCsvData);
+  });
+
+  uploadCsvBtn.addEventListener('click', () => {
+    csvFileInput.click();
+  });
+
+  csvFileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      const text = evt.target.result;
+      const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
+      if (lines.length < 2) return;
+      const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+      const parsed = [];
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',').map(v => v.trim());
+        const row = {};
+        headers.forEach((h, idx) => { row[h] = values[idx] || ''; });
+        if (row.name) parsed.push(row);
+      }
+      processAndDisplayLocations(parsed);
+    };
+    reader.readAsText(file);
+  });
+
   // Validation Test link to Google's official Rich Results Test
   validateBtn.addEventListener('click', () => {
     window.open('https://search.google.com/test/rich-results', '_blank');

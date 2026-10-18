@@ -36,6 +36,16 @@ def cmd_status(orchestrator: Orchestrator) -> None:
     print(f"Incorporation Goal  : ${milestone.get('total_revenue', 0):.2f} / ${milestone.get('threshold', 1500):.2f} (Chargebacks: {milestone.get('chargeback_count', 0)})")
     print(f"Entity Guidance     : {milestone.get('recommendation', '')}")
     print("-" * 70)
+    live_cloud = status.get("live_cloud")
+    if live_cloud:
+        c_icon = "✓" if live_cloud["overall_healthy"] else "⚠"
+        print(f"Live Cloud Host     : {c_icon} {live_cloud['provider']}")
+        print(f"Base Production URL : {live_cloud['base_url']}")
+        print("Live Cloud Probes   :")
+        for name, p in live_cloud.get("probes", {}).items():
+            st = f"✓ {p['status']} OK ({p.get('latency_ms', 0)}ms)" if p.get("healthy") else f"❌ {p.get('status', 'ERROR')}"
+            print(f"  • {name:<16} : {p['url']} [{st}]")
+        print("-" * 70)
     print(f"Active Nodes ({status['active_node_count']}):")
     if not status["active_nodes"]:
         print("  (No nodes deployed yet. Run 'python -m the_engine run' to launch one.)")
@@ -150,6 +160,9 @@ def main():
     fulfill_p.add_argument("--client-name", type=str, default=None, help="Customer name")
 
     deploy_p = subparsers.add_parser("deploy-prep", help="Compile and optimize all active nodes into /dist for GitHub Pages / Cloudflare Pages")
+
+    live_p = subparsers.add_parser("audit-live", help="Probe real-time health, latency, and uptime of the live cloud deployment")
+    live_p.add_argument("--url", type=str, default="https://neerajkukreti.github.io/Launcher/", help="Base URL of production deployment")
 
     daemon_p = subparsers.add_parser("daemon", help="Run The Engine continuously in the background")
     daemon_p.add_argument("--interval", type=int, default=3600, help="Check interval in seconds (default: 3600)")
@@ -325,6 +338,24 @@ def main():
         for n in res["deployed_nodes"]:
             print(f"  • {n['name']} ➔ Path: {n['path']}")
         print("\n✓ /dist is ready for instant deployment to GitHub Pages or Cloudflare Pages.")
+        print("=" * 70 + "\n")
+    elif args.command == "audit-live":
+        format_header("The Auditor :: Live Cloud Deployment & Uptime Sentinel")
+        cloud = orchestrator.auditor.probe_live_cloud_deployment(args.url)
+        c_icon = "✓" if cloud["overall_healthy"] else "⚠"
+        print(f"Provider       : {cloud['provider']}")
+        print(f"Base URL       : {cloud['base_url']}")
+        print(f"Overall Health : {c_icon} {'ALL SYSTEMS OPERATIONAL (200 OK)' if cloud['overall_healthy'] else 'INCIDENT DETECTED'}")
+        print(f"Timestamp      : {cloud['probed_at']}")
+        print("-" * 70)
+        print("Real-Time Endpoint Probes:")
+        for name, p in cloud["probes"].items():
+            if p.get("healthy"):
+                st = f"✓ {p['status']} OK (Latency: {p.get('latency_ms', 0)}ms)"
+            else:
+                st = f"❌ {p.get('status')} ({p.get('error', 'Unreachable')})"
+            print(f"  • {name:<16} : {p['url']}")
+            print(f"    ↳ Live Status: {st}")
         print("=" * 70 + "\n")
     elif args.command == "daemon":
         orchestrator.start_daemon(interval_seconds=args.interval, max_cycles=args.cycles)

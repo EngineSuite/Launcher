@@ -70,6 +70,56 @@ class AuditorAgent(BaseAgent):
             "pro_tier_present": has_pro
         }
 
+    def probe_live_cloud_deployment(self, base_url: str = "https://neerajkukreti.github.io/Launcher/") -> Dict[str, Any]:
+        """
+        Probes the live public cloud deployment (GitHub Pages / Cloudflare Pages)
+        to verify uptime, HTTP response codes, latency, and SSL integrity from local machine.
+        """
+        import urllib.request
+        import time
+
+        endpoints = {
+            "portal": base_url,
+            "schemacraft": f"{base_url.rstrip('/')}/schemacraft/",
+            "dev_cheatsheet": f"{base_url.rstrip('/')}/dev_cheatsheet/",
+            "meta_craft_og": f"{base_url.rstrip('/')}/meta_craft_og/"
+        }
+
+        results = {}
+        all_healthy = True
+
+        for name, url in endpoints.items():
+            start_time = time.time()
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": "TheEngine-Auditor-Sentinel/1.0"})
+                with urllib.request.urlopen(req, timeout=5) as resp:
+                    latency_ms = round((time.time() - start_time) * 1000, 1)
+                    status_code = resp.status
+                    healthy = status_code == 200
+                    results[name] = {
+                        "url": url,
+                        "status": status_code,
+                        "healthy": healthy,
+                        "latency_ms": latency_ms
+                    }
+            except Exception as e:
+                all_healthy = False
+                results[name] = {
+                    "url": url,
+                    "status": "OFFLINE_OR_UNREACHABLE",
+                    "healthy": False,
+                    "error": str(e),
+                    "latency_ms": None
+                }
+
+        return {
+            "provider": "GitHub Pages (Global Edge CDN)",
+            "base_url": base_url,
+            "overall_healthy": all_healthy,
+            "probes": results,
+            "probed_at": get_utc_iso()
+        }
+
     def evaluate_node_performance(
         self,
         node_id: str,

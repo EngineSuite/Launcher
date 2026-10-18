@@ -137,7 +137,7 @@ class Orchestrator:
         logger.info(f"=== Autonomous Cycle {cycle_id} Successfully Completed ===")
         return summary
 
-    def get_status(self) -> Dict[str, Any]:
+    def get_status(self, probe_cloud: bool = True) -> Dict[str, Any]:
         """Returns the real-time operational status of the entire engine."""
         active_nodes = self.isolation_mgr.list_active_nodes()
         archived_nodes = self.isolation_mgr.list_archived_nodes()
@@ -155,6 +155,8 @@ class Orchestrator:
                 "consecutive_neg": manifest.get("consecutive_negative_cycles", 0)
             }
 
+        cloud_status = self.auditor.probe_live_cloud_deployment() if probe_cloud else None
+
         return {
             "engine_state": "ACTIVE",
             "mode": "Autopilot by Default (95%+ Autonomy)",
@@ -163,6 +165,7 @@ class Orchestrator:
             "archived_node_count": len(archived_nodes),
             "active_nodes": node_details,
             "financial_summary": financials,
+            "live_cloud": cloud_status,
             "incorporation_milestone": self.auditor.check_incorporation_milestone(),
             "paused_hitl_nodes": list(self.hitl.paused_nodes.keys())
         }
@@ -170,7 +173,7 @@ class Orchestrator:
     def start_daemon(self, interval_seconds: int = 3600, max_cycles: Optional[int] = None) -> None:
         """
         Runs the engine continuously as a background daemon.
-        Periodically runs health audits, reviews node performance, and triggers Scout if needed.
+        Periodically runs health audits, reviews node performance, probes live cloud URLs, and triggers Scout if needed.
         """
         cycle_count = 0
         logger.info(f"The Engine Daemon started. Interval: {interval_seconds}s. Autopilot active.")
@@ -183,6 +186,11 @@ class Orchestrator:
                 print(f"[{now_str}] Daemon Cycle #{cycle_count}: Running active node audit...")
 
                 try:
+                    # Live Cloud Monitoring
+                    cloud_health = self.auditor.probe_live_cloud_deployment()
+                    c_icon = "✓" if cloud_health["overall_healthy"] else "⚠"
+                    print(f"  • Live Cloud ({cloud_health['provider']}): {c_icon} {'ALL ENDPOINTS HEALTHY (200 OK)' if cloud_health['overall_healthy'] else 'INCIDENT DETECTED'}")
+
                     active_nodes = self.isolation_mgr.list_active_nodes()
                     for nid in active_nodes:
                         audit_res = self.auditor.run({"node_id": nid, "daemon_mode": True})

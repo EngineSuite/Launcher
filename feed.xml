@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>EngineSuite - Free Developer Utilities &amp; Cloud Tools</title>
+    <link>https://enginesuite.github.io/Launcher/</link>
+    <description>Free high-performance developer utilities for SEO, SVGs, and cloud architectures.</description>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Oct 2026 14:52:05 +0000</lastBuildDate>
+    <atom:link href="https://enginesuite.github.io/Launcher/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>DevOps & Cloud Zero-Cost Architecture Playbook - Digital Asset & Developer Education</title>
+      <link>https://enginesuite.github.io/Launcher/dev_cheatsheet/</link>
+      <guid>https://enginesuite.github.io/Launcher/dev_cheatsheet/</guid>
+      <description>Developers waste hundreds on AWS/GCP bills because they don't know the exact zero-cost tier architecture combinations.</description>
+      <pubDate>Sun, 18 Oct 2026 14:52:05 +0000</pubDate>
+    </item>
+    <item>
+      <title>MetaCraft - Automated OpenGraph & Social Card Engine - Creator & Marketer Utility</title>
+      <link>https://enginesuite.github.io/Launcher/meta_craft_og/</link>
+      <guid>https://enginesuite.github.io/Launcher/meta_craft_og/</guid>
+      <description>Every blog post and tweet needs branded social cards, but manual Canva design is time-consuming.</description>
+      <pubDate>Sun, 18 Oct 2026 14:52:05 +0000</pubDate>
+    </item>
+    <item>
+      <title>SchemaCraft Pro - Programmatic JSON-LD Schema Generator & Local SEO Suite - B2B Developer & SEO Micro-Utility</title>
+      <link>https://enginesuite.github.io/Launcher/schemacraft/</link>
+      <guid>https://enginesuite.github.io/Launcher/schemacraft/</guid>
+      <description>Google search requires JSON-LD schema for rich snippets, but manual JSON creation is error-prone and existing tools charge $49+/mo.</description>
+      <pubDate>Sun, 18 Oct 2026 14:52:05 +0000</pubDate>
+    </item>
+    <item>
+      <title>SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter - Frontend Developer & Designer Micro-Tool</title>
+      <link>https://enginesuite.github.io/Launcher/svg_craft/</link>
+      <guid>https://enginesuite.github.io/Launcher/svg_craft/</guid>
+      <description>Raw SVG files from Figma/Illustrator are bloated with editor metadata, oversized path decimals, and non-standard attributes that slow page load.</description>
+      <pubDate>Sun, 18 Oct 2026 14:52:05 +0000</pubDate>
+    </item>
+    <item>
+      <title>Free Local Business JSON-LD Schema Generator | Google Maps Rich Snippets</title>
+      <link>https://enginesuite.github.io/Launcher/schemacraft/local-seo/</link>
+      <guid>https://enginesuite.github.io/Launcher/schemacraft/local-seo/</guid>
+      <description>Free Local Business JSON-LD Schema Generator | Google Maps Rich Snippets - 100% free client-side browser utility.</description>
+      <pubDate>Sun, 18 Oct 2026 14:52:05 +0000</pubDate>
+    </item>
+    <item>
+      <title>Free FAQ Schema Generator | Expand Google SERP Rich Snippets</title>
+      <link>https://enginesuite.github.io/Launcher/schemacraft/faq-schema/</link>
+      <guid>https://enginesuite.github.io/Launcher/schemacraft/faq-schema/</guid>
+      <description>Free FAQ Schema Generator | Expand Google SERP Rich Snippets - 100% free client-side browser utility.</description>
+      <pubDate>Sun, 18 Oct 2026 14:52:05 +0000</pubDate>
+    </item>
+    <item>
+      <title>Free Product Schema Markup Generator | Rich Price &amp; Star Ratings</title>
+      <link>https://enginesuite.github.io/Launcher/schemacraft/product-schema/</link>
+      <guid>https://enginesuite.github.io/Launcher/schemacraft/product-schema/</guid>
+      <description>Free Product Schema Markup Generator | Rich Price &amp; Star Ratings - 100% free client-side browser utility.</description>
+      <pubDate>Sun, 18 Oct 2026 14:52:05 +0000</pubDate>
+    </item>
+    <item>
+      <title>Free How-To Schema Generator | Google Step-by-Step Rich Snippets</title>
+      <link>https://enginesuite.github.io/Launcher/schemacraft/howto-schema/</link>
+      <guid>https://enginesuite.github.io/Launcher/schemacraft/howto-schema/</guid>
+      <description>Free How-To Schema Generator | Google Step-by-Step Rich Snippets - 100% free client-side browser utility.</description>
+      <pubDate>Sun, 18 Oct 2026 14:52:05 +0000</pubDate>
+    </item>
+    <item>
+      <title>Convert SVG to React Component Online (Free JSX Code Exporter)</title>
+      <link>https://enginesuite.github.io/Launcher/svg_craft/svg-to-react/</link>
+      <guid>https://enginesuite.github.io/Launcher/svg_craft/svg-to-react/</guid>
+      <description>Convert SVG to React Component Online (Free JSX Code Exporter) - 100% free client-side browser utility.</description>
+      <pubDate>Sun, 18 Oct 2026 14:52:05 +0000</pubDate>
+    </item>
+    <item>
+      <title>Convert SVG to Vue Component Online (Free Vue 3 Template Exporter)</title>
+      <link>https://enginesuite.github.io/Launcher/svg_craft/svg-to-vue/</link>
+      <guid>https://enginesuite.github.io/Launcher/svg_craft/svg-to-vue/</guid>
+      <description>Convert SVG to Vue Component Online (Free Vue 3 Template Exporter) - 100% free client-side browser utility.</description>
+      <pubDate>Sun, 18 Oct 2026 14:52:05 +0000</pubDate>
+    </item>
+    <item>
+      <title>Free Online SVG Optimizer &amp; Minifier | Strip Bloat &amp; Compress</title>
+      <link>https://enginesuite.github.io/Launcher/svg_craft/svg-optimizer/</link>
+      <guid>https://enginesuite.github.io/Launcher/svg_craft/svg-optimizer/</guid>
+      <description>Free Online SVG Optimizer &amp; Minifier | Strip Bloat &amp; Compress - 100% free client-side browser utility.</description>
+      <pubDate>Sun, 18 Oct 2026 14:52:05 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

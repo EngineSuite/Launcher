@@ -12,13 +12,19 @@ const vm = require('vm');
 function runFlowTest(publicDirPath) {
   const publicDir = path.resolve(publicDirPath);
   const htmlPath = path.join(publicDir, 'index.html');
-  const jsPath = path.join(publicDir, 'app.js');
-
   if (!fs.existsSync(htmlPath)) {
     return {
       success: false,
       error: `index.html not found in ${publicDir}`
     };
+  }
+
+  let jsPath = path.join(publicDir, 'app.js');
+  if (!fs.existsSync(jsPath)) {
+    const parentJs = path.join(publicDir, '..', 'app.js');
+    if (fs.existsSync(parentJs)) {
+      jsPath = parentJs;
+    }
   }
 
   const htmlContent = fs.readFileSync(htmlPath, 'utf-8');

@@ -7,3 +7,4 @@ __pycache__/
 htmlcov/
 .vs/
 nodes/archived/
+the_engine/storage/*.log

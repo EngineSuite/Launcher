@@ -4,6 +4,20 @@ Hyper-autonomous, self-correcting multi-agent orchestration layer designed to di
 
 ---
 
+## ⚡ Live Production Developer Tools & Micro-SaaS Suite
+
+All applications below are **100% free, run client-side in your browser, require zero signups**, and are hosted globally on high-speed zero-cost edge infrastructure:
+
+| Tool & Description | Live URL | Core Capability | Pro Upgrade ($19) |
+| :--- | :--- | :--- | :--- |
+| **SchemaCraft Pro**<br>Instant JSON-LD Schema Generator & Local SEO Suite | [Launch Tool ↗](https://enginesuite.github.io/Launcher/schemacraft/) | 8 Schema types, live syntax validation, 1-click rich snippet code | Bulk CSV Importer (100+ locations), Whitelabel Embed, 30+ Templates |
+| **SVGCraft Studio**<br>Client-Side SVG Optimizer & Component Exporter | [Launch Tool ↗](https://enginesuite.github.io/Launcher/svg_craft/) | Strip bloat, precision decimals, instant React/Vue/SVG code export | 500+ Curated UI Vector Bundle & Agency Commercial Pack |
+| **MetaCraft OG**<br>Automated OpenGraph & Social Card Engine | [Launch Tool ↗](https://enginesuite.github.io/Launcher/meta_craft_og/) | Live 1200x630 canvas preview, custom themes, 1-click high-res PNG | 50+ Social Card Presets & Custom Font Engine Pack |
+| **CloudZero Vault**<br>Interactive $0-Cost Cloud Architecture Playbook | [Launch Tool ↗](https://enginesuite.github.io/Launcher/dev_cheatsheet/) | Real-time AWS vs $0 stack calculator, 9 verified free-tier services | Offline PDF Playbook, IaC Terraform Templates & DevOps Cheat Sheets |
+
+🌐 **Master Portal Hub:** [https://enginesuite.github.io/Launcher/](https://enginesuite.github.io/Launcher/)  
+Sitemap & Search Index: [sitemap.xml](https://enginesuite.github.io/Launcher/sitemap.xml)
+
 ## ⚡ Agent Architecture & Roles
 
 1. **The Scout (Market Intelligence):**
@@ -84,9 +98,26 @@ python -m unittest discover -s the_engine/tests
 
 ## 📦 Active Revenue Nodes
 
-### `node_schemacraft_pro` (SchemaCraft Pro)
+### 1. `node_schemacraft_pro` (SchemaCraft Pro)
+- **Live Tool:** [https://enginesuite.github.io/Launcher/schemacraft/](https://enginesuite.github.io/Launcher/schemacraft/)
 - **Category:** B2B Developer & Local SEO Micro-Utility
-- **Stack:** Responsive HTML5 / Modern CSS / Vanilla JS + Python Micro-API
 - **Free Tier:** Instant JSON-LD generation for 8 Schema types (LocalBusiness, Organization, Product, FAQ, HowTo, Article, Event, JobPosting) + live preview & Google test link.
-- **Agency Pro ($19):** Bulk CSV Importer, Whitelabel Embed rights, and 30+ Schema templates.
-- **Status:** Built, audited, and distribution-ready.
+- **Agency Pro ($19):** Bulk CSV Importer, Whitelabel Embed rights, Automated Validator CLI, and 30+ Schema templates.
+
+### 2. `node_svg_craft_studio` (SVGCraft Studio)
+- **Live Tool:** [https://enginesuite.github.io/Launcher/svg_craft/](https://enginesuite.github.io/Launcher/svg_craft/)
+- **Category:** Frontend & Design System Utility
+- **Free Tier:** Browser-native SVG optimizer, metadata stripper, viewBox normalizer, and instant React JSX / Vue component exporter.
+- **Pro Agency Pack ($19):** 500+ Curated UI Vector Icon Library + Commercial Resale Rights.
+
+### 3. `node_meta_craft_og` (MetaCraft OG)
+- **Live Tool:** [https://enginesuite.github.io/Launcher/meta_craft_og/](https://enginesuite.github.io/Launcher/meta_craft_og/)
+- **Category:** Social Media & Content Marketing Engine
+- **Free Tier:** Client-side 1200x630 HTML5 Canvas social card generator, live gradient themes, instant high-res PNG export.
+- **Pro Creator Pack ($19):** 50+ Modern Social Card Templates + Dynamic Canvas Typography Pack.
+
+### 4. `node_dev_cheatsheet_vault` (CloudZero Vault)
+- **Live Tool:** [https://enginesuite.github.io/Launcher/dev_cheatsheet/](https://enginesuite.github.io/Launcher/dev_cheatsheet/)
+- **Category:** Cloud Architecture & DevOps Calculator
+- **Free Tier:** Interactive annual cloud cost savings estimator vs. AWS, directory of 9 verified forever-free developer services.
+- **Master Playbook Pack ($19):** Complete Offline Architecture Playbook, Terraform & Docker Zero-Cost Blueprints.

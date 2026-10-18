@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Online SVG Optimizer &amp; Minifier | Strip Bloat &amp; Compress</title>
+  <meta name="description" content="Shrink SVG file sizes by up to 70% in your browser. Strip Inkscape/Illustrator metadata, round decimal coordinates, and minify markup.">
+  <link rel="stylesheet" href="../styles.css">
+<link rel="canonical" href="https://enginesuite.github.io/Launcher/svg_craft/svg-optimizer/">
+</head>
+<body>
+  <header class="header">
+    <div class="logo-area">
+      <div class="logo-icon">&#x2728;</div>
+      <div class="logo-text">
+        <span class="logo-title">SVGCraft Studio</span>
+        <p class="tagline">Instant SVG Optimizer &amp; Icon Component Exporter</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="upgradeBtn" class="btn btn-pro">&#x26A1; Get Agency Pro ($14)</button>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <section class="hero">
+      <h1 class="hero-title">Optimize, Clean, and Export SVG Vectors in Seconds</h1>
+      <p class="hero-sub">High-performance SVG optimizer. Eliminate wasted bytes, clean paths, and boost website load speed.</p>
+    </section>
+
+    <div class="app-layout">
+      <!-- Input & Controls Section -->
+      <section class="controls-card">
+        <div class="section-title-row">
+          <h3>Paste Raw SVG Code</h3>
+          <button id="loadSampleBtn" class="btn btn-ghost btn-sm">Load Sample Icon</button>
+        </div>
+
+        <textarea id="svgInput" placeholder="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>...">&lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64.000000" height="64.000000" viewBox="0 0 64.000000 64.000000"&gt;
+  &lt;!-- Generator: Figma to Web Export 2026 --&gt;
+  &lt;metadata&gt;&lt;title&gt;Sample Icon&lt;/title&gt;&lt;/metadata&gt;
+  &lt;g id="layer1"&gt;
+    &lt;path fill="#38bdf8" d="M32.000000 4.000000 L56.000000 16.000000 L56.000000 40.000000 L32.000000 52.000000 L8.000000 40.000000 L8.000000 16.000000 Z" stroke="#0284c7" stroke-width="2.500000"/&gt;
+    &lt;path fill="#ffffff" d="M32.000000 20.000000 L44.000000 26.000000 L44.000000 38.000000 L32.000000 44.000000 L20.000000 38.000000 L20.000000 26.000000 Z"/&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</textarea>
+
+        <div class="options-box">
+          <h4>Optimization Settings</h4>
+          <div class="checkbox-grid">
+            <label class="checkbox-label">
+              <input type="checkbox" id="optMetadata" checked> Strip Editor Metadata &amp; Comments
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="optViewbox" checked> Enforce Responsive viewBox
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="optDecimals" checked> Round Coordinates (2 Decimals)
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="optCurrentColor"> Use currentColor for Fills
+            </label>
+          </div>
+        </div>
+
+        <div class="action-btn-row">
+          <button id="optimizeBtn" class="btn btn-primary btn-full">&#x26A1; Optimize SVG Now</button>
+        </div>
+      </section>
+
+      <!-- Live Preview & Export Section -->
+      <section class="preview-card">
+        <div class="preview-header">
+          <h3>Optimized Vector Output</h3>
+          <div id="statsBadge" class="stats-badge">Ready to optimize</div>
+        </div>
+
+        <!-- Rendered Vector Viewport -->
+        <div class="svg-viewport">
+          <div id="svgPreviewContainer" class="preview-render-box">
+            <svg id="samplePreview" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Export Tabs -->
+        <div class="export-tabs">
+          <button class="tab-btn active" data-tab="tabSvg">Clean SVG</button>
+          <button class="tab-btn" data-tab="tabReact">React JSX</button>
+          <button class="tab-btn" data-tab="tabVue">Vue 3</button>
+        </div>
+
+        <textarea id="codeOutput" readonly></textarea>
+
+        <div class="copy-actions-row">
+          <button id="copyCodeBtn" class="btn btn-primary">&#x1F4CB; Copy Code</button>
+          <button id="downloadSvgBtn" class="btn btn-secondary">&#x2B07; Download .SVG</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Commercial / Agency Pro Offer -->
+    <section class="pro-showcase">
+      <div class="pro-header">
+        <span class="pro-badge">AGENCY PRO PACK</span>
+        <h2>High-Velocity SVG Toolkit for Developers &amp; Studios</h2>
+        <p>Take your asset pipeline to the next level with bulk processing and commercial vector blueprints.</p>
+      </div>
+
+      <div class="pro-features-grid">
+        <div class="pro-feature-item">
+          <div class="pro-icon">&#x1F5C3;&#xFE0F;</div>
+          <h4>500+ Curated UI Vector Icons</h4>
+          <p>Production-ready SVG icons formatted for Lucide/Heroicons standard. Clean, pixel-perfect, 24x24 grid.</p>
+        </div>
+        <div class="pro-feature-item">
+          <div class="pro-icon">&#x2699;&#xFE0F;</div>
+          <h4>Python/Node CLI Batch Optimizer</h4>
+          <p>Minify an entire directory of 1,000+ SVGs in one terminal command during your CI/CD build.</p>
+        </div>
+        <div class="pro-feature-item">
+          <div class="pro-icon">&#x1F4E6;</div>
+          <h4>Automated SVG Sprite Compiler</h4>
+          <p>Merge hundreds of icons into a single ultra-cached &lt;symbol&gt; sprite sheet for instant load.</p>
+        </div>
+        <div class="pro-feature-item">
+          <div class="pro-icon">&#x1F6E1;&#xFE0F;</div>
+          <h4>Commercial Whitelabel Rights</h4>
+          <p>Use in unlimited client projects, SaaS web applications, and commercial templates with zero attribution.</p>
+        </div>
+      </div>
+
+      <div class="pro-cta-card">
+        <div class="pro-price-col">
+          <span class="price-strike">$49</span>
+          <span class="price-val">$14</span>
+          <span class="price-sub">One-time payment &bull; Lifetime access</span>
+        </div>
+        <div class="pro-action-col">
+          <button id="proOrderBtn" class="btn btn-pro btn-lg">&#x26A1; Unlock Agency Pro Pack ($14)</button>
+          <p class="guarantee-text">&#x1F6E1;&#xFE0F; 30-Day 100% Money-Back Guarantee &bull; Instant ZIP Delivery</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Direct Order Fallback & Order Desk -->
+    <section class="order-desk">
+      <h3>Need Custom Invoice or Team Procurement?</h3>
+      <p>Direct manual dispatch and support is available 24/7. Email our dispatch desk for instant keys:</p>
+      <a href="mailto:businessbloke957@gmail.com?subject=SVGCraft%20Pro%20Order" class="desk-link">businessbloke957@gmail.com</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 SVGCraft Studio &bull; Fast, zero-dependency client-side vector tools. 30-Day Money-Back Guarantee.</p>
+  </footer>
+
+  <!-- Modal for Pro Checkout -->
+  <div id="checkoutModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Unlock SVGCraft Agency Pro Pack</h3>
+        <button id="closeModalBtn" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Instant deliverable pack includes 500+ UI vectors, CLI batch optimizer script, sprite sheet compiler, and commercial license.</p>
+        <div class="order-box">
+          <div class="price-row">
+            <span>SVGCraft Pro Lifetime License</span>
+            <strong>$14.00 USD</strong>
+          </div>
+          <p class="note">To order, send <strong>$14.00</strong> via Gumroad/Lemon Squeezy or contact our dispatch desk directly:</p>
+          <a href="mailto:businessbloke957@gmail.com?subject=SVGCraft%20Pro%20Order" class="btn btn-primary btn-full">Order via Email (Instant Dispatch)</a>
+        </div>
+        <p class="modal-guarantee">&#x2714; 30-Day Money-Back Guarantee included. Strict AS-IS software warranty.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="../app.js"></script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', function() {
+    var tab = document.getElementById('tabSvg');
+    if (tab) tab.click();
+  });
+</script>
+</body>
+</html>

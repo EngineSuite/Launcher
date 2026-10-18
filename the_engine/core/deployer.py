@@ -6,8 +6,10 @@ Ready for 100% free hosting on GitHub Pages, Cloudflare Pages, or Vercel Hobby.
 
 import shutil
 import json
+import re
 from pathlib import Path
 from typing import Dict, Any, List
+from datetime import datetime, timezone
 
 from the_engine.core.isolation import NodeIsolationManager
 from the_engine.config import get_utc_iso, BASE_DIR
@@ -70,11 +72,15 @@ class DeploymentManager:
         # Generate Master Portal Hub (dist/index.html)
         self._generate_portal_hub(deployed_nodes)
 
+        # Generate Programmatic SEO Landing Pages
+        programmatic_pages = self._generate_programmatic_landing_pages(deployed_nodes)
+
         # Generate Platform Configs
         self._generate_platform_configs(deployed_nodes)
 
-        # Generate Production Sitemap & Robots.txt
-        self._generate_seo_metadata(deployed_nodes)
+        # Generate Production Sitemap, RSS Feed & Robots.txt
+        self._generate_seo_metadata(deployed_nodes, programmatic_pages)
+        self._generate_rss_feed(deployed_nodes, programmatic_pages)
 
         # Calculate asset stats
         total_kb = sum(f.stat().st_size for f in self.dist_dir.rglob("*.*") if f.is_file()) / 1024.0
@@ -246,7 +252,191 @@ class DeploymentManager:
             redirects_content += f"/{n['slug']}  /{n['slug']}/  301\n"
         (self.dist_dir / "_redirects").write_text(redirects_content, encoding="utf-8")
 
-    def _generate_seo_metadata(self, deployed_nodes: List[Dict[str, Any]]) -> None:
+    def _generate_programmatic_landing_pages(self, deployed_nodes: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Generates high-intent, long-tail programmatic SEO landing sub-pages for active tools.
+        Directly targets organic searches like 'Local Business JSON-LD Generator',
+        'Convert SVG to React Component', 'FAQ Schema Markup Generator', etc.
+        """
+        base_url = "https://enginesuite.github.io/Launcher"
+        programmatic_pages = []
+
+        # 1. SchemaCraft Programmatic Pages
+        schemacraft_dir = self.dist_dir / "schemacraft"
+        schemacraft_index = schemacraft_dir / "index.html"
+        if schemacraft_index.exists():
+            base_html = schemacraft_index.read_text(encoding="utf-8")
+            adapted_html = base_html.replace('href="styles.css"', 'href="../styles.css"').replace('src="app.js"', 'src="../app.js"')
+
+            schema_niches = [
+                {
+                    "slug": "local-seo",
+                    "title": "Free Local Business JSON-LD Schema Generator | Google Maps Rich Snippets",
+                    "desc": "Generate 100% valid LocalBusiness JSON-LD schema for dentists, restaurants, lawyers, and local shops. Boost Google Maps rankings and local SERP rich snippets.",
+                    "h1": 'Generate Local Business Schema for <span class="gradient-text">Google Maps &amp; Local SEO</span>',
+                    "sub": 'Create Google-compliant LocalBusiness structured data in seconds. Boost local pack visibility with zero code.',
+                    "type": "LocalBusiness"
+                },
+                {
+                    "slug": "faq-schema",
+                    "title": "Free FAQ Schema Generator | Expand Google SERP Rich Snippets",
+                    "desc": "Generate verified FAQPage JSON-LD schema to double your search result footprint. Expand Google SERP accordions and increase organic CTR.",
+                    "h1": 'Generate FAQ Page Schema for <span class="gradient-text">Instant Google Snippets</span>',
+                    "sub": 'Format FAQs into Google-recognized structured data to trigger rich accordion dropdowns on search results.',
+                    "type": "FAQPage"
+                },
+                {
+                    "slug": "product-schema",
+                    "title": "Free Product Schema Markup Generator | Rich Price &amp; Star Ratings",
+                    "desc": "Generate Google Product schema with prices, availability, and review ratings. Maximize e-commerce search click-through rates.",
+                    "h1": 'Generate Product Schema for <span class="gradient-text">Google Search Rich Snippets</span>',
+                    "sub": 'Embed verified price, stock status, and star rating schema into your product pages in seconds.',
+                    "type": "Product"
+                },
+                {
+                    "slug": "howto-schema",
+                    "title": "Free How-To Schema Generator | Google Step-by-Step Rich Snippets",
+                    "desc": "Generate Google HowTo schema for step-by-step guides, tutorials, and DIY instructions. Rank with image and carousel rich results.",
+                    "h1": 'Generate How-To Schema for <span class="gradient-text">Step-by-Step Rich Snippets</span>',
+                    "sub": 'Turn instructional guides into interactive Google step-by-step cards with zero coding.',
+                    "type": "HowTo"
+                }
+            ]
+
+            for niche in schema_niches:
+                page_dir = schemacraft_dir / niche["slug"]
+                page_dir.mkdir(parents=True, exist_ok=True)
+                
+                page_html = adapted_html
+                page_html = re.sub(r'<title>.*?</title>', f'<title>{niche["title"]}</title>', page_html)
+                page_html = re.sub(r'<meta name="description" content=".*?">', f'<meta name="description" content="{niche["desc"]}">', page_html)
+                page_html = re.sub(r'<h1>.*?</h1>', f'<h1>{niche["h1"]}</h1>', page_html, flags=re.DOTALL)
+                page_html = re.sub(r'<p class="hero-sub">.*?</p>', f'<p class="hero-sub">{niche["sub"]}</p>', page_html, flags=re.DOTALL)
+                canonical_tag = f'<link rel="canonical" href="{base_url}/schemacraft/{niche["slug"]}/">\n</head>'
+                page_html = page_html.replace('</head>', canonical_tag)
+                
+                inject_script = f"""
+<script>
+  window.addEventListener('DOMContentLoaded', function() {{
+    var sel = document.getElementById('schemaType');
+    if (sel) {{
+      sel.value = '{niche["type"]}';
+      sel.dispatchEvent(new Event('change'));
+    }}
+  }});
+</script>
+</body>"""
+                page_html = page_html.replace('</body>', inject_script)
+                (page_dir / "index.html").write_text(page_html, encoding="utf-8")
+
+                programmatic_pages.append({
+                    "url": f"{base_url}/schemacraft/{niche['slug']}/",
+                    "title": niche["title"],
+                    "priority": "0.9"
+                })
+
+        # 2. SVGCraft Programmatic Pages
+        svg_dir = self.dist_dir / "svg_craft"
+        svg_index = svg_dir / "index.html"
+        if svg_index.exists():
+            base_html = svg_index.read_text(encoding="utf-8")
+            adapted_html = base_html.replace('href="styles.css"', 'href="../styles.css"').replace('src="app.js"', 'src="../app.js"')
+
+            svg_niches = [
+                {
+                    "slug": "svg-to-react",
+                    "title": "Convert SVG to React Component Online (Free JSX Code Exporter)",
+                    "desc": "Instantly convert raw SVG code into production-ready React JSX components with zero setup. Strips junk metadata and normalizes attributes.",
+                    "h1": 'Convert SVG to React Component <span class="gradient-text">Instantly in Browser</span>',
+                    "sub": 'Client-side SVG to JSX code exporter. Clean attributes, viewBox scaling, and TypeScript-ready code.',
+                    "active_tab": "tabReact"
+                },
+                {
+                    "slug": "svg-to-vue",
+                    "title": "Convert SVG to Vue Component Online (Free Vue 3 Template Exporter)",
+                    "desc": "Instantly convert SVG code into clean Vue 3 Single File Components (SFC). Clean props, scoped styling, and lightweight payload.",
+                    "h1": 'Convert SVG to Vue Component <span class="gradient-text">Instantly in Browser</span>',
+                    "sub": 'Client-side SVG to Vue template generator. Ready for Vue 3 and Nuxt.js projects.',
+                    "active_tab": "tabVue"
+                },
+                {
+                    "slug": "svg-optimizer",
+                    "title": "Free Online SVG Optimizer &amp; Minifier | Strip Bloat &amp; Compress",
+                    "desc": "Shrink SVG file sizes by up to 70% in your browser. Strip Inkscape/Illustrator metadata, round decimal coordinates, and minify markup.",
+                    "h1": 'Optimize &amp; Compress SVG Code <span class="gradient-text">Directly in Browser</span>',
+                    "sub": 'High-performance SVG optimizer. Eliminate wasted bytes, clean paths, and boost website load speed.',
+                    "active_tab": "tabSvg"
+                }
+            ]
+
+            for niche in svg_niches:
+                page_dir = svg_dir / niche["slug"]
+                page_dir.mkdir(parents=True, exist_ok=True)
+                page_html = adapted_html
+                page_html = re.sub(r'<title>.*?</title>', f'<title>{niche["title"]}</title>', page_html)
+                page_html = re.sub(r'<meta name="description" content=".*?">', f'<meta name="description" content="{niche["desc"]}">', page_html)
+                page_html = re.sub(r'<h1>.*?</h1>', f'<h1>{niche["h1"]}</h1>', page_html, flags=re.DOTALL)
+                page_html = re.sub(r'<p class="hero-sub">.*?</p>', f'<p class="hero-sub">{niche["sub"]}</p>', page_html, flags=re.DOTALL)
+                canonical_tag = f'<link rel="canonical" href="{base_url}/svg_craft/{niche["slug"]}/">\n</head>'
+                page_html = page_html.replace('</head>', canonical_tag)
+
+                inject_script = f"""
+<script>
+  window.addEventListener('DOMContentLoaded', function() {{
+    var tab = document.getElementById('{niche["active_tab"]}');
+    if (tab) tab.click();
+  }});
+</script>
+</body>"""
+                page_html = page_html.replace('</body>', inject_script)
+                (page_dir / "index.html").write_text(page_html, encoding="utf-8")
+
+                programmatic_pages.append({
+                    "url": f"{base_url}/svg_craft/{niche['slug']}/",
+                    "title": niche["title"],
+                    "priority": "0.9"
+                })
+
+        return programmatic_pages
+
+    def _generate_rss_feed(self, deployed_nodes: List[Dict[str, Any]], programmatic_pages: List[Dict[str, Any]] = None) -> None:
+        """Generates RSS 2.0 XML feed for aggregators, RSS subscribers, and search bots."""
+        base_url = "https://enginesuite.github.io/Launcher"
+        build_date = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S +0000")
+        items_xml = []
+        for n in deployed_nodes:
+            items_xml.append(f"""    <item>
+      <title>{n['name']} - {n['category']}</title>
+      <link>{base_url}/{n['slug']}/</link>
+      <guid>{base_url}/{n['slug']}/</guid>
+      <description>{n['problem']}</description>
+      <pubDate>{build_date}</pubDate>
+    </item>""")
+        if programmatic_pages:
+            for p in programmatic_pages:
+                items_xml.append(f"""    <item>
+      <title>{p['title']}</title>
+      <link>{p['url']}</link>
+      <guid>{p['url']}</guid>
+      <description>{p['title']} - 100% free client-side browser utility.</description>
+      <pubDate>{build_date}</pubDate>
+    </item>""")
+        rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>EngineSuite - Free Developer Utilities &amp; Cloud Tools</title>
+    <link>{base_url}/</link>
+    <description>Free high-performance developer utilities for SEO, SVGs, and cloud architectures.</description>
+    <language>en-us</language>
+    <lastBuildDate>{build_date}</lastBuildDate>
+    <atom:link href="{base_url}/feed.xml" rel="self" type="application/rss+xml"/>
+{chr(10).join(items_xml)}
+  </channel>
+</rss>
+"""
+        (self.dist_dir / "feed.xml").write_text(rss_xml, encoding="utf-8")
+
+    def _generate_seo_metadata(self, deployed_nodes: List[Dict[str, Any]], programmatic_pages: List[Dict[str, Any]] = None) -> None:
         """Generates production sitemap.xml and robots.txt for search engines."""
         base_url = "https://enginesuite.github.io/Launcher"
         today = get_utc_iso()[:10]
@@ -255,7 +445,7 @@ class DeploymentManager:
             f"""  <url>
     <loc>{base_url}/</loc>
     <lastmod>{today}</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>"""
         ]
@@ -269,6 +459,17 @@ class DeploymentManager:
     <priority>0.8</priority>
   </url>"""
             )
+
+        if programmatic_pages:
+            for p in programmatic_pages:
+                sitemap_entries.append(
+                    f"""  <url>
+    <loc>{p['url']}</loc>
+    <lastmod>{today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>{p.get('priority', '0.9')}</priority>
+  </url>"""
+                )
 
         sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

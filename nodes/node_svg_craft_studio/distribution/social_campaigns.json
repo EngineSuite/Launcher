@@ -1,0 +1,26 @@
+{
+  "twitter_x_launch_thread": [
+    "\ud83e\uddf5 Developers & Creators: Stop paying monthly subscriptions for basic SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter.\n\nRaw SVG files from Figma/Illustrator are bloated with editor metadata, oversized path decimals, and non-standard attributes that slow page load.\n\nI built a 100% free, client-side utility that solves this instantly in your browser.\n\nZero ads. Zero logins. Pure utility \ud83d\udc47",
+    "1/ Why this exists:\nMost alternatives force you into accounts, collect your data, or gate essential features behind $29/mo plans.\n\nThis runs entirely in your browser with zero server overhead \u2014 meaning sub-50ms speed and total data privacy.",
+    "2/ Try the free tool live right now:\n\ud83d\udd17 https://enginesuite.github.io/Launcher/svg_craft/\n\nFor power users and teams who need batch exports and agency commercial rights, the Pro Pack is available for just $14 one-time for Batch Sprite Sheet Compiler, 500+ Curated UI Icon Vector Pack & Commercial Embed License. lifetime."
+  ],
+  "indie_hackers_post": {
+    "title": "I built SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter with $0 upfront infrastructure \u2014 Live on GitHub Pages",
+    "body": "Hey IH! I was tired of bloated, subscription-gated tools for SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter. I engineered a lightweight, zero-dependency browser tool hosted 100% free on GitHub Pages.\n\nLive tool: https://enginesuite.github.io/Launcher/svg_craft/\n\nWould love your feedback on the UX and conversion flow!"
+  },
+  "reddit_value_post": {
+    "subreddit": "r/webdev",
+    "title": "Free Tool: SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter (No signups, client-side, zero tracking)",
+    "content": "Hey everyone, built a lightweight, privacy-first tool for SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter. Runs 100% client-side in the browser, no ads or tracking scripts.\n\nLink: https://enginesuite.github.io/Launcher/svg_craft/\n\nHope this saves you time in your projects! Any feature requests, drop them below."
+  },
+  "dev_to_article": {
+    "title": "How to Solve SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter Without Paying Monthly SaaS Fees",
+    "tags": [
+      "webdev",
+      "javascript",
+      "productivity",
+      "opensource"
+    ],
+    "markdown_body": "# Solving SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter Without Monthly Subscriptions\n\nRaw SVG files from Figma/Illustrator are bloated with editor metadata, oversized path decimals, and non-standard attributes that slow page load.\n\nInstead of paying recurring SaaS fees, you can use client-side browser capabilities to get this done in seconds.\n\n## Live Free Tool\nCheck out the free tool here: [SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter](https://enginesuite.github.io/Launcher/svg_craft/)\n\n### Key Benefits:\n- \u26a1 Sub-50ms cold start\n- \ud83d\udd12 100% client-side privacy (no data leaves your machine)\n- \ud83d\udcb0 Zero upfront cost or subscription lock-in\n"
+  }
+}

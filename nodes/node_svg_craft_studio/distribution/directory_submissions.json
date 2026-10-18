@@ -1,0 +1,56 @@
+{
+  "directories": [
+    {
+      "name": "Toolify.ai",
+      "category": "Frontend Developer & Designer Micro-Tool",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/svg_craft/"
+    },
+    {
+      "name": "ProductHunt",
+      "pricing_model": "Free + Pro Upgrade",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/svg_craft/"
+    },
+    {
+      "name": "AlternativeTo.net",
+      "target_alternative": "Commercial Alternatives",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/svg_craft/"
+    },
+    {
+      "name": "LaunchingNext",
+      "category": "Frontend Developer & Designer Micro-Tool",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/svg_craft/"
+    },
+    {
+      "name": "BetaList",
+      "category": "Early Access Tools",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/svg_craft/"
+    },
+    {
+      "name": "MicroLaunch",
+      "category": "Indie Tools",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/svg_craft/"
+    },
+    {
+      "name": "SaaSHub",
+      "category": "Frontend Developer & Designer Micro-Tool",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/svg_craft/"
+    },
+    {
+      "name": "DevHunt",
+      "category": "Dev Tools",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/svg_craft/"
+    }
+  ],
+  "product_name": "SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter",
+  "live_url": "https://enginesuite.github.io/Launcher/svg_craft/",
+  "tagline": "Instant, client-side SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter with zero subscription fees.",
+  "description": "SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter is a high-speed, zero-dependency browser utility designed to eliminate Raw SVG files from Figma/Illustrator are bloated with editor metadata, oversized path decimals, and non-standard attributes that slow page load.. Features instant export, clean responsive interface, and optional agency commercial pack."
+}

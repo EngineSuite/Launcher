@@ -1,0 +1,31 @@
+{
+  "niche_id": "svg_craft_studio",
+  "product_name": "SVGCraft Studio",
+  "tiers": [
+    {
+      "tier_id": "free",
+      "name": "Standard Free Utility",
+      "price": 0.0,
+      "features": [
+        "Single SVG optimization & minification",
+        "Path coordinate decimal rounding",
+        "Figma/Illustrator metadata stripping",
+        "React JSX and Vue 3 code exporter"
+      ]
+    },
+    {
+      "tier_id": "pro",
+      "name": "Agency Pro Pack",
+      "price": 14.0,
+      "features": [
+        "500+ Curated UI Vector Icons Pack",
+        "Python & Node.js CLI Batch Optimizer script",
+        "Automated SVG Sprite Sheet Compiler",
+        "Commercial Whitelabel License for client apps",
+        "Lifetime updates & direct priority dispatch"
+      ]
+    }
+  ],
+  "guarantee": "30-Day Money-Back Guarantee",
+  "dispatch_email": "businessbloke957@gmail.com"
+}

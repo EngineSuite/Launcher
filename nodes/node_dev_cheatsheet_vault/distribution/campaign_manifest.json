@@ -1,13 +1,15 @@
 {
   "node_id": "dev_cheatsheet_vault",
+  "slug": "dev_cheatsheet",
+  "live_url": "https://enginesuite.github.io/Launcher/dev_cheatsheet/",
   "status": "CAMPAIGN_READY",
-  "generated_at": "2026-10-17T19:37:27.485416+00:00",
-  "seo_pages_count": 6,
+  "generated_at": "2026-10-18T03:08:51.070837+00:00",
+  "seo_pages_count": 4,
   "distribution_channels": [
     "Google Organic (Programmatic SEO)",
     "X / Twitter",
-    "Indie Hackers",
-    "Reddit r/SEO",
+    "Reddit",
+    "Dev.to / Hashnode",
     "Dev Directories"
   ],
   "total_spend": 0.0

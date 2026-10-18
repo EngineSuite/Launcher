@@ -2,30 +2,55 @@
   "directories": [
     {
       "name": "Toolify.ai",
-      "category": "SEO & Marketing",
-      "free_submission": true
-    },
-    {
-      "name": "AlternativeTo.net",
-      "target_alternative": "Merkle Schema Generator",
-      "free_submission": true
+      "category": "Creator & Marketer Utility",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/meta_craft_og/"
     },
     {
       "name": "ProductHunt",
-      "pricing_model": "Free + Paid Pro Upgrade",
-      "free_submission": true
+      "pricing_model": "Free + Pro Upgrade",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/meta_craft_og/"
+    },
+    {
+      "name": "AlternativeTo.net",
+      "target_alternative": "Commercial Alternatives",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/meta_craft_og/"
+    },
+    {
+      "name": "LaunchingNext",
+      "category": "Creator & Marketer Utility",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/meta_craft_og/"
+    },
+    {
+      "name": "BetaList",
+      "category": "Early Access Tools",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/meta_craft_og/"
+    },
+    {
+      "name": "MicroLaunch",
+      "category": "Indie Tools",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/meta_craft_og/"
     },
     {
       "name": "SaaSHub",
-      "category": "Developer Utilities",
-      "free_submission": true
+      "category": "Creator & Marketer Utility",
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/meta_craft_og/"
     },
     {
       "name": "DevHunt",
       "category": "Dev Tools",
-      "free_submission": true
+      "free_submission": true,
+      "url": "https://enginesuite.github.io/Launcher/meta_craft_og/"
     }
   ],
-  "tagline": "The fastest JSON-LD schema builder for rich snippets and local SEO.",
-  "description": "Generate, test, and export 100% Google-compliant Schema.org markup in seconds. Features 8+ core schemas, real-time live preview, and bulk CSV export."
+  "product_name": "MetaCraft - Automated OpenGraph & Social Card Engine",
+  "live_url": "https://enginesuite.github.io/Launcher/meta_craft_og/",
+  "tagline": "Instant, client-side MetaCraft - Automated OpenGraph & Social Card Engine with zero subscription fees.",
+  "description": "MetaCraft - Automated OpenGraph & Social Card Engine is a high-speed, zero-dependency browser utility designed to eliminate Every blog post and tweet needs branded social cards, but manual Canva design is time-consuming.. Features instant export, clean responsive interface, and optional agency commercial pack."
 }

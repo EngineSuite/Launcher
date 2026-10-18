@@ -82,7 +82,9 @@ class AuditorAgent(BaseAgent):
             "portal": base_url,
             "schemacraft": f"{base_url.rstrip('/')}/schemacraft/",
             "dev_cheatsheet": f"{base_url.rstrip('/')}/dev_cheatsheet/",
-            "meta_craft_og": f"{base_url.rstrip('/')}/meta_craft_og/"
+            "meta_craft_og": f"{base_url.rstrip('/')}/meta_craft_og/",
+            "svg_craft": f"{base_url.rstrip('/')}/svg_craft/",
+            "sitemap": f"{base_url.rstrip('/')}/sitemap.xml"
         }
 
         results = {}

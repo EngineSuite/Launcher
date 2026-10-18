@@ -119,7 +119,7 @@ class ParallelDebateGraph:
             detected_obsolete.append("Legacy Render-Blocking Library (jQuery/document.write)")
             tech_score -= 3.0
 
-        if "http://" in html.lower():
+        if "http://" in html.lower().replace("http://www.w3.org", ""):
             detected_obsolete.append("Insecure HTTP Links (Mixed Content)")
             tech_score -= 2.0
 

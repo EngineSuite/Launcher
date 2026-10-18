@@ -1,0 +1,21 @@
+COMMERCIAL LICENSE AGREEMENT & TERMS OF USE
+
+Copyright (c) 2026 SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter / The Engine. All rights reserved.
+
+1. Grant of License:
+Subject to verified purchase, the licensee is granted an irrevocable, perpetual, worldwide, non-exclusive license to:
+- Use the software, templates, scripts, and documentation on unlimited internal and client commercial projects.
+- Integrate, adapt, and build upon the deliverables for client agency services and digital products.
+
+2. Restrictions:
+Licensee may not sub-license, redistribute, resell, or publicly share these digital assets as a standalone stock item or direct competitor to SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter.
+
+3. "AS IS" Warranty Waiver:
+THE SOFTWARE, SCRIPTS, TEMPLATES, AND ASSETS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS, THE ENGINE, OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+4. Strict Limitation of Liability:
+UNDER NO CIRCUMSTANCES SHALL THE AUTHORS, DISTRIBUTORS, OR THE ENGINE BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES (INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, LOSS OF REVENUE, BUSINESS INTERRUPTION, SEARCH RANKING PENALTIES, SYSTEM DOWNTIME, OR LOSS OF DATA).
+IN ALL CIRCUMSTANCES, LICENSOR'S TOTAL AGGREGATE LIABILITY UNDER THIS AGREEMENT SHALL BE STRICTLY LIMITED TO THE ACTUAL PURCHASE PRICE AMOUNT PAID BY THE LICENSEE FOR THIS PRODUCT ($14 one-time for Batch Sprite Sheet Compiler, 500+ Curated UI Icon Vector Pack & Commercial Embed License.).
+
+5. 30-Day No-Hassle Money-Back Guarantee:
+If this product fails to meet your business needs or does not perform to your expectations, a full 100% refund may be requested within 30 days of purchase without hassle or dispute.

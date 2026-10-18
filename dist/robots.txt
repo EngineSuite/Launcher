@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://enginesuite.github.io/Launcher/sitemap.xml

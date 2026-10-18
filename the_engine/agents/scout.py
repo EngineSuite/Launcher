@@ -42,8 +42,8 @@ class ScoutAgent(BaseAgent):
                     "platforms": ["Gumroad", "BuyMeACoffee", "Stripe Checkout Link"]
                 },
                 "hosting_stack": "Static HTML5/Modern Vanilla JS (Zero runtime overhead, 100% free on Cloudflare Pages / GitHub Pages / Vercel) + optional Python micro-API.",
-                "demand_score": 9.2,           # 1-10 scale
-                "competition_gap": 8.5,        # 1-10 scale (opportunity in modern UI + bulk tools)
+                "demand_score": 9.5,           # 1-10 scale
+                "competition_gap": 8.8,        # 1-10 scale (opportunity in modern UI + bulk tools)
                 "zero_cost_feasibility": 10.0,  # 100% free stack
                 "monetization_velocity": 9.0,  # High willingness to pay by agencies
                 "time_to_mvp_hours": 2.0
@@ -85,6 +85,25 @@ class ScoutAgent(BaseAgent):
                 "zero_cost_feasibility": 10.0,
                 "monetization_velocity": 8.6,
                 "time_to_mvp_hours": 2.5
+            },
+            {
+                "niche_id": "svg_craft_studio",
+                "name": "SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter",
+                "category": "Frontend Developer & Designer Micro-Tool",
+                "target_audience": "Frontend Developers, UI/UX Designers, Web Creators",
+                "core_problem": "Raw SVG files from Figma/Illustrator are bloated with editor metadata, oversized path decimals, and non-standard attributes that slow page load.",
+                "solution": "High-speed client-side SVG optimizer, path precision minifier, and one-click clean React/Vue/HTML component code exporter with zero dependencies.",
+                "monetization": {
+                    "free_tier": "Unlimited single SVG optimization, minification, and code copy.",
+                    "pro_tier": "$14 one-time for Batch Sprite Sheet Compiler, 500+ Curated UI Icon Vector Pack & Commercial Embed License.",
+                    "platforms": ["Gumroad", "Lemon Squeezy"]
+                },
+                "hosting_stack": "100% Client-side HTML5/Vanilla JS on GitHub Pages (Sub-30ms cold start, $0 overhead).",
+                "demand_score": 9.1,
+                "competition_gap": 8.5,
+                "zero_cost_feasibility": 10.0,
+                "monetization_velocity": 8.8,
+                "time_to_mvp_hours": 2.0
             }
         ]
 

@@ -1,0 +1,61 @@
+{
+  "primary_keywords": [
+    "free svgcraft studio - instant svg path optimizer & icon code exporter",
+    "svgcraft studio - instant svg path optimizer & icon code exporter online",
+    "best frontend developer & designer micro-tool 2026",
+    "zero cost frontend developer & designer micro-tool"
+  ],
+  "long_tail_clusters": [
+    {
+      "slug": "free-online-svg_craft_studio",
+      "title": "100% Free Online SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter",
+      "volume": "High",
+      "intent": "Transactional"
+    },
+    {
+      "slug": "best-svg_craft_studio-2026",
+      "title": "Top Free SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter for Developers (2026)",
+      "volume": "High",
+      "intent": "Commercial"
+    },
+    {
+      "slug": "agency-svg_craft_studio",
+      "title": "Agency & High-Volume SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter Solution",
+      "volume": "Medium",
+      "intent": "Transactional"
+    },
+    {
+      "slug": "how-to-use-svg_craft_studio",
+      "title": "Complete Guide to SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter",
+      "volume": "High",
+      "intent": "Informational"
+    }
+  ],
+  "robots_txt": "User-agent: *\nAllow: /\nSitemap: https://enginesuite.github.io/Launcher/svg_craft/sitemap.xml",
+  "pages": [
+    {
+      "slug": "free-online-svg_craft_studio",
+      "title": "100% Free Online SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter",
+      "volume": "High",
+      "intent": "Transactional"
+    },
+    {
+      "slug": "best-svg_craft_studio-2026",
+      "title": "Top Free SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter for Developers (2026)",
+      "volume": "High",
+      "intent": "Commercial"
+    },
+    {
+      "slug": "agency-svg_craft_studio",
+      "title": "Agency & High-Volume SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter Solution",
+      "volume": "Medium",
+      "intent": "Transactional"
+    },
+    {
+      "slug": "how-to-use-svg_craft_studio",
+      "title": "Complete Guide to SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter",
+      "volume": "High",
+      "intent": "Informational"
+    }
+  ]
+}

@@ -30,8 +30,15 @@ class DeploymentManager:
     def build_distribution(self) -> Dict[str, Any]:
         """Compiles all active nodes into the dist/ directory."""
         if self.dist_dir.exists():
-            shutil.rmtree(self.dist_dir)
-        self.dist_dir.mkdir(parents=True)
+            for item in self.dist_dir.iterdir():
+                if item.name == ".git":
+                    continue
+                if item.is_dir():
+                    shutil.rmtree(item, ignore_errors=True)
+                else:
+                    item.unlink(missing_ok=True)
+        else:
+            self.dist_dir.mkdir(parents=True)
 
         active_nodes = self.isolation_mgr.list_active_nodes()
         deployed_nodes: List[Dict[str, Any]] = []
@@ -41,11 +48,11 @@ class DeploymentManager:
             public_dir = node_path / "public"
 
             # Destination slug (e.g. node_schemacraft_pro -> schemacraft)
-            slug = node_id.replace("node_", "").replace("_pro", "").replace("_vault", "")
+            slug = node_id.replace("node_", "").replace("_pro", "").replace("_vault", "").replace("_studio", "")
             dest_dir = self.dist_dir / slug
 
             if public_dir.exists():
-                shutil.copytree(public_dir, dest_dir)
+                shutil.copytree(public_dir, dest_dir, dirs_exist_ok=True)
 
                 # Read manifest for metadata
                 manifest = self.isolation_mgr.read_manifest(node_id) or {}
@@ -64,6 +71,9 @@ class DeploymentManager:
 
         # Generate Platform Configs
         self._generate_platform_configs(deployed_nodes)
+
+        # Generate Production Sitemap & Robots.txt
+        self._generate_seo_metadata(deployed_nodes)
 
         # Calculate asset stats
         total_kb = sum(f.stat().st_size for f in self.dist_dir.rglob("*.*") if f.is_file()) / 1024.0
@@ -234,3 +244,41 @@ class DeploymentManager:
         for n in deployed_nodes:
             redirects_content += f"/{n['slug']}  /{n['slug']}/  301\n"
         (self.dist_dir / "_redirects").write_text(redirects_content, encoding="utf-8")
+
+    def _generate_seo_metadata(self, deployed_nodes: List[Dict[str, Any]]) -> None:
+        """Generates production sitemap.xml and robots.txt for search engines."""
+        base_url = "https://enginesuite.github.io/Launcher"
+        today = get_utc_iso()[:10]
+
+        sitemap_entries = [
+            f"""  <url>
+    <loc>{base_url}/</loc>
+    <lastmod>{today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>"""
+        ]
+
+        for n in deployed_nodes:
+            sitemap_entries.append(
+                f"""  <url>
+    <loc>{base_url}/{n['slug']}/</loc>
+    <lastmod>{today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>"""
+            )
+
+        sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{chr(10).join(sitemap_entries)}
+</urlset>
+"""
+        (self.dist_dir / "sitemap.xml").write_text(sitemap_xml, encoding="utf-8")
+
+        robots_txt = f"""User-agent: *
+Allow: /
+Sitemap: {base_url}/sitemap.xml
+"""
+        (self.dist_dir / "robots.txt").write_text(robots_txt, encoding="utf-8")
+

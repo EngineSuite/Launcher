@@ -16,6 +16,7 @@ from the_engine.core.isolation import NodeIsolationManager
 from the_engine.config import get_utc_iso
 from the_engine.agents.templates.dev_playbook import build_dev_playbook
 from the_engine.agents.templates.meta_craft import build_meta_craft
+from the_engine.agents.templates.svg_craft import build_svg_craft
 
 logger = logging.getLogger("TheEngine.Builder")
 
@@ -43,11 +44,14 @@ class BuilderAgent(BaseAgent):
             build_dev_playbook(node_path, opportunity)
         elif opportunity.get("niche_id") == "meta_craft_og":
             build_meta_craft(node_path, opportunity)
+        elif opportunity.get("niche_id") == "svg_craft_studio":
+            build_svg_craft(node_path, opportunity)
         else:
             self._build_frontend(node_path, opportunity)
             self._build_backend_engine(node_path, opportunity)
             self._build_monetization_layer(node_path, opportunity)
             self._build_server(node_path, opportunity)
+
 
         # Inject legal armor (Standardized LICENSE.txt with AS IS & liability cap) and build deliverables
         self._inject_legal_and_compliance_assets(node_path, opportunity)
@@ -1039,6 +1043,12 @@ If this product fails to meet your business needs or does not perform to your ex
         license_content = self.generate_standard_license(product_name, pro_tier)
         with open(license_path, "w", encoding="utf-8") as f:
             f.write(license_content)
+
+        # Ensure README.md is present in dist_pack
+        readme_path = dist_pack / "README.md"
+        if not readme_path.exists():
+            readme_content = f"# {product_name} Deliverable Pack\n\nIncluded Files:\n- LICENSE.txt: Commercial license & AS-IS liability disclaimer.\n- Production blueprints, assets, and documentation.\n\nThank you for your order!\n"
+            readme_path.write_text(readme_content, encoding="utf-8")
 
         # Assemble/bundle deliverable pack zip into public/downloads
         downloads_dir = node_path / "public" / "downloads"

@@ -1,13 +1,15 @@
 {
   "node_id": "meta_craft_og",
+  "slug": "meta_craft_og",
+  "live_url": "https://enginesuite.github.io/Launcher/meta_craft_og/",
   "status": "CAMPAIGN_READY",
-  "generated_at": "2026-10-17T19:40:26.259121+00:00",
-  "seo_pages_count": 6,
+  "generated_at": "2026-10-18T03:08:51.074319+00:00",
+  "seo_pages_count": 4,
   "distribution_channels": [
     "Google Organic (Programmatic SEO)",
     "X / Twitter",
-    "Indie Hackers",
-    "Reddit r/SEO",
+    "Reddit",
+    "Dev.to / Hashnode",
     "Dev Directories"
   ],
   "total_spend": 0.0

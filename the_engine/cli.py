@@ -168,6 +168,10 @@ def main():
     daemon_p.add_argument("--interval", type=int, default=3600, help="Check interval in seconds (default: 3600)")
     daemon_p.add_argument("--cycles", type=int, default=None, help="Max cycles (default: infinite)")
 
+    distribute_p = subparsers.add_parser("distribute", help="Generate viral social copy, directory submission payloads, and launch kit for nodes")
+    distribute_p.add_argument("node_id", type=str, nargs="?", default=None, help="Node ID (or all active nodes if omitted)")
+
+
     args = parser.parse_args()
     orchestrator = Orchestrator()
 
@@ -401,9 +405,29 @@ def main():
         print("=" * 70 + "\n")
     elif args.command == "daemon":
         orchestrator.start_daemon(interval_seconds=args.interval, max_cycles=args.cycles)
+    elif args.command == "distribute":
+        format_header("The Growth Hacker :: Multi-Channel Traffic & Distribution Kits")
+        node_ids = [args.node_id] if args.node_id else orchestrator.isolation_mgr.list_active_nodes()
+        if not node_ids:
+            print("No active nodes found to distribute.")
+        else:
+            for nid in node_ids:
+                n_path = orchestrator.isolation_mgr.get_node_path(nid)
+                res = orchestrator.growth_hacker.run({"workspace_path": str(n_path)})
+                camp = res["campaign"]
+                print(f"📦 Product Node : {nid}")
+                print(f"   Live URL     : {camp.get('live_url')}")
+                print(f"   Channels     : {', '.join(camp.get('distribution_channels', []))}")
+                print(f"   Launch Kit   : {n_path / 'distribution' / 'LAUNCH_KIT.md'}")
+                print(f"   Manifest     : {n_path / 'distribution' / 'campaign_manifest.json'}")
+                print("-" * 70)
+            print("✓ Multi-channel launch kits generated with $0 upfront spend.")
+            print("  Read any LAUNCH_KIT.md to copy-paste viral launch threads and directory payloads.\n")
+        print("=" * 70 + "\n")
     else:
         parser.print_help()
 
 
 if __name__ == "__main__":
     main()
+

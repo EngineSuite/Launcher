@@ -1,85 +1,61 @@
 {
   "primary_keywords": [
-    "free json ld schema generator",
-    "google rich snippets generator 2026",
-    "local business structured data generator",
-    "schema org bulk generator"
+    "free devops & cloud zero-cost architecture playbook",
+    "devops & cloud zero-cost architecture playbook online",
+    "best digital asset & developer education 2026",
+    "zero cost digital asset & developer education"
   ],
   "long_tail_clusters": [
     {
-      "slug": "schema-generator-for-dentists",
-      "title": "JSON-LD Schema Generator for Dentists & Dental Clinics",
+      "slug": "free-online-dev_cheatsheet_vault",
+      "title": "100% Free Online DevOps & Cloud Zero-Cost Architecture Playbook",
       "volume": "High",
       "intent": "Transactional"
     },
     {
-      "slug": "schema-generator-for-lawyers",
-      "title": "Legal Service & Attorney Schema Markup Generator",
+      "slug": "best-dev_cheatsheet_vault-2026",
+      "title": "Top Free DevOps & Cloud Zero-Cost Architecture Playbook for Developers (2026)",
       "volume": "High",
-      "intent": "Transactional"
-    },
-    {
-      "slug": "local-business-schema-multiple-locations",
-      "title": "Multi-Location Local SEO Schema Generator for Agencies",
-      "volume": "Very High",
       "intent": "Commercial"
     },
     {
-      "slug": "faq-schema-generator-google-rich-snippets",
-      "title": "Instant FAQPage JSON-LD Schema Generator",
+      "slug": "agency-dev_cheatsheet_vault",
+      "title": "Agency & High-Volume DevOps & Cloud Zero-Cost Architecture Playbook Solution",
+      "volume": "Medium",
+      "intent": "Transactional"
+    },
+    {
+      "slug": "how-to-use-dev_cheatsheet_vault",
+      "title": "Complete Guide to DevOps & Cloud Zero-Cost Architecture Playbook",
       "volume": "High",
       "intent": "Informational"
-    },
-    {
-      "slug": "shopify-product-schema-generator",
-      "title": "Shopify E-Commerce JSON-LD Product & Review Generator",
-      "volume": "High",
-      "intent": "Transactional"
-    },
-    {
-      "slug": "saas-organization-schema-generator",
-      "title": "Software & SaaS Organization Schema Builder",
-      "volume": "Medium",
-      "intent": "Commercial"
     }
   ],
-  "robots_txt": "User-agent: *\\nAllow: /\\nSitemap: https://schemacraft.pages.dev/sitemap.xml",
+  "robots_txt": "User-agent: *\nAllow: /\nSitemap: https://enginesuite.github.io/Launcher/dev_cheatsheet/sitemap.xml",
   "pages": [
     {
-      "slug": "schema-generator-for-dentists",
-      "title": "JSON-LD Schema Generator for Dentists & Dental Clinics",
+      "slug": "free-online-dev_cheatsheet_vault",
+      "title": "100% Free Online DevOps & Cloud Zero-Cost Architecture Playbook",
       "volume": "High",
       "intent": "Transactional"
     },
     {
-      "slug": "schema-generator-for-lawyers",
-      "title": "Legal Service & Attorney Schema Markup Generator",
+      "slug": "best-dev_cheatsheet_vault-2026",
+      "title": "Top Free DevOps & Cloud Zero-Cost Architecture Playbook for Developers (2026)",
       "volume": "High",
-      "intent": "Transactional"
-    },
-    {
-      "slug": "local-business-schema-multiple-locations",
-      "title": "Multi-Location Local SEO Schema Generator for Agencies",
-      "volume": "Very High",
       "intent": "Commercial"
     },
     {
-      "slug": "faq-schema-generator-google-rich-snippets",
-      "title": "Instant FAQPage JSON-LD Schema Generator",
+      "slug": "agency-dev_cheatsheet_vault",
+      "title": "Agency & High-Volume DevOps & Cloud Zero-Cost Architecture Playbook Solution",
+      "volume": "Medium",
+      "intent": "Transactional"
+    },
+    {
+      "slug": "how-to-use-dev_cheatsheet_vault",
+      "title": "Complete Guide to DevOps & Cloud Zero-Cost Architecture Playbook",
       "volume": "High",
       "intent": "Informational"
-    },
-    {
-      "slug": "shopify-product-schema-generator",
-      "title": "Shopify E-Commerce JSON-LD Product & Review Generator",
-      "volume": "High",
-      "intent": "Transactional"
-    },
-    {
-      "slug": "saas-organization-schema-generator",
-      "title": "Software & SaaS Organization Schema Builder",
-      "volume": "Medium",
-      "intent": "Commercial"
     }
   ]
 }

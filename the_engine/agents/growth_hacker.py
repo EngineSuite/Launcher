@@ -32,16 +32,25 @@ class GrowthHackerAgent(BaseAgent):
         dist_dir = node_path / "distribution"
         dist_dir.mkdir(exist_ok=True)
 
-        seo_assets = self._generate_programmatic_seo(dist_dir, node_metadata)
-        social_assets = self._generate_social_campaigns(dist_dir, node_metadata)
-        directory_assets = self._generate_directory_submissions(dist_dir, node_metadata)
+        node_id = node_metadata.get("niche_id") or node_path.name
+        slug = node_id.replace("node_", "").replace("_pro", "").replace("_vault", "").replace("_studio", "")
+        live_url = f"https://enginesuite.github.io/Launcher/{slug}/"
+
+        seo_assets = self._generate_programmatic_seo(dist_dir, node_metadata, live_url)
+        social_assets = self._generate_social_campaigns(dist_dir, node_metadata, live_url)
+        directory_assets = self._generate_directory_submissions(dist_dir, node_metadata, live_url)
+
+        # Generate human-readable & automatable Markdown Launch Kit
+        self._generate_launch_kit_markdown(dist_dir, node_metadata, live_url, social_assets, directory_assets)
 
         campaign_manifest = {
-            "node_id": node_metadata.get("niche_id", "unknown"),
+            "node_id": node_id,
+            "slug": slug,
+            "live_url": live_url,
             "status": "CAMPAIGN_READY",
             "generated_at": get_utc_iso(),
             "seo_pages_count": len(seo_assets.get("pages", [])),
-            "distribution_channels": ["Google Organic (Programmatic SEO)", "X / Twitter", "Indie Hackers", "Reddit r/SEO", "Dev Directories"],
+            "distribution_channels": ["Google Organic (Programmatic SEO)", "X / Twitter", "Reddit", "Dev.to / Hashnode", "Dev Directories"],
             "total_spend": 0.00  # Strictly $0 upfront
         }
 
@@ -50,54 +59,76 @@ class GrowthHackerAgent(BaseAgent):
 
         return campaign_manifest
 
-    def _generate_programmatic_seo(self, dist_dir: Path, meta: Dict[str, Any]) -> Dict[str, Any]:
+    def _generate_programmatic_seo(self, dist_dir: Path, meta: Dict[str, Any], live_url: str) -> Dict[str, Any]:
         """Generates target keyword clusters and programmatic landing page configurations."""
+        name = meta.get("name", "Developer Utility")
+        category = meta.get("category", "Developer Tool")
+
         niches = [
-            {"slug": "schema-generator-for-dentists", "title": "JSON-LD Schema Generator for Dentists & Dental Clinics", "volume": "High", "intent": "Transactional"},
-            {"slug": "schema-generator-for-lawyers", "title": "Legal Service & Attorney Schema Markup Generator", "volume": "High", "intent": "Transactional"},
-            {"slug": "local-business-schema-multiple-locations", "title": "Multi-Location Local SEO Schema Generator for Agencies", "volume": "Very High", "intent": "Commercial"},
-            {"slug": "faq-schema-generator-google-rich-snippets", "title": "Instant FAQPage JSON-LD Schema Generator", "volume": "High", "intent": "Informational"},
-            {"slug": "shopify-product-schema-generator", "title": "Shopify E-Commerce JSON-LD Product & Review Generator", "volume": "High", "intent": "Transactional"},
-            {"slug": "saas-organization-schema-generator", "title": "Software & SaaS Organization Schema Builder", "volume": "Medium", "intent": "Commercial"}
+            {"slug": f"free-online-{meta.get('niche_id', 'tool')}", "title": f"100% Free Online {name}", "volume": "High", "intent": "Transactional"},
+            {"slug": f"best-{meta.get('niche_id', 'tool')}-2026", "title": f"Top Free {name} for Developers (2026)", "volume": "High", "intent": "Commercial"},
+            {"slug": f"agency-{meta.get('niche_id', 'tool')}", "title": f"Agency & High-Volume {name} Solution", "volume": "Medium", "intent": "Transactional"},
+            {"slug": f"how-to-use-{meta.get('niche_id', 'tool')}", "title": f"Complete Guide to {name}", "volume": "High", "intent": "Informational"}
         ]
 
         seo_data = {
             "primary_keywords": [
-                "free json ld schema generator",
-                "google rich snippets generator 2026",
-                "local business structured data generator",
-                "schema org bulk generator"
+                f"free {name.lower()}",
+                f"{name.lower()} online",
+                f"best {category.lower()} 2026",
+                f"zero cost {category.lower()}"
             ],
             "long_tail_clusters": niches,
-            "robots_txt": "User-agent: *\\nAllow: /\\nSitemap: https://schemacraft.pages.dev/sitemap.xml",
+            "robots_txt": f"User-agent: *\nAllow: /\nSitemap: {live_url}sitemap.xml",
             "pages": niches
         }
 
         with open(dist_dir / "seo_strategy.json", "w", encoding="utf-8") as f:
             json.dump(seo_data, f, indent=2)
 
-        # Generate robots.txt
         with open(dist_dir / "robots.txt", "w", encoding="utf-8") as f:
             f.write("User-agent: *\nAllow: /\n")
 
         return seo_data
 
-    def _generate_social_campaigns(self, dist_dir: Path, meta: Dict[str, Any]) -> Dict[str, Any]:
+    def _generate_social_campaigns(self, dist_dir: Path, meta: Dict[str, Any], live_url: str) -> Dict[str, Any]:
         """Generates high-converting, value-first launch content for social channels."""
+        name = meta.get("name", "Developer Utility")
+        problem = meta.get("core_problem", "Tedious manual workflows and expensive SaaS tools.")
+        pro_price = meta.get("monetization", {}).get("pro_tier", "$19 one-time")
+
         social_campaigns = {
             "twitter_x_launch_thread": [
-                "🧵 Stop paying $49/mo just to generate Google JSON-LD schema for client websites.\n\nI built a 100% free, instant Schema generator that validates rich snippets in real-time.\n\nNo sign-up. No credit card. Zero ads.\n\nHere's how to use it to boost your Google CTR by 30% 👇",
-                "1/ Google search rankings prioritize structured data. If you don't have JSON-LD on your site, you are leaving click-through rates on the table.\n\nSchemaCraft Pro supports LocalBusiness, Organization, FAQ, Products, and How-To schemas instantly.",
-                "2/ Try the free generator right now: https://schemacraft.pages.dev\n\nFor digital agencies managing 50+ locations, the Agency Pro pack lets you bulk export via CSV for just $19 lifetime."
+                f"🧵 Developers & Creators: Stop paying monthly subscriptions for basic {name}.\n\n{problem}\n\nI built a 100% free, client-side utility that solves this instantly in your browser.\n\nZero ads. Zero logins. Pure utility 👇",
+                f"1/ Why this exists:\nMost alternatives force you into accounts, collect your data, or gate essential features behind $29/mo plans.\n\nThis runs entirely in your browser with zero server overhead — meaning sub-50ms speed and total data privacy.",
+                f"2/ Try the free tool live right now:\n🔗 {live_url}\n\nFor power users and teams who need batch exports and agency commercial rights, the Pro Pack is available for just {pro_price} lifetime."
             ],
             "indie_hackers_post": {
-                "title": "I built an agency-grade JSON-LD Schema Generator with $0 upfront infrastructure",
-                "body": "Hey IH! SEO tools have gotten bloated and overpriced. I wanted a lightning-fast utility to generate bulletproof Schema.org markup with zero friction. Built this on a modern zero-cost static stack. Would love your feedback!"
+                "title": f"I built {name} with $0 upfront infrastructure — Live on GitHub Pages",
+                "body": f"Hey IH! I was tired of bloated, subscription-gated tools for {name}. I engineered a lightweight, zero-dependency browser tool hosted 100% free on GitHub Pages.\n\nLive tool: {live_url}\n\nWould love your feedback on the UX and conversion flow!"
             },
             "reddit_value_post": {
-                "subreddit": "r/SEO",
-                "title": "Free Tool: Instant JSON-LD Schema Generator with Real-Time Rich Results Validation",
-                "content": "Hey r/SEO, created a clean, fast schema generator that outputs 100% valid schema for Google rich results. Free for everyone, hope it helps your workflows!"
+                "subreddit": "r/webdev",
+                "title": f"Free Tool: {name} (No signups, client-side, zero tracking)",
+                "content": f"Hey everyone, built a lightweight, privacy-first tool for {name}. Runs 100% client-side in the browser, no ads or tracking scripts.\n\nLink: {live_url}\n\nHope this saves you time in your projects! Any feature requests, drop them below."
+            },
+            "dev_to_article": {
+                "title": f"How to Solve {name} Without Paying Monthly SaaS Fees",
+                "tags": ["webdev", "javascript", "productivity", "opensource"],
+                "markdown_body": f"""# Solving {name} Without Monthly Subscriptions
+
+{problem}
+
+Instead of paying recurring SaaS fees, you can use client-side browser capabilities to get this done in seconds.
+
+## Live Free Tool
+Check out the free tool here: [{name}]({live_url})
+
+### Key Benefits:
+- ⚡ Sub-50ms cold start
+- 🔒 100% client-side privacy (no data leaves your machine)
+- 💰 Zero upfront cost or subscription lock-in
+"""
             }
         }
 
@@ -106,24 +137,102 @@ class GrowthHackerAgent(BaseAgent):
 
         return social_campaigns
 
-    def _generate_directory_submissions(self, dist_dir: Path, meta: Dict[str, Any]) -> Dict[str, Any]:
+    def _generate_directory_submissions(self, dist_dir: Path, meta: Dict[str, Any], live_url: str) -> Dict[str, Any]:
         """Generates submission packages for free startup and tool directories."""
+        name = meta.get("name", "Developer Utility")
+        category = meta.get("category", "Developer Utilities")
+        problem = meta.get("core_problem", "Solves developer workflows quickly.")
+
         submissions = {
             "directories": [
-                {"name": "Toolify.ai", "category": "SEO & Marketing", "free_submission": True},
-                {"name": "AlternativeTo.net", "target_alternative": "Merkle Schema Generator", "free_submission": True},
-                {"name": "ProductHunt", "pricing_model": "Free + Paid Pro Upgrade", "free_submission": True},
-                {"name": "SaaSHub", "category": "Developer Utilities", "free_submission": True},
-                {"name": "DevHunt", "category": "Dev Tools", "free_submission": True}
+                {"name": "Toolify.ai", "category": category, "free_submission": True, "url": live_url},
+                {"name": "ProductHunt", "pricing_model": "Free + Pro Upgrade", "free_submission": True, "url": live_url},
+                {"name": "AlternativeTo.net", "target_alternative": "Commercial Alternatives", "free_submission": True, "url": live_url},
+                {"name": "LaunchingNext", "category": category, "free_submission": True, "url": live_url},
+                {"name": "BetaList", "category": "Early Access Tools", "free_submission": True, "url": live_url},
+                {"name": "MicroLaunch", "category": "Indie Tools", "free_submission": True, "url": live_url},
+                {"name": "SaaSHub", "category": category, "free_submission": True, "url": live_url},
+                {"name": "DevHunt", "category": "Dev Tools", "free_submission": True, "url": live_url}
             ],
-            "tagline": "The fastest JSON-LD schema builder for rich snippets and local SEO.",
-            "description": "Generate, test, and export 100% Google-compliant Schema.org markup in seconds. Features 8+ core schemas, real-time live preview, and bulk CSV export."
+            "product_name": name,
+            "live_url": live_url,
+            "tagline": f"Instant, client-side {name} with zero subscription fees.",
+            "description": f"{name} is a high-speed, zero-dependency browser utility designed to eliminate {problem}. Features instant export, clean responsive interface, and optional agency commercial pack."
         }
 
         with open(dist_dir / "directory_submissions.json", "w", encoding="utf-8") as f:
             json.dump(submissions, f, indent=2)
 
         return submissions
+
+    def _generate_launch_kit_markdown(
+        self,
+        dist_dir: Path,
+        meta: Dict[str, Any],
+        live_url: str,
+        social: Dict[str, Any],
+        directory: Dict[str, Any]
+    ) -> None:
+        """Writes a unified, copy-paste ready LAUNCH_KIT.md document."""
+        tw_thread = "\n\n---\n\n".join(social.get("twitter_x_launch_thread", []))
+        reddit = social.get("reddit_value_post", {})
+        ih = social.get("indie_hackers_post", {})
+        devto = social.get("dev_to_article", {})
+
+        content = f"""# 🚀 DISTRIBUTION & LAUNCH KIT: {meta.get('name', 'Digital Tool')}
+**Live Production URL:** [{live_url}]({live_url})  
+**Target Category:** {meta.get('category', 'Utility')}  
+**Zero-Cost Policy:** $0 Upfront Spend  
+
+---
+
+## 1. 🧵 X / Twitter Launch Thread
+Copy and publish as a scheduled or manual thread:
+
+{tw_thread}
+
+---
+
+## 2. 💬 Reddit Value Post ({reddit.get('subreddit', 'r/webdev')})
+**Title:** {reddit.get('title', '')}
+
+**Body:**
+```markdown
+{reddit.get('content', '')}
+```
+
+---
+
+## 3. 💡 Indie Hackers Show IH Post
+**Title:** {ih.get('title', '')}
+
+**Body:**
+{ih.get('body', '')}
+
+---
+
+## 4. 📝 Dev.to / Hashnode Article
+**Title:** {devto.get('title', '')}  
+**Tags:** {', '.join(devto.get('tags', []))}
+
+```markdown
+{devto.get('markdown_body', '')}
+```
+
+---
+
+## 5. 🌐 Free Directory Submission Metadata
+- **Product Name:** {directory.get('product_name', '')}
+- **Website:** {live_url}
+- **Tagline:** {directory.get('tagline', '')}
+- **Description:** {directory.get('description', '')}
+- **Directories to Submit:**
+"""
+        for d in directory.get("directories", []):
+            cat = d.get('category') or d.get('pricing_model') or 'Developer Tool'
+            content += f"  - [ ] **{d['name']}** ({cat})\n"
+
+        (dist_dir / "LAUNCH_KIT.md").write_text(content, encoding="utf-8")
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         """Executes Phase 3: Monetize & Drive Traffic."""
@@ -150,3 +259,4 @@ class GrowthHackerAgent(BaseAgent):
             "campaign": result,
             "timestamp": get_utc_iso()
         }
+

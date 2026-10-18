@@ -1,85 +1,61 @@
 {
   "primary_keywords": [
-    "free json ld schema generator",
-    "google rich snippets generator 2026",
-    "local business structured data generator",
-    "schema org bulk generator"
+    "free schemacraft pro - programmatic json-ld schema generator & local seo suite",
+    "schemacraft pro - programmatic json-ld schema generator & local seo suite online",
+    "best b2b developer & seo micro-utility 2026",
+    "zero cost b2b developer & seo micro-utility"
   ],
   "long_tail_clusters": [
     {
-      "slug": "schema-generator-for-dentists",
-      "title": "JSON-LD Schema Generator for Dentists & Dental Clinics",
+      "slug": "free-online-schemacraft_pro",
+      "title": "100% Free Online SchemaCraft Pro - Programmatic JSON-LD Schema Generator & Local SEO Suite",
       "volume": "High",
       "intent": "Transactional"
     },
     {
-      "slug": "schema-generator-for-lawyers",
-      "title": "Legal Service & Attorney Schema Markup Generator",
+      "slug": "best-schemacraft_pro-2026",
+      "title": "Top Free SchemaCraft Pro - Programmatic JSON-LD Schema Generator & Local SEO Suite for Developers (2026)",
       "volume": "High",
-      "intent": "Transactional"
-    },
-    {
-      "slug": "local-business-schema-multiple-locations",
-      "title": "Multi-Location Local SEO Schema Generator for Agencies",
-      "volume": "Very High",
       "intent": "Commercial"
     },
     {
-      "slug": "faq-schema-generator-google-rich-snippets",
-      "title": "Instant FAQPage JSON-LD Schema Generator",
+      "slug": "agency-schemacraft_pro",
+      "title": "Agency & High-Volume SchemaCraft Pro - Programmatic JSON-LD Schema Generator & Local SEO Suite Solution",
+      "volume": "Medium",
+      "intent": "Transactional"
+    },
+    {
+      "slug": "how-to-use-schemacraft_pro",
+      "title": "Complete Guide to SchemaCraft Pro - Programmatic JSON-LD Schema Generator & Local SEO Suite",
       "volume": "High",
       "intent": "Informational"
-    },
-    {
-      "slug": "shopify-product-schema-generator",
-      "title": "Shopify E-Commerce JSON-LD Product & Review Generator",
-      "volume": "High",
-      "intent": "Transactional"
-    },
-    {
-      "slug": "saas-organization-schema-generator",
-      "title": "Software & SaaS Organization Schema Builder",
-      "volume": "Medium",
-      "intent": "Commercial"
     }
   ],
-  "robots_txt": "User-agent: *\\nAllow: /\\nSitemap: https://schemacraft.pages.dev/sitemap.xml",
+  "robots_txt": "User-agent: *\nAllow: /\nSitemap: https://enginesuite.github.io/Launcher/schemacraft/sitemap.xml",
   "pages": [
     {
-      "slug": "schema-generator-for-dentists",
-      "title": "JSON-LD Schema Generator for Dentists & Dental Clinics",
+      "slug": "free-online-schemacraft_pro",
+      "title": "100% Free Online SchemaCraft Pro - Programmatic JSON-LD Schema Generator & Local SEO Suite",
       "volume": "High",
       "intent": "Transactional"
     },
     {
-      "slug": "schema-generator-for-lawyers",
-      "title": "Legal Service & Attorney Schema Markup Generator",
+      "slug": "best-schemacraft_pro-2026",
+      "title": "Top Free SchemaCraft Pro - Programmatic JSON-LD Schema Generator & Local SEO Suite for Developers (2026)",
       "volume": "High",
-      "intent": "Transactional"
-    },
-    {
-      "slug": "local-business-schema-multiple-locations",
-      "title": "Multi-Location Local SEO Schema Generator for Agencies",
-      "volume": "Very High",
       "intent": "Commercial"
     },
     {
-      "slug": "faq-schema-generator-google-rich-snippets",
-      "title": "Instant FAQPage JSON-LD Schema Generator",
+      "slug": "agency-schemacraft_pro",
+      "title": "Agency & High-Volume SchemaCraft Pro - Programmatic JSON-LD Schema Generator & Local SEO Suite Solution",
+      "volume": "Medium",
+      "intent": "Transactional"
+    },
+    {
+      "slug": "how-to-use-schemacraft_pro",
+      "title": "Complete Guide to SchemaCraft Pro - Programmatic JSON-LD Schema Generator & Local SEO Suite",
       "volume": "High",
       "intent": "Informational"
-    },
-    {
-      "slug": "shopify-product-schema-generator",
-      "title": "Shopify E-Commerce JSON-LD Product & Review Generator",
-      "volume": "High",
-      "intent": "Transactional"
-    },
-    {
-      "slug": "saas-organization-schema-generator",
-      "title": "Software & SaaS Organization Schema Builder",
-      "volume": "Medium",
-      "intent": "Commercial"
     }
   ]
 }

@@ -1,0 +1,97 @@
+# 🚀 DISTRIBUTION & LAUNCH KIT: MetaCraft - Automated OpenGraph & Social Card Engine
+**Live Production URL:** [https://enginesuite.github.io/Launcher/meta_craft_og/](https://enginesuite.github.io/Launcher/meta_craft_og/)  
+**Target Category:** Creator & Marketer Utility  
+**Zero-Cost Policy:** $0 Upfront Spend  
+
+---
+
+## 1. 🧵 X / Twitter Launch Thread
+Copy and publish as a scheduled or manual thread:
+
+🧵 Developers & Creators: Stop paying monthly subscriptions for basic MetaCraft - Automated OpenGraph & Social Card Engine.
+
+Every blog post and tweet needs branded social cards, but manual Canva design is time-consuming.
+
+I built a 100% free, client-side utility that solves this instantly in your browser.
+
+Zero ads. Zero logins. Pure utility 👇
+
+---
+
+1/ Why this exists:
+Most alternatives force you into accounts, collect your data, or gate essential features behind $29/mo plans.
+
+This runs entirely in your browser with zero server overhead — meaning sub-50ms speed and total data privacy.
+
+---
+
+2/ Try the free tool live right now:
+🔗 https://enginesuite.github.io/Launcher/meta_craft_og/
+
+For power users and teams who need batch exports and agency commercial rights, the Pro Pack is available for just $14 one-time for Pro Template Bundle + Programmatic URL Generator Script. lifetime.
+
+---
+
+## 2. 💬 Reddit Value Post (r/webdev)
+**Title:** Free Tool: MetaCraft - Automated OpenGraph & Social Card Engine (No signups, client-side, zero tracking)
+
+**Body:**
+```markdown
+Hey everyone, built a lightweight, privacy-first tool for MetaCraft - Automated OpenGraph & Social Card Engine. Runs 100% client-side in the browser, no ads or tracking scripts.
+
+Link: https://enginesuite.github.io/Launcher/meta_craft_og/
+
+Hope this saves you time in your projects! Any feature requests, drop them below.
+```
+
+---
+
+## 3. 💡 Indie Hackers Show IH Post
+**Title:** I built MetaCraft - Automated OpenGraph & Social Card Engine with $0 upfront infrastructure — Live on GitHub Pages
+
+**Body:**
+Hey IH! I was tired of bloated, subscription-gated tools for MetaCraft - Automated OpenGraph & Social Card Engine. I engineered a lightweight, zero-dependency browser tool hosted 100% free on GitHub Pages.
+
+Live tool: https://enginesuite.github.io/Launcher/meta_craft_og/
+
+Would love your feedback on the UX and conversion flow!
+
+---
+
+## 4. 📝 Dev.to / Hashnode Article
+**Title:** How to Solve MetaCraft - Automated OpenGraph & Social Card Engine Without Paying Monthly SaaS Fees  
+**Tags:** webdev, javascript, productivity, opensource
+
+```markdown
+# Solving MetaCraft - Automated OpenGraph & Social Card Engine Without Monthly Subscriptions
+
+Every blog post and tweet needs branded social cards, but manual Canva design is time-consuming.
+
+Instead of paying recurring SaaS fees, you can use client-side browser capabilities to get this done in seconds.
+
+## Live Free Tool
+Check out the free tool here: [MetaCraft - Automated OpenGraph & Social Card Engine](https://enginesuite.github.io/Launcher/meta_craft_og/)
+
+### Key Benefits:
+- ⚡ Sub-50ms cold start
+- 🔒 100% client-side privacy (no data leaves your machine)
+- 💰 Zero upfront cost or subscription lock-in
+
+```
+
+---
+
+## 5. 🌐 Free Directory Submission Metadata
+- **Product Name:** MetaCraft - Automated OpenGraph & Social Card Engine
+- **Website:** https://enginesuite.github.io/Launcher/meta_craft_og/
+- **Tagline:** Instant, client-side MetaCraft - Automated OpenGraph & Social Card Engine with zero subscription fees.
+- **Description:** MetaCraft - Automated OpenGraph & Social Card Engine is a high-speed, zero-dependency browser utility designed to eliminate Every blog post and tweet needs branded social cards, but manual Canva design is time-consuming.. Features instant export, clean responsive interface, and optional agency commercial pack.
+- **Directories to Submit:**
+  - [ ] **Toolify.ai** (Creator & Marketer Utility)
+  - [ ] **ProductHunt** (Free + Pro Upgrade)
+  - [ ] **AlternativeTo.net** (Developer Tool)
+  - [ ] **LaunchingNext** (Creator & Marketer Utility)
+  - [ ] **BetaList** (Early Access Tools)
+  - [ ] **MicroLaunch** (Indie Tools)
+  - [ ] **SaaSHub** (Creator & Marketer Utility)
+  - [ ] **DevHunt** (Dev Tools)

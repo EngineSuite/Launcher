@@ -1,0 +1,35 @@
+{
+  "node_id": "node_svg_craft_studio",
+  "created_at": "2026-10-18T03:05:17.170139+00:00",
+  "status": "BUILT",
+  "metadata": {
+    "niche_id": "svg_craft_studio",
+    "name": "SVGCraft Studio - Instant SVG Path Optimizer & Icon Code Exporter",
+    "category": "Frontend Developer & Designer Micro-Tool",
+    "target_audience": "Frontend Developers, UI/UX Designers, Web Creators",
+    "core_problem": "Raw SVG files from Figma/Illustrator are bloated with editor metadata, oversized path decimals, and non-standard attributes that slow page load.",
+    "solution": "High-speed client-side SVG optimizer, path precision minifier, and one-click clean React/Vue/HTML component code exporter with zero dependencies.",
+    "monetization": {
+      "free_tier": "Unlimited single SVG optimization, minification, and code copy.",
+      "pro_tier": "$14 one-time for Batch Sprite Sheet Compiler, 500+ Curated UI Icon Vector Pack & Commercial Embed License.",
+      "platforms": [
+        "Gumroad",
+        "Lemon Squeezy"
+      ]
+    },
+    "hosting_stack": "100% Client-side HTML5/Vanilla JS on GitHub Pages (Sub-30ms cold start, $0 overhead).",
+    "demand_score": 9.3,
+    "competition_gap": 8.7,
+    "zero_cost_feasibility": 10.0,
+    "monetization_velocity": 8.8,
+    "time_to_mvp_hours": 2.0,
+    "composite_score": 9.25
+  },
+  "consecutive_negative_cycles": 1,
+  "last_evaluated": "2026-10-18T03:05:17.730818+00:00",
+  "build_completed_at": "2026-10-18T03:06:24.838766+00:00",
+  "entrypoint": "src/server.py",
+  "frontend_index": "public/index.html",
+  "updated_at": "2026-10-18T03:06:24.839408+00:00",
+  "last_action": "OPTIMIZE_COPY_AND_PRICING"
+}

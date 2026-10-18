@@ -103,7 +103,7 @@ class BuilderAgent(BaseAgent):
   <!-- Hero -->
   <section class="hero">
     <div class="badge">&#x1F680; Boost Google Rich Snippets & CTR by up to 35%</div>
-    <h1>Turn Search Rankings into Revenue with <span class="gradient-text">Bulletproof JSON-LD</span></h1>
+    <h1>Generate High-Converting Rich Snippets with <span class="gradient-text">Bulletproof JSON-LD</span></h1>
     <p class="hero-sub">Generate 100% valid, Google-compliant structured data in seconds. Zero coding required.</p>
   </section>
 
@@ -974,7 +974,9 @@ class SchemaEngine:
                         "Bulk CSV Importer (100+ locations)",
                         "Whitelabel Embed Widget",
                         "REST API Access",
-                        "30+ Industry Templates"
+                        "30+ Industry Templates",
+                        "Automated Schema Validator Script",
+                        "Full Commercial Resale Rights"
                     ],
                     "order_channel": {
                         "method": "direct_email",

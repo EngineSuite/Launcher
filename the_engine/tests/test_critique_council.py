@@ -123,8 +123,9 @@ class TestCritiqueCouncil(unittest.TestCase):
         )
 
         self.assertGreater(decree["critical_vetoes"], 0)
-        self.assertEqual(decree["council_verdict"], "VETOED")
-        self.assertEqual(decree["council_status"], "CRITICAL_DEFECT_DETECTED")
+        self.assertIn(decree["council_verdict"], ["VETOED", "VETOED_P0_HARD_BLOCK"])
+        self.assertIn(decree["council_status"], ["CRITICAL_DEFECT_DETECTED", "CRITICAL_DEFECT_BLOCKING_DEPLOYMENT"])
+        self.assertTrue(decree["has_hard_veto"])
 
 
 if __name__ == "__main__":

@@ -268,7 +268,7 @@ def main():
 
         print("=" * 70 + "\n")
     elif args.command == "council":
-        format_header(f"10-Agent Red-Team Critique Council :: Deliberation for {args.node_id}")
+        format_header(f"10-Agent Red-Team Critique Council :: Tri-Chamber Deliberation for {args.node_id}")
         node_path = orchestrator.isolation_mgr.get_node_path(args.node_id)
         manifest = orchestrator.isolation_mgr.read_manifest(args.node_id) or {}
         opp = manifest.get("metadata", {})
@@ -278,26 +278,68 @@ def main():
             engine_context={"ledger": orchestrator.ledger}
         )
 
-        print(f"Council Size     : {decree['council_size']} Specialized Red-Team Agents")
+        v_icon = "❌" if decree.get("has_hard_veto") else ("✓" if decree['consensus_score'] >= 8.0 else "⚠")
+        print(f"Council Size     : {decree['council_size']} Specialized Red-Team Agents (Tri-Chamber Architecture)")
+        print(f"DAG Fan-Out Time : {decree.get('fanout_execution_time_ms', 0)}ms (10 Concurrent Evaluation Threads)")
         print(f"Consensus Score  : {decree['consensus_score']}/10")
-        print(f"Council Verdict  : {decree['council_verdict']} ({decree['council_status']})")
-        print(f"Total Objections : {decree['total_objections']} (Critical Vetoes: {decree['critical_vetoes']})")
+        print(f"Council Verdict  : {v_icon} {decree['council_verdict']} ({decree['council_status']})")
+        print(f"Defect Matrix    : {decree['total_objections']} Objections (Hard P0 Vetoes: {decree.get('critical_vetoes', 0)})")
         print("-" * 70)
 
-        print("🏛️ Individual Critic Assessments:")
-        for name, data in decree["critic_breakdown"].items():
-            status_icon = "✓" if data["score"] >= 8.0 else ("⚠" if data["score"] >= 6.5 else "❌")
-            print(f"  {status_icon} {name:<24} | Score: {data['score']:>4.1f}/10 | Domain: {data['domain']}")
-            for obj in data["objections"]:
-                print(f"     ↳ [{obj['severity']}] {obj['category']}: {obj['issue']}")
+        # Anti-Obsolescence Sentinel Section
+        audit = decree.get("anti_obsolescence_audit", {})
+        if audit:
+            f_idx = audit.get("composite_freshness_index", 0.0)
+            f_icon = "✓" if f_idx >= 8.5 else ("⚠" if f_idx >= 7.0 else "❌")
+            print(f"🛡️ Anti-Obsolescence Sentinel (Freshness Index: {f_icon} {f_idx}/10):")
+            print(f"  • Modern Web Standards : {audit.get('modern_web_standards_score', 0)}/10")
+            print(f"  • Commercial Relevance : {audit.get('commercial_relevance_score', 0)}/10 (2026 Standards)")
+            print(f"  • Legal Governance     : {audit.get('legal_governance_score', 0)}/10 (AS-IS Armor & Caps)")
+            if audit.get("modern_capabilities_detected"):
+                print("  ✓ Detected Modern Capabilities:")
+                for cap in audit["modern_capabilities_detected"]:
+                    print(f"    • {cap}")
+            if audit.get("detected_obsolete_patterns"):
+                print("  ⚠ Flagged Obsolete Patterns (Must Be Modernized):")
+                for obs in audit["detected_obsolete_patterns"]:
+                    print(f"    • {obs}")
+            print("-" * 70)
 
-        if decree["autonomous_debates"]:
-            print("\n⚔️ Autonomous Inter-Agent Debates & Cross-Examinations:")
-            for d in decree["autonomous_debates"]:
-                print(f"  • [{d['position']}] {d['from_critic']} ➔ {d['to_critic']}:")
-                print(f"    \"{d['argument']}\"")
+        # Tri-Chamber Breakdown
+        chambers = decree.get("chamber_breakdown", {})
+        if chambers:
+            print("🏛️ Tri-Chamber Deliberation Scores:")
+            for c_name, c_data in chambers.items():
+                c_clean = c_name.replace("_", " ")
+                print(f"  • {c_clean:<22} : {c_data['score']:>4.1f}/10 (Lenses: {', '.join(c_data['lenses'])})")
+            print("-" * 70)
 
-        print("\n🎯 Prioritized Action Directives for System Betterment:")
+        # 1v1 Parallel Debate Threads & Pareto Concessions
+        debates = decree.get("parallel_debate_threads", [])
+        if debates:
+            print("⚔️ Parallel 1v1 Debate Threads & Pareto-Weighted Concessions:")
+            for d in debates:
+                res = d.get("resolution", "")
+                r_icon = "⛔" if "P0" in res else ("⚖️" if "CONCEDED" in res else "✓")
+                print(f"  {r_icon} [{d['thread_name']}] {d['challenger']} ➔ {d['defendant']} ({res}):")
+                print(f"    Argument : \"{d.get('rebuttal_argument', '')}\"")
+                conc = d.get("concession")
+                if conc:
+                    print(f"    Concession: {conc.get('offering_critic')} tolerated {conc.get('tolerated_penalty_metric')} for {conc.get('gained_benefit_metric')}")
+                    print(f"    Rationale : {conc.get('concession_rationale')}")
+                if d.get("binding_directive"):
+                    print(f"    Directive : {d.get('binding_directive')}")
+            print("-" * 70)
+
+        # P0 Hard Vetoes Banner (if triggered)
+        if decree.get("has_hard_veto") and decree.get("hard_vetoes"):
+            print("⛔ [CIRCUIT BREAKER ACTIVATED] P0 HARD VETOES BLOCKING DEPLOYMENT:")
+            for hv in decree["hard_vetoes"]:
+                print(f"  ❌ [{hv.get('severity_tier', 'P0')}] {hv.get('critic_name')} ({hv.get('category')}): {hv.get('issue')}")
+                print(f"     Required Remediation: {hv.get('proposed_diff')}")
+            print("-" * 70)
+
+        print("🎯 Prioritized Action Directives for System Evolution:")
         for directive in decree["prioritized_action_directives"]:
             print(f"  • {directive}")
 

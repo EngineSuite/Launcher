@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaCraft OG &bull; Automated Social Card & OpenGraph Engine</title>
+  <meta name="description" content="Generate high-converting, dynamic 1200x630 OpenGraph social cards in seconds. Free browser-based SVG/Canvas generator for X, LinkedIn, and Facebook.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo-area">
+      <div class="logo-icon">&#x1F5BC;&#xFE0F;</div>
+      <div class="logo-text">
+        <span class="logo-title">MetaCraft OG</span>
+        <p class="tagline">Automated Social Card &amp; OpenGraph Engine</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="upgradeBtn" class="btn btn-pro">&#x26A1; Get Agency Pro ($14)</button>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <section class="hero">
+      <h1 class="hero-title">Generate High-Converting Social Cards in Seconds</h1>
+      <p class="hero-sub">Stop spending hours in design tools. Craft branded 1200x630 OpenGraph cards for your blog posts, newsletters, and products with zero design fatigue.</p>
+    </section>
+
+    <div class="app-layout">
+      <!-- Editor Controls -->
+      <section class="controls-card">
+        <h3>Card Configuration</h3>
+        
+        <div class="field-group">
+          <label for="postTitle">Card Headline / Title</label>
+          <input type="text" id="postTitle" value="How We Scaled Our High-Performance Micro-SaaS to $10k MRR">
+        </div>
+
+        <div class="field-group">
+          <label for="postSub">Subtitle / Summary</label>
+          <input type="text" id="postSub" value="A complete breakdown of modern cloud architecture, conversion strategies, and automated distribution.">
+        </div>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label for="postTag">Category Tag / Badge</label>
+            <input type="text" id="postTag" value="CASE STUDY">
+          </div>
+          <div class="field-group">
+            <label for="postAuthor">Author / Website</label>
+            <input type="text" id="postAuthor" value="businessbloke.com">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Theme &amp; Gradient</label>
+          <div class="theme-picker">
+            <button class="theme-btn active" data-theme="midnight" style="background: linear-gradient(135deg, #0f172a, #1e1b4b);"></button>
+            <button class="theme-btn" data-theme="cyber" style="background: linear-gradient(135deg, #022c22, #083344);"></button>
+            <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #450a0a, #431407);"></button>
+            <button class="theme-btn" data-theme="slate" style="background: linear-gradient(135deg, #18181b, #27272a);"></button>
+          </div>
+        </div>
+
+        <div class="download-action-row">
+          <button id="exportPngBtn" class="btn btn-primary btn-full">&#x2B07; Download High-Res PNG (1200x630)</button>
+        </div>
+      </section>
+
+      <!-- Live Canvas Preview -->
+      <section class="preview-card">
+        <div class="preview-header">
+          <span>Live 1200x630 Preview</span>
+          <span class="preview-tag">Twitter / LinkedIn / Facebook</span>
+        </div>
+        <div class="canvas-wrapper">
+          <canvas id="ogCanvas" width="1200" height="630"></canvas>
+        </div>
+        <p class="preview-hint">&#x2139;&#xFE0F; Rendered client-side at native Retina 1200x630 resolution. Ready for instant upload.</p>
+      </section>
+    </div>
+
+    <!-- Pro Features Section -->
+    <section class="pro-section">
+      <div class="pro-banner">
+        <div class="pro-tag">Agency Bundle</div>
+        <h2>Need Programmatic Batch Generation?</h2>
+        <p class="pro-sub">Automate card generation for hundreds of blog posts or CMS items via our Python &amp; Node automation toolkit.</p>
+        
+        <div class="pro-features-grid">
+          <div class="pro-feature-item">
+            <h4>&#x2714; Batch CLI Python Script</h4>
+            <p>Generate 500+ social cards directly from a CSV spreadsheet in under 10 seconds.</p>
+          </div>
+          <div class="pro-feature-item">
+            <h4>&#x2714; 15 SVG Vector Blueprints</h4>
+            <p>SaaS launch, podcast, newsletter, changelog, and e-commerce product card templates.</p>
+          </div>
+          <div class="pro-feature-item">
+            <h4>&#x2714; Unlimited Commercial License</h4>
+            <p>Full client embed rights, whitelabel usage, and lifetime priority updates.</p>
+          </div>
+        </div>
+
+        <div class="pro-cta-box">
+          <button id="buyProBtn" class="btn btn-pro btn-large">Get MetaCraft Agency Pro ($14)</button>
+          <p class="guarantee-text">&#x1F6E1;&#xFE0F; 30-Day No-Hassle Money-Back Guarantee &bull; Commercial Rights</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Direct Order Modal -->
+  <div id="orderModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Unlock MetaCraft Agency Pro ($14)</h3>
+        <button id="closeModal" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Direct license fulfillment with zero 3rd-party transaction fees. Instant digital dispatch to your inbox.</p>
+        
+        <div class="direct-order-card">
+          <div class="order-badge">Direct License Fulfillment</div>
+          <p class="order-instructions">
+            To acquire the complete MetaCraft Agency Pro Pack ($14 one-time), email our dispatch desk directly:
+          </p>
+          <div class="email-pill-container">
+            <span class="email-address">businessbloke957@gmail.com</span>
+            <button id="copyEmailBtn" class="copy-email-btn" type="button">&#x1F4CB; Copy Email</button>
+          </div>
+          <div class="order-action-row">
+            <a id="directMailLink" href="mailto:businessbloke957@gmail.com?subject=Order%20Request%3A%20MetaCraft%20Agency%20Pro%20Pack%20(%2414)&amp;body=Hi%2C%0A%0AI%20would%20like%20to%20order%20the%20MetaCraft%20Agency%20Pro%20Pack%20(%2414%20one-time).%0A%0APreferred%20Payment%20Method%20(PayPal%20%2F%20Bank%20Wire%20%2F%20Wise%20%2F%20Crypto%20%2F%20Other)%3A%20%0A%0APlease%20reply%20with%20payment%20instructions%20and%20dispatch%20the%20bundle%20and%20commercial%20license%20key%20to%20this%20email.%0A%0AThank%20you!" class="btn btn-pro email-launch-btn">
+              &#x2709;&#xFE0F; Open in Email App
+            </a>
+          </div>
+          <div class="fulfillment-process">
+            <div class="process-step"><span>1</span> Send order email specifying preferred payment method</div>
+            <div class="process-step"><span>2</span> Receive commercial invoice &amp; direct payment instructions</div>
+            <div class="process-step"><span>3</span> Full ZIP package &amp; commercial license dispatched within 1 hour</div>
+          </div>
+        </div>
+        <p class="guarantee-note">&#x1F6E1;&#xFE0F; 30-Day No-Hassle Money-Back Guarantee. Full commercial rights included.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 MetaCraft OG &bull; Engineered for High-Conversion Social Visibility. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

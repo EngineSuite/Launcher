@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Dict, Any, List
 
 from the_engine.core.isolation import NodeIsolationManager
-from the_engine.config import get_utc_iso
+from the_engine.config import get_utc_iso, BASE_DIR
 
 
 class DeploymentManager:
@@ -22,10 +22,11 @@ class DeploymentManager:
     4. Enforces strict zero-cost, zero-CDN performance standards.
     """
 
-    def __init__(self, root_dir: Path = Path("d:/Projects/Autnomous")):
-        self.root_dir = root_dir
-        self.isolation_mgr = NodeIsolationManager(nodes_dir=root_dir / "nodes")
-        self.dist_dir = root_dir / "dist"
+    def __init__(self, root_dir: Path = None):
+        self.root_dir = root_dir or BASE_DIR
+        self.isolation_mgr = NodeIsolationManager(nodes_dir=self.root_dir / "nodes")
+        self.dist_dir = self.root_dir / "dist"
+
 
     def build_distribution(self) -> Dict[str, Any]:
         """Compiles all active nodes into the dist/ directory."""

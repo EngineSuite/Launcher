@@ -225,6 +225,9 @@ class DeploymentManager:
 
     <footer>
       <p>&copy; 2026 Digital Suite. Verified zero-dependency architecture. All rights reserved.</p>
+      <div style="margin-top: 12px; display: flex; justify-content: center; align-items: center; gap: 8px;">
+        <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fenginesuite.github.io%2FLauncher%2F&label=Total%20Hits&countColor=%232563eb&style=flat" alt="Realtime Hits Counter" loading="lazy" />
+      </div>
     </footer>
   </div>
 </body>
@@ -251,6 +254,10 @@ class DeploymentManager:
         for n in deployed_nodes:
             redirects_content += f"/{n['slug']}  /{n['slug']}/  301\n"
         (self.dist_dir / "_redirects").write_text(redirects_content, encoding="utf-8")
+
+        # 4. Search Engine IndexNow Key File
+        indexnow_key = "6cdf85c5687c477186f04a2e8638ead3"
+        (self.dist_dir / f"{indexnow_key}.txt").write_text(indexnow_key, encoding="utf-8")
 
     def _generate_programmatic_landing_pages(self, deployed_nodes: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """

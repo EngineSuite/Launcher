@@ -260,3 +260,67 @@ Copy and publish as a scheduled or manual thread:
             "timestamp": get_utc_iso()
         }
 
+    def submit_indexnow(self, base_url: str = "https://enginesuite.github.io/Launcher") -> Dict[str, Any]:
+        """
+        Submits all production URLs to the IndexNow protocol (Microsoft Bing, Yandex, Seznam, Naver)
+        for near-instant search engine discovery and indexing without waiting for crawlers.
+        """
+        import urllib.request
+        import urllib.error
+
+        key = "6cdf85c5687c477186f04a2e8638ead3"
+        host = "enginesuite.github.io"
+        key_location = f"{base_url.rstrip('/')}/{key}.txt"
+
+        urls = [
+            f"{base_url.rstrip('/')}/",
+            f"{base_url.rstrip('/')}/schemacraft/",
+            f"{base_url.rstrip('/')}/schemacraft/local-seo/",
+            f"{base_url.rstrip('/')}/schemacraft/faq-schema/",
+            f"{base_url.rstrip('/')}/schemacraft/product-schema/",
+            f"{base_url.rstrip('/')}/schemacraft/howto-schema/",
+            f"{base_url.rstrip('/')}/svg_craft/",
+            f"{base_url.rstrip('/')}/svg_craft/svg-to-react/",
+            f"{base_url.rstrip('/')}/svg_craft/svg-to-vue/",
+            f"{base_url.rstrip('/')}/svg_craft/svg-optimizer/",
+            f"{base_url.rstrip('/')}/meta_craft_og/",
+            f"{base_url.rstrip('/')}/dev_cheatsheet/"
+        ]
+
+        payload = {
+            "host": host,
+            "key": key,
+            "keyLocation": key_location,
+            "urlList": urls
+        }
+
+        endpoints = [
+            "https://api.indexnow.org/indexnow",
+            "https://www.bing.com/indexnow"
+        ]
+
+        results = {}
+        for ep in endpoints:
+            try:
+                data = json.dumps(payload).encode("utf-8")
+                req = urllib.request.Request(
+                    ep,
+                    data=data,
+                    headers={"Content-Type": "application/json; charset=utf-8", "User-Agent": "EngineSuite-IndexNow-Agent/1.0"}
+                )
+                with urllib.request.urlopen(req, timeout=10) as resp:
+                    results[ep] = {"status": resp.status, "message": "ACCEPTED"}
+            except urllib.error.HTTPError as e:
+                results[ep] = {"status": e.code, "message": str(e)}
+            except Exception as e:
+                results[ep] = {"status": "ERROR", "message": str(e)}
+
+        all_ok = any(r.get("status") in [200, 202] for r in results.values())
+        return {
+            "status": "INDEXNOW_SUBMITTED" if all_ok else "INDEXNOW_PARTIAL",
+            "submitted_urls_count": len(urls),
+            "key": key,
+            "endpoints": results,
+            "timestamp": get_utc_iso()
+        }
+

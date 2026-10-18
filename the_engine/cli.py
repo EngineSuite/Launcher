@@ -171,6 +171,9 @@ def main():
     distribute_p = subparsers.add_parser("distribute", help="Generate viral social copy, directory submission payloads, and launch kit for nodes")
     distribute_p.add_argument("node_id", type=str, nargs="?", default=None, help="Node ID (or all active nodes if omitted)")
 
+    indexnow_p = subparsers.add_parser("indexnow", help="Submit production URLs to search engines via IndexNow protocol (Bing, Yandex)")
+    indexnow_p.add_argument("--url", type=str, default="https://enginesuite.github.io/Launcher", help="Base production URL")
+
 
     args = parser.parse_args()
     orchestrator = Orchestrator()
@@ -423,6 +426,18 @@ def main():
                 print("-" * 70)
             print("✓ Multi-channel launch kits generated with $0 upfront spend.")
             print("  Read any LAUNCH_KIT.md to copy-paste viral launch threads and directory payloads.\n")
+        print("=" * 70 + "\n")
+    elif args.command == "indexnow":
+        format_header("The Growth Hacker :: Search Engine IndexNow Dispatcher")
+        res = orchestrator.growth_hacker.submit_indexnow(base_url=args.url)
+        print(f"Status           : {res['status']}")
+        print(f"Key Verification : {res['key']}")
+        print(f"Submitted URLs   : {res['submitted_urls_count']} production endpoints")
+        print("-" * 70)
+        print("Search Engine Responses:")
+        for ep, r in res["endpoints"].items():
+            icon = "✓" if r.get("status") in [200, 202] else "⚠"
+            print(f"  • {ep} ➔ [{icon} {r.get('status')}] {r.get('message')}")
         print("=" * 70 + "\n")
     else:
         parser.print_help()

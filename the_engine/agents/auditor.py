@@ -6,6 +6,10 @@ executes 48h optimization reviews, and enforces the 72h fail-safe retirement pro
 
 import json
 import logging
+import time
+import tempfile
+import subprocess
+import urllib.request
 from pathlib import Path
 from typing import Dict, Any, List
 from datetime import datetime
@@ -70,14 +74,12 @@ class AuditorAgent(BaseAgent):
             "pro_tier_present": has_pro
         }
 
-    def probe_live_cloud_deployment(self, base_url: str = "https://enginesuite.github.io/Launcher/") -> Dict[str, Any]:
+    def probe_live_cloud_deployment(self, base_url: str = "https://enginesuite.github.io/Launcher/", verify_live_flows: bool = True) -> Dict[str, Any]:
         """
         Probes the live public cloud deployment (GitHub Pages / Cloudflare Pages)
-        to verify uptime, HTTP response codes, latency, and SSL integrity from local machine.
+        to verify uptime, HTTP response codes, latency, content integrity, and
+        empirical headless DOM interactive flow execution from local machine.
         """
-        import urllib.request
-        import time
-
         endpoints = {
             "portal": base_url,
             "schemacraft": f"{base_url.rstrip('/')}/schemacraft/",
@@ -97,11 +99,19 @@ class AuditorAgent(BaseAgent):
                 with urllib.request.urlopen(req, timeout=5) as resp:
                     latency_ms = round((time.time() - start_time) * 1000, 1)
                     status_code = resp.status
-                    healthy = status_code == 200
+                    body = resp.read()
+                    content_len = len(body)
+                    has_content = content_len > 100
+                    healthy = (status_code == 200) and has_content
+
+                    if not healthy:
+                        all_healthy = False
+
                     results[name] = {
                         "url": url,
                         "status": status_code,
                         "healthy": healthy,
+                        "content_bytes": content_len,
                         "latency_ms": latency_ms
                     }
             except Exception as e:
@@ -114,12 +124,84 @@ class AuditorAgent(BaseAgent):
                     "latency_ms": None
                 }
 
+        # Live Interactive Flow Verification via headless DOM runner
+        live_flows = {}
+        if verify_live_flows and all_healthy:
+            live_flows = self.verify_live_interactive_flows(base_url)
+            if not live_flows.get("all_passed", False):
+                all_healthy = False
+
         return {
             "provider": "GitHub Pages (Global Edge CDN)",
             "base_url": base_url,
             "overall_healthy": all_healthy,
             "probes": results,
+            "live_flows": live_flows,
             "probed_at": get_utc_iso()
+        }
+
+    def verify_live_interactive_flows(self, base_url: str = "https://enginesuite.github.io/Launcher/") -> Dict[str, Any]:
+        """
+        Pulls deployed index.html and app.js assets directly from the live CDN
+        and executes synthetic click / DOM flow simulations to empirically verify live functionality.
+        """
+        dom_runner = Path(__file__).resolve().parent.parent / "core" / "dom_runner.js"
+        if not dom_runner.exists():
+            return {"status": "SKIPPED", "reason": "dom_runner.js missing"}
+
+        apps = ["svg_craft", "schemacraft", "meta_craft_og", "dev_cheatsheet"]
+        flow_results = {}
+        all_passed = True
+
+        for app_slug in apps:
+            app_base = f"{base_url.rstrip('/')}/{app_slug}/"
+            html_url = f"{app_base}index.html"
+            js_url = f"{app_base}app.js"
+
+            with tempfile.TemporaryDirectory() as tmp_dir:
+                tmp_path = Path(tmp_dir)
+                try:
+                    # Download live index.html
+                    req_html = urllib.request.Request(html_url, headers={"User-Agent": "TheEngine-Auditor-Sentinel/1.0"})
+                    with urllib.request.urlopen(req_html, timeout=5) as r:
+                        (tmp_path / "index.html").write_bytes(r.read())
+
+                    # Download live app.js
+                    req_js = urllib.request.Request(js_url, headers={"User-Agent": "TheEngine-Auditor-Sentinel/1.0"})
+                    with urllib.request.urlopen(req_js, timeout=5) as r:
+                        (tmp_path / "app.js").write_bytes(r.read())
+
+                    # Execute Headless DOM runner on live assets
+                    proc = subprocess.run(
+                        ["node", str(dom_runner), str(tmp_path)],
+                        capture_output=True,
+                        text=True,
+                        timeout=10
+                    )
+                    raw_out = proc.stdout.strip()
+                    payload = json.loads(raw_out) if raw_out else {}
+
+                    is_ok = proc.returncode == 0 and payload.get("success", False)
+                    if not is_ok:
+                        all_passed = False
+
+                    flow_results[app_slug] = {
+                        "verified": is_ok,
+                        "buttons_tested": payload.get("buttons_with_listeners", 0),
+                        "clicks_simulated": payload.get("clicks_simulated", 0),
+                        "errors": payload.get("errors", [])
+                    }
+                except Exception as e:
+                    all_passed = False
+                    flow_results[app_slug] = {
+                        "verified": False,
+                        "error": str(e)
+                    }
+
+        return {
+            "status": "LIVE_FLOWS_VERIFIED" if all_passed else "LIVE_FLOW_DEFECTS_DETECTED",
+            "all_passed": all_passed,
+            "apps": flow_results
         }
 
     def evaluate_node_performance(

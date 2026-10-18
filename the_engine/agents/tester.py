@@ -7,6 +7,7 @@ APIs, and downloadable digital deliverables actually work end-to-end.
 import json
 import zipfile
 import logging
+import subprocess
 from pathlib import Path
 from typing import Dict, Any, List
 
@@ -44,6 +45,7 @@ class TesterAgent(BaseAgent):
 
         self._check_manifest(node_path, results)
         self._check_web_assets(node_path, results)
+        self._check_interactive_flows(node_path, results)
         self._check_backend_code(node_path, results)
         self._check_deliverable_zip(node_path, results)
         self._check_monetization_config(node_path, results)
@@ -104,6 +106,62 @@ class TesterAgent(BaseAgent):
             has_head = "<head>" in content and "</head>" in content
             has_body = "<body>" in content and "</body>" in content
             self._record_check(results, "html_structure_valid", has_doctype and has_head and has_body, "Malformed HTML")
+
+    def _check_interactive_flows(self, node_path: Path, results: Dict[str, Any]) -> None:
+        """
+        Runs headless DOM execution & synthetic click simulations on the node's public assets
+        using dom_runner.js to empirically prove that UI event listeners exist and execute.
+        """
+        public_dir = node_path / "public"
+        if not public_dir.exists():
+            return
+
+        dom_runner = Path(__file__).resolve().parent.parent / "core" / "dom_runner.js"
+        if not dom_runner.exists():
+            logger.warning(f"dom_runner.js not found at {dom_runner}")
+            return
+
+        try:
+            proc = subprocess.run(
+                ["node", str(dom_runner), str(public_dir)],
+                capture_output=True,
+                text=True,
+                timeout=15
+            )
+            raw_out = proc.stdout.strip()
+            if raw_out:
+                try:
+                    payload = json.loads(raw_out)
+                except Exception:
+                    payload = {"success": proc.returncode == 0, "raw": raw_out}
+            else:
+                payload = {"success": proc.returncode == 0, "error": proc.stderr.strip()}
+
+            if proc.returncode == 0 and payload.get("success", False):
+                tested = payload.get("buttons_with_listeners", 0)
+                simulated = payload.get("clicks_simulated", 0)
+                self._record_check(
+                    results,
+                    "interactive_flows_verified",
+                    True,
+                    f"Verified {tested} buttons with {simulated} simulated clicks"
+                )
+                results["details"]["interactive_flows_summary"] = {
+                    "buttons_with_listeners": tested,
+                    "clicks_simulated": simulated,
+                    "elements": payload.get("interactive_elements", [])
+                }
+            else:
+                errors = payload.get("errors", [])
+                err_summary = "; ".join([e.get("message", str(e)) for e in errors]) if errors else payload.get("error", "DOM execution failed")
+                self._record_check(
+                    results,
+                    "interactive_flows_verified",
+                    False,
+                    f"Interactive DOM failure: {err_summary}"
+                )
+        except Exception as e:
+            self._record_check(results, "interactive_flows_verified", False, f"Flow runner error: {str(e)}")
 
     def _check_backend_code(self, node_path: Path, results: Dict[str, Any]) -> None:
         server_py = node_path / "src" / "server.py"

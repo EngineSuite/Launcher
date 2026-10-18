@@ -23,6 +23,16 @@ class TestQAAndCritiqueAgents(unittest.TestCase):
         self.assertEqual(res["grade"], "A+")
         self.assertEqual(res["details"]["deliverable_zip_exists"], "PASSED")
         self.assertEqual(res["details"]["zip_file_integrity"], "PASSED")
+        self.assertEqual(res["details"]["interactive_flows_verified"], "PASSED")
+        self.assertGreater(res["details"]["interactive_flows_summary"]["clicks_simulated"], 0)
+
+    def test_tester_verifies_svg_craft_node(self):
+        svg_craft_path = Path(__file__).resolve().parent.parent.parent / "nodes" / "node_svg_craft_studio"
+        res = self.tester.test_node(svg_craft_path)
+        self.assertEqual(res["status"], "PASSED")
+        self.assertEqual(res["grade"], "A+")
+        self.assertEqual(res["details"]["interactive_flows_verified"], "PASSED")
+        self.assertGreaterEqual(res["details"]["interactive_flows_summary"]["clicks_simulated"], 10)
 
     def test_critic_scores_schemacraft_node(self):
         opp = {"name": "SchemaCraft Pro", "niche_id": "schemacraft_pro"}

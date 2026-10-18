@@ -70,7 +70,7 @@ class AuditorAgent(BaseAgent):
             "pro_tier_present": has_pro
         }
 
-    def probe_live_cloud_deployment(self, base_url: str = "https://neerajkukreti.github.io/Launcher/") -> Dict[str, Any]:
+    def probe_live_cloud_deployment(self, base_url: str = "https://enginesuite.github.io/Launcher/") -> Dict[str, Any]:
         """
         Probes the live public cloud deployment (GitHub Pages / Cloudflare Pages)
         to verify uptime, HTTP response codes, latency, and SSL integrity from local machine.

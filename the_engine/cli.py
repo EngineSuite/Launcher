@@ -162,7 +162,7 @@ def main():
     deploy_p = subparsers.add_parser("deploy-prep", help="Compile and optimize all active nodes into /dist for GitHub Pages / Cloudflare Pages")
 
     live_p = subparsers.add_parser("audit-live", help="Probe real-time health, latency, and uptime of the live cloud deployment")
-    live_p.add_argument("--url", type=str, default="https://neerajkukreti.github.io/Launcher/", help="Base URL of production deployment")
+    live_p.add_argument("--url", type=str, default="https://enginesuite.github.io/Launcher/", help="Base URL of production deployment")
 
     daemon_p = subparsers.add_parser("daemon", help="Run The Engine continuously in the background")
     daemon_p.add_argument("--interval", type=int, default=3600, help="Check interval in seconds (default: 3600)")

@@ -5,8 +5,6 @@ on:
     # Runs every 6 hours at zero upfront cost on GitHub's free runners
     - cron: '0 */6 * * *'
   workflow_dispatch:
-  push:
-    branches: ["master", "main"]
 
 permissions:
   contents: read
